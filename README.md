@@ -17,7 +17,7 @@ Autores: Henrique e Constanza
     import React from "react";
     import { View, StyleSheet } from "react-native";
 
-    const [Nova tela] = () => {
+    function [Nova tela]({navigation}) {
         return (
             <View></View>
         );
@@ -28,13 +28,8 @@ Autores: Henrique e Constanza
     export default [Nova tela];
     ```
 3. Adicionar `import [Nova tela] from "./src/screens/[Nova tela]";` em **App.js**
-4. Ainda em **App.js**, adicionar, dentro do primeiro objeto do **createStackNavigator**:
+4. Ainda em **App.js**, adicionar, dentro de **Stack.Navigator**:
 
     ```
-    [Nova tela]: {
-      screen: [Nova tela],
-      navigationOptions: {
-        headerShown: false,
-      }
-    },
+    <Stack.Screen name="[Nova tela]" component={[Nova tela]} />
     ```
