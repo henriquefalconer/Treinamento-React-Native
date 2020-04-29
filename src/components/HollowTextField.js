@@ -1,14 +1,12 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Image } from "react-native";
 import { TextInput, TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
 import FilledButton from "./FilledButton";
 
-const placeholder = 'Insira dados';
-const showHelp = null;
-const onPressHelp = null;
 export default class LoginScreen extends React.Component {
+
     state = {
         visibleModal: false,
     };
@@ -28,29 +26,27 @@ export default class LoginScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <TextInput style={styles.text} placeholder={placeholder}></TextInput>
+                <TextInput style={styles.text} placeholder={this.props.placeholder}></TextInput>
                 <TouchableOpacity 
-                    style={showHelp || true ? styles.helpBox : {display: 'none'}} 
+                    style={this.props.showHelp || true ? styles.helpBox : {display: 'none'}} 
                     onPress={()=>this.openModal()} 
                 >
-                    <Icon name="question-circle" style={styles.question}/>
+                    <Image source={require('../../assets/question-icon.jpg')} style={styles.question}/>
                 </TouchableOpacity>
-    
-                <TouchableWithoutFeedback onPress={()=>this.closeModal()} >
-                    <Modal 
-                        isVisible={this.state.visibleModal} 
-                        onRequestClose={() => { this.visibleModal(false); } }>
-                        <View style={styles.popupHelp}>
-                            <Text style={{textAlign: 'center'}}>Este é um texto de ajuda. 
-                            Este é um texto de ajuda. Este é um texto de ajuda. Este é um texto de ajuda. 
-                            Este é um texto de ajuda. Este é um texto de ajuda. Este é um texto de ajuda. 
-                            Caso não consiga sair, reinicie o app.</Text>
-                            <TouchableOpacity onPress={() => {this.setState({isModalVisible: false})}} >
-                                <FilledButton text="OK" textStyle={{fontSize: 20, color: "#fff"}} />
-                            </TouchableOpacity>
-                        </View> 
-                    </Modal>
-                </TouchableWithoutFeedback>
+                
+                <Modal 
+                    isVisible={this.state.visibleModal} 
+                    onRequestClose={() => { this.setState({visibleModal: false}) } }>
+                    <View style={styles.popupHelp}>
+                        <Text style={{textAlign: 'center'}}>Este é um texto de ajuda. 
+                        Este é um texto de ajuda. Este é um texto de ajuda. Este é um texto de ajuda. 
+                        Este é um texto de ajuda. Este é um texto de ajuda. Este é um texto de ajuda. 
+                        Caso não consiga sair, reinicie o app.</Text>
+                        <TouchableOpacity onPress={() => {this.setState({visibleModal: false})}} >
+                            <FilledButton text="OK" textStyle={{fontSize: 17, color: "#fff"}} width={200} />
+                        </TouchableOpacity>
+                    </View> 
+                </Modal>
             </View>
         );
     }
@@ -83,8 +79,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     question: {
-        color: "#fff",
-        fontSize: 15,
+        height: 30,
+        width: 30,
+        flex: 1, 
     },
     popupHelp: {
         justifyContent: 'center',

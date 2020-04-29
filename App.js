@@ -12,7 +12,9 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator 
         initialRouteName="Home" 
-        screenOptions={{}}
+        screenOptions={{
+          header: () => {},
+        }}
       >
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />

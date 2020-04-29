@@ -17,7 +17,7 @@ Autores: Henrique e Constanza
     import React from "react";
     import { View, StyleSheet } from "react-native";
 
-    function [Nova tela]({navigation}) {
+    function [Nova tela]() {
         return (
             <View></View>
         );
