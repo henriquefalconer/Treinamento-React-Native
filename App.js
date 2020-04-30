@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './src/screens/HomeScreen';
+import HomeScreen from './src/screens/Home/HomeScreen';
 import LoginScreen from './src/screens/Forms/LoginScreen';
 import SignUpScreen from './src/screens/Forms/SignUpScreen';
 import SignUpScreenNext from './src/screens/Forms/SignUpScreenNext';

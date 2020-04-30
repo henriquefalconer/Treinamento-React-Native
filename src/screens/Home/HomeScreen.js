@@ -1,17 +1,17 @@
 import React from "react";
 import { Image, ImageBackground, Text } from "react-native";
-import FilledButton from "../components/FilledButton";
-import HomeScreenStyle from '../style/HomeScreen/HomeScreenStyle';
+import FilledButton from "../../components/FilledButton";
+import HomeScreenStyle from '../../style/HomeScreen/HomeScreenStyle';
 
 function HomeScreen({navigation}) {
   return (
     <ImageBackground 
       style={HomeScreenStyle.backgrondImage} 
-      source={require('../../assets/fundo.jpg')} 
+      source={require('../../../assets/fundo.jpg')} 
     >
       <Image 
         style={HomeScreenStyle.logo} 
-        source={require('../../assets/logo.jpg')} 
+        source={require('../../../assets/logo.jpg')} 
       />
 
       <Text style={HomeScreenStyle.title}>
