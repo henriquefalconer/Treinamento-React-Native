@@ -2,7 +2,7 @@ import React from "react";
 import { SafeAreaView, View, Text, StyleSheet } from "react-native";
 import BlandHeader from '../../components/BlandHeader';
 
-function FeedScreen({navigation}) {
+function SocialMediaScreen({navigation}) {
     return (
         <SafeAreaView style={styles.background}>
             <BlandHeader navigation={navigation} />
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FeedScreen;
+export default SocialMediaScreen;
