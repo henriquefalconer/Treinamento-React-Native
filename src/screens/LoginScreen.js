@@ -7,7 +7,7 @@ import BlandHeader from "../components/BlandHeader";
 
 function LoginScreen({navigation}) {
     return (
-        <SafeAreaView style={styles.mainContainer}>
+        <SafeAreaView style={styles.background}>
             <BlandHeader navigation={navigation} />
             <View style={styles.container}>
                 <Text style={styles.title}>Login</Text>
@@ -17,14 +17,22 @@ function LoginScreen({navigation}) {
                     <HollowTextField placeholder="Senha"></HollowTextField>
                 </View>
 
-                <FilledButton width={170} height={47} textStyle={styles.smallButtonText} text="Continuar" onPress={() => {}} />
+                <FilledButton 
+                    width={170} 
+                    height={47} 
+                    textStyle={styles.smallButtonText} 
+                    text="Continuar" 
+                    onPress={
+                        () => navigation.navigate('SocialMedia')
+                    } 
+                />
             </View>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-    mainContainer: {
+    background: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-between',
