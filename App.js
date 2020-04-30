@@ -6,6 +6,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import SignUpScreenNext from './src/screens/SignUpScreenNext';
+import SocialMediaScreen from './src/screens/SocialMedia/SocialMediaScreen';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ function App() {
         <Stack.Screen name="Cadastro" component={SignUpScreen} />
         <Stack.Screen name="CadastroNext" component={SignUpScreenNext} />
 
+        <Stack.Screen name="SocialMedia" component={SocialMediaScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
