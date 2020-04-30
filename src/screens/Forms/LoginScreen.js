@@ -1,9 +1,9 @@
 import React from "react";
 import { Text, View, SafeAreaView, StyleSheet } from "react-native";
-import FilledButton from "../components/FilledButton";
-import HollowTextField from "../components/HollowTextField";
-import BlandHeader from "../components/BlandHeader";
-import FormScreensStyle from '../style/FormScreens/FormScreensStyle';
+import FilledButton from "../../components/FilledButton";
+import HollowTextField from "../../components/HollowTextField";
+import BlandHeader from "../../components/BlandHeader";
+import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
 // import ReturnArrow from '../../assets/return.svg';
 
 function LoginScreen({navigation}) {
@@ -27,7 +27,7 @@ function LoginScreen({navigation}) {
                 <FilledButton 
                     width={170} 
                     height={47} 
-                    textStyle={FormScreensStyle.smallButtonText} 
+                    textStyle={FormScreensStyle.continueButtonText} 
                     text="Continuar" 
                     onPress={
                         () => navigation.navigate('SocialMedia')

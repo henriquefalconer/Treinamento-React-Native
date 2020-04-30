@@ -3,9 +3,9 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen';
-import LoginScreen from './src/screens/LoginScreen';
-import SignUpScreen from './src/screens/SignUpScreen';
-import SignUpScreenNext from './src/screens/SignUpScreenNext';
+import LoginScreen from './src/screens/Forms/LoginScreen';
+import SignUpScreen from './src/screens/Forms/SignUpScreen';
+import SignUpScreenNext from './src/screens/Forms/SignUpScreenNext';
 import SocialMediaScreen from './src/screens/SocialMedia/SocialMediaScreen';
 
 const Stack = createStackNavigator();

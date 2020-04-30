@@ -1,9 +1,9 @@
 import React from "react";
 import { Text, View, SafeAreaView } from "react-native";
-import FilledButton from "../components/FilledButton";
-import HollowTextField from "../components/HollowTextField";
-import BlandHeader from "../components/BlandHeader";
-import FormScreensStyle from '../style/FormScreens/FormScreensStyle';
+import FilledButton from "../../components/FilledButton";
+import HollowTextField from "../../components/HollowTextField";
+import BlandHeader from "../../components/BlandHeader";
+import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
 
 function SignUpScreenNext({navigation}) {
     return (
@@ -18,7 +18,7 @@ function SignUpScreenNext({navigation}) {
                     <HollowTextField placeholder="Confirme sua senha"></HollowTextField>
                 </View>
 
-                <FilledButton width={170} height={47} textStyle={FormScreensStyle.smallButtonText} text="Continuar" onPress={() => navigation.navigate('Login')} />
+                <FilledButton width={170} height={47} textStyle={FormScreensStyle.continueButtonText} text="Continuar" onPress={() => navigation.navigate('Login')} />
             </View>
         </SafeAreaView>
     );

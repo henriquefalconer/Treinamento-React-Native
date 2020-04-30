@@ -18,7 +18,7 @@ const FormScreensStyle = StyleSheet.create({
       color: '#F21D1D',
       textAlign: 'center',
     },
-    smallButtonText: {
+    continueButtonText: {
         fontSize: 20,
         color: "#FFF",
     },
