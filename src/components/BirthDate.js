@@ -1,10 +1,12 @@
 import React from 'react';
 
 
-function BirthDate({}) {
+function TextIntoDate({}) {
 
-    // formatarTextoDeDataDeNascimento();
+    const birthdate = 
+    return (
 
+    );
     // function formatarTextoDeDataDeNascimento() {
     //     var birthdate = document.querySelector("#birthdate");
 
@@ -66,4 +68,4 @@ function BirthDate({}) {
 };
 
 
-export default BirthDate;
+export default TextIntoDate;

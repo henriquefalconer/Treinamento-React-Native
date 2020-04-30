@@ -32,7 +32,7 @@ function HomeScreen({navigation}) {
         <FilledButton 
           text="Cadastro" 
           onPress={
-              () => {}
+              () => navigation.navigate('Cadastro')
           } 
         />
       </ImageBackground>

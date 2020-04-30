@@ -23,7 +23,6 @@ function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Cadastro" component={SignUpScreen} />
         <Stack.Screen name="CadastroNext" component={SignUpScreenNext} />
-
         <Stack.Screen name="SocialMedia" component={SocialMediaScreen} />
       </Stack.Navigator>
     </NavigationContainer>
