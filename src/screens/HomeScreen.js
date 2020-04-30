@@ -5,16 +5,36 @@ import FilledButton from "../components/FilledButton";
 function HomeScreen({navigation}) {
   return (
     <View style={styles.container}>
-      <ImageBackground style={styles.backgrondImage} source={require('../../assets/fundo.jpg')} >
-        <Image style={styles.logo} source={require('../../assets/logo.jpg')} />
-        
-        <Text style={styles.title}>Bem-vindo(a) ao</Text>
-        <Text style={styles.title}>PiuPiuwer,</Text>
-        
-        <FilledButton text="Login" onPress={() => navigation.navigate('Login')} />
-        
-        <FilledButton text="Cadastro" onPress={() => navigation.navigate('Cadastro')} />
-
+      <ImageBackground 
+        style={styles.backgrondImage} 
+        source={require('../../assets/fundo.jpg')} 
+      >
+        <Image 
+          style={styles.logo} 
+          source={require('../../assets/logo.jpg')} 
+        />
+        <Text 
+          style={styles.title}
+        >
+          Bem-vindo(a) ao
+        </Text>
+        <Text 
+          style={styles.title}
+        >
+          PiuPiuwer,
+        </Text>
+        <FilledButton 
+          text="Login" 
+          onPress={
+            () => navigation.navigate('Login')
+          } 
+        />
+        <FilledButton 
+          text="Cadastro" 
+          onPress={
+              () => {}
+          } 
+        />
       </ImageBackground>
     </View>
   );
