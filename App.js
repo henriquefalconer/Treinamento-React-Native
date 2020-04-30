@@ -18,7 +18,7 @@ function App() {
         screenOptions={{
           header: () => {},
         }}
-      >
+      > 
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Cadastro" component={SignUpScreen} />

@@ -1,15 +1,16 @@
 import React from "react";
-import { Text, View, SafeAreaView, StyleSheet } from "react-native";
+import { Text, View, SafeAreaView } from "react-native";
 import FilledButton from "../components/FilledButton";
 import HollowTextField from "../components/HollowTextField";
 import BlandHeader from "../components/BlandHeader";
+import FormScreensStyle from '../style/FormScreens/FormScreensStyle';
 
 function SignUpScreenNext({navigation}) {
     return (
-        <SafeAreaView style={styles.mainContainer}>
+        <SafeAreaView style={FormScreensStyle.background}>
             <BlandHeader navigation={navigation} />
-            <View style={styles.container}>
-                <Text style={styles.title}>Cadastro</Text>
+            <View style={FormScreensStyle.content}>
+                <Text style={FormScreensStyle.title}>Cadastro</Text>
         
                 <View>
                     <HollowTextField placeholder="Data de nascimento"></HollowTextField>
@@ -17,35 +18,10 @@ function SignUpScreenNext({navigation}) {
                     <HollowTextField placeholder="Confirme sua senha"></HollowTextField>
                 </View>
 
-                <FilledButton width={170} height={47} textStyle={styles.smallButtonText} text="Continuar" onPress={() => navigation.navigate('Login')} />
+                <FilledButton width={170} height={47} textStyle={FormScreensStyle.smallButtonText} text="Continuar" onPress={() => navigation.navigate('Login')} />
             </View>
         </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        backgroundColor: '#FFFFFF',
-    },
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingVertical: 40,
-      backgroundColor: '#FFFFFF',
-    },
-    title: {
-      fontSize: 30,
-      color: '#F21D1D',
-      textAlign: 'center',
-    },
-    smallButtonText: {
-        fontSize: 20,
-        color: "#FFF",
-    },
-});
 
 export default SignUpScreenNext;
