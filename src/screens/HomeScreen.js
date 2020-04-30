@@ -13,7 +13,7 @@ function HomeScreen({navigation}) {
         
         <FilledButton text="Login" onPress={() => navigation.navigate('Login')} />
         
-        <FilledButton text="Cadastro" onPress={() => {}} />
+        <FilledButton text="Cadastro" onPress={() => navigation.navigate('Cadastro')} />
 
       </ImageBackground>
     </View>
