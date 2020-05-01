@@ -13,7 +13,7 @@ function FeedTab() {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#ddd',
     },
 });
 
