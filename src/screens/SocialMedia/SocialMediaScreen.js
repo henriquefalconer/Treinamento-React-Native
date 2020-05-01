@@ -10,6 +10,7 @@ import ProfileTab from './Tabs/ProfileTab';
 
 import FeedHeader from '../../components/SocialMedia/General/FeedHeader';
 import IconWithBadge from "../../components/SocialMedia/General/IconWithBadge";
+import PiarButton from "../../components/SocialMedia/General/PiarButton";
 
 const Tab = createBottomTabNavigator();
 
@@ -66,30 +67,7 @@ export default function SocialMediaScreen() {
             <Tab.Screen name="Notifications" component={NotificationsTab} />
             <Tab.Screen name="Profile" component={ProfileTab} />
         </Tab.Navigator>
-        <View style={{
-            position: 'absolute',
-            bottom: 60,
-            right: 10,
-            height: 70,
-            width: 70,
-            borderRadius: 50,
-            padding: 12,
-            backgroundColor: "#f21d1d",
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
-        }}>
-            <Image source={require('../../../assets/Piar.jpg')} style={{
-                height: undefined,
-                width: undefined,
-                flex: 1,
-            }}/>
-        </View>
+        <PiarButton />
     </SafeAreaView>
   );
 }
