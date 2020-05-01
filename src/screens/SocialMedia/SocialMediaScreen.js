@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ScrollView } from "react-native-gesture-handler";
 
 import FeedTab from './Tabs/FeedTab';
 import SearchTab from './Tabs/SearchTab';
@@ -72,6 +73,6 @@ export default function SocialMediaScreen() {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#DDD',
     },
 });

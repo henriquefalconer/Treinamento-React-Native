@@ -11,6 +11,7 @@ function BlandHeader() {
                 flexDirection: 'row',
                 borderBottomColor: '#ddd',
                 borderBottomWidth: 1,
+                backgroundColor: "#fff"
             }}
         >
             <Image 

@@ -2,21 +2,18 @@ import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import PiuAction from "./PiuAction";
 import IconType from '../../../utilities/constants';
+import PiuReply from "./PiuReply";
 
-export default function Piu() {
+export default function Piu({piuData, piuReplyData}) {
     return (
         <View style={{padding: 8, backgroundColor: '#fff', marginBottom: 8}}>
             <View style={{flexDirection: 'row'}} >
-                <View style={{
-                    width: 50,
-                    height: 100,
-                }}
-                >
+                <View>
                     <Image style={{
-                            width: 50,
-                            height: 50,
+                            width: 45,
+                            height: 45,
                         }} 
-                        source={require("../../../../assets/avatars/Cleber.jpg")} />
+                        source={piuData.avatar} />
                 </View>
                 <View style={{
                         marginHorizontal: 10,
@@ -25,15 +22,18 @@ export default function Piu() {
                     <View style={{
                         flexDirection: 'row', 
                         alignItems: 'center', 
-                        marginVertical: 10,
+                        marginTop: 10,
                     }} >
                         <Text style={{
                             marginRight: 6,
                             fontWeight: "bold",
-                        }} >Cleber Cunha</Text>
+                            fontSize: 15,
+                        }} >{piuData.name}</Text>
                         <Text style={{
                             color: "#8F8F8F",
-                            }} >@cleber.cunha</Text>
+                            fontSize: 15,
+                            fontFamily: 'Sana',
+                            }} >@{piuData.username}</Text>
                         <View style={{
                             backgroundColor: "#C4C4C4", 
                             height: 5, 
@@ -43,25 +43,43 @@ export default function Piu() {
                         }} />
                         <Text style={{
                             color: "#8F8F8F",
-                        }} >2.5 h</Text>
+                            fontSize: 15,
+                        }} >{piuData.time}</Text>
                     </View>
                     <View>
-                        <Text>
-                            Este é meu 100º piu! Esperei bastante por este momento!
-                        </Text>
+                        <Text style={{
+                            fontSize: 15,
+                        }} >{piuData.message}</Text>
                     </View>
+                    {piuReplyData != undefined && <PiuReply piuReplyData={piuReplyData} />}
                 </View>
             </View>
             <View style={{
                 marginHorizontal: 10,
                 flex: 1,
                 flexDirection: 'row',
-                justifyContent: 'space-around',
-                marginBottom: 15,
+                justifyContent: 'space-between',
+                marginTop: 5,
+                marginLeft: 50,
+                marginRight: 45,
             }} >
-                <PiuAction iconType={IconType.Ionicons} icon="ios-heart" size={19} actionCount={23} color="#aaa" />
-                <PiuAction iconType={IconType.MaterialCommunityIcons} icon="chat" size={21} actionCount={2} color="#aaa" />
-                <PiuAction iconType={IconType.MaterialCommunityIcons} icon="pin" size={20} color="#aaa" />
+                <PiuAction 
+                    iconType={IconType.Ionicons} 
+                    icon="ios-heart" 
+                    size={19} 
+                    actionCount={piuData.likes} 
+                    active={piuData.likesActive} />
+                <PiuAction 
+                    iconType={IconType.MaterialCommunityIcons} 
+                    icon="chat" 
+                    size={21} 
+                    actionCount={piuData.replies} 
+                    active={piuData.repliesActive} />
+                <PiuAction 
+                    iconType={IconType.MaterialCommunityIcons} 
+                    icon="pin" 
+                    size={20} 
+                    active={piuData.pinned} />
             </View>
         </View>
     );
