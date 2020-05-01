@@ -5,7 +5,7 @@ import IconType from '../../../utilities/constants';
 
 export default function Piu() {
     return (
-        <View style={{padding: 10, marginBottom: 10}}>
+        <View style={{padding: 8, backgroundColor: '#fff', marginBottom: 8}}>
             <View style={{flexDirection: 'row'}} >
                 <View style={{
                     width: 50,
@@ -57,6 +57,7 @@ export default function Piu() {
                 flex: 1,
                 flexDirection: 'row',
                 justifyContent: 'space-around',
+                marginBottom: 15,
             }} >
                 <PiuAction iconType={IconType.Ionicons} icon="ios-heart" size={19} actionCount={23} color="#aaa" />
                 <PiuAction iconType={IconType.MaterialCommunityIcons} icon="chat" size={21} actionCount={2} color="#aaa" />

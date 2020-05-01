@@ -6,6 +6,8 @@ function FeedTab() {
     return (
         <SafeAreaView style={styles.background}>
             <Piu />
+            <Piu />
+            <Piu />
         </SafeAreaView>
     );
 };
