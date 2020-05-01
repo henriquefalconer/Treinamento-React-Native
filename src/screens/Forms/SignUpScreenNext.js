@@ -18,7 +18,7 @@ function SignUpScreenNext({navigation}) {
                     <HollowTextField placeholder="Confirme sua senha"></HollowTextField>
                 </View>
 
-                <FilledButton width={170} height={47} textStyle={FormScreensStyle.continueButtonText} text="Continuar" onPress={() => navigation.navigate('Login')} />
+                <FilledButton width={170} height={47} textStyle={FormScreensStyle.continueButtonText} text="Continuar" onPress={() => navigation.navigate('SocialMedia')} />
             </View>
         </SafeAreaView>
     );
