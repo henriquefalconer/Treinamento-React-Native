@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-import IconWithBadge from "../../../components/SocialMedia/Feed/IconWithBadge";
+import IconWithBadge from "../General/IconWithBadge";
 
 function Piu() {
     return (

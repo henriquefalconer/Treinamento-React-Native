@@ -18,6 +18,7 @@ function LoginScreen({navigation}) {
                         placeholder="Nome de usuário"
                     >
                     </HollowTextField>
+
                     <HollowTextField 
                         placeholder="Senha"
                     >

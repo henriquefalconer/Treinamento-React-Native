@@ -1,55 +1,47 @@
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { TextInput, TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
 import FilledButton from "./FilledButton";
 
-export default class LoginScreen extends React.Component {
+function HollowTextField({placeholder, showHelp, helpText}) {
 
-    state = {
-        visibleModal: false,
-    };
+    let [visibleModal, setModalVisibility] = useState(false);
 
-    openModal = () => {
-        this.setState({
-            visibleModal: true,
-        });
-    }
-
-    closeModal = () => {
-        this.setState({
-            visibleModal: false,
-        });
-    }
-
-    render() {
-        return (
-            <View style={styles.container}>
-                <TextInput style={styles.text} placeholder={this.props.placeholder}></TextInput>
-                <TouchableOpacity 
-                    style={this.props.showHelp || true ? styles.helpBox : {display: 'none'}} 
-                    onPress={()=>this.openModal()} 
-                >
-                    <Image source={require('../../assets/question-icon.jpg')} style={styles.question}/>
-                </TouchableOpacity>
-                
-                <Modal 
-                    isVisible={this.state.visibleModal} 
-                    onRequestClose={() => { this.setState({visibleModal: false}) } }>
-                    <View style={styles.popupHelp}>
-                        <Text style={{textAlign: 'center'}}>Este é um texto de ajuda. 
-                        Este é um texto de ajuda. Este é um texto de ajuda. Este é um texto de ajuda. 
-                        Este é um texto de ajuda. Este é um texto de ajuda. Este é um texto de ajuda. 
-                        Caso não consiga sair, reinicie o app.</Text>
-                        <TouchableOpacity onPress={() => {this.setState({visibleModal: false})}} >
-                            <FilledButton text="OK" textStyle={{fontSize: 17, color: "#fff"}} width={200} />
-                        </TouchableOpacity>
-                    </View> 
-                </Modal>
-            </View>
-        );
-    }
+    return (
+        <View style={styles.container}>
+            <TextInput style={styles.text} placeholder={placeholder}></TextInput>
+            <TouchableOpacity 
+                style={showHelp || true ? styles.helpBox : {display: 'none'}} 
+                onPress={() => setModalVisibility(true)} 
+            >
+                <Image source={require('../../assets/question-icon.jpg')} style={styles.question}/>
+            </TouchableOpacity>
+            
+            <Modal 
+                isVisible={visibleModal} 
+                onRequestClose={() => setModalVisibility(false)}>
+                <View style={styles.popupHelp}>
+                    <Text 
+                    style={{
+                        textAlign: 'center',
+                        fontSize: 16,
+                    }}>
+                        {
+                        helpText || "Este é um texto de ajuda. Caso não consiga sair, aperte o botão de voltar do sistema ou reinicie o app."
+                        }
+                    </Text>
+                    <TouchableOpacity onPress={() => setModalVisibility(false)} >
+                        <FilledButton 
+                            text="OK" 
+                            textStyle={{fontSize: 17, color: "#fff"}} 
+                            width={180}
+                            height={50} />
+                    </TouchableOpacity>
+                </View> 
+            </Modal>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
@@ -91,3 +83,5 @@ const styles = StyleSheet.create({
         borderRadius: 30,
     }
 });
+
+export default HollowTextField;
