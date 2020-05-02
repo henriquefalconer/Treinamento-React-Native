@@ -4,13 +4,21 @@ import { TextInput, TouchableOpacity, TouchableWithoutFeedback } from "react-nat
 import Modal from 'react-native-modal';
 import FilledButton from "./FilledButton";
 
-function HollowTextField({placeholder, showHelp, helpText}) {
+function HollowTextField({placeholder, showHelp, helpText, onChange, value, secureTextEntry}) {
 
     let [visibleModal, setModalVisibility] = useState(false);
 
     return (
         <View style={styles.container}>
-            <TextInput style={styles.text} placeholder={placeholder}></TextInput>
+            <TextInput 
+                style={styles.text} 
+                placeholder={placeholder} 
+                onChangeText={onChange}
+                autoCapitalize='none'
+                autoCorrect={false}
+                value={value}
+                secureTextEntry={secureTextEntry}
+            />
             <TouchableOpacity 
                 style={showHelp || true ? styles.helpBox : {display: 'none'}} 
                 onPress={() => setModalVisibility(true)} 

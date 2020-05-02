@@ -434,7 +434,7 @@ export var baseDeDados = new BaseDeDados([
         [
             new Piu(
                 "rosi.plat:" + Date.parse("15 Apr 2020 7:00:00"),
-                "Comecei a usar hoje! Parece ser bom esse PiuPiwer.",
+                "Comecei a usar hoje! Parece ser bom esse PiuPiuwer.",
                 null,
             ),
         ]

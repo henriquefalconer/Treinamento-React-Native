@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useReducer, useContext } from "react";
 import { Text, View, SafeAreaView, StyleSheet } from "react-native";
 import FilledButton from "../../components/FilledButton";
 import HollowTextField from "../../components/HollowTextField";
 import BlandHeader from "../../components/BlandHeader";
 import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
+import { Context as AuthContext } from '../../context/authContext';
 // import ReturnArrow from '../../assets/return.svg';
 
+const reducer = (state, action) => {
+    switch (action.textInputChange) {
+        case 'username':
+            return { ...state, username: action.newValue};
+        case 'password':
+            return { ...state, password: action.newValue};
+        default:
+            return;
+    }
+};
+
 function LoginScreen({navigation}) {
+    const { authState, signIn } = useContext(AuthContext);
+    const [state, dispatch] = useReducer(reducer, {username: '', password: ''});
+
     return (
         <SafeAreaView style={FormScreensStyle.background}>
             <BlandHeader navigation={navigation} />
@@ -16,22 +31,34 @@ function LoginScreen({navigation}) {
                 <View>
                     <HollowTextField 
                         placeholder="Nome de usuário"
-                    >
-                    </HollowTextField>
-
+                        value={state.username}
+                        onChange={(newValue) => 
+                            dispatch({textInputChange: 'username', newValue: newValue})
+                        }
+                    />
                     <HollowTextField 
                         placeholder="Senha"
-                    >
-                    </HollowTextField>
+                        value={state.password}
+                        onChange={(newValue) => 
+                            dispatch({textInputChange: 'password', newValue: newValue})
+                        }
+                        secureTextEntry={true}
+                    />
                 </View>
 
                 <FilledButton 
                     width={170} 
                     height={47} 
                     textStyle={FormScreensStyle.continueButtonText} 
-                    text="Logar" 
+                    text="Entrar" 
                     onPress={
-                        () => navigation.navigate('SocialMedia')
+                        () => {
+                            signIn({ 
+                                username: state.username, 
+                                password: state.password,
+                            });
+                            navigation.navigate('SocialMedia');
+                        }
                     } 
                 />
             </View>
