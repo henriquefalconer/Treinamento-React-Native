@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, ImageBackground, Text } from "react-native";
+import { View, Image, ImageBackground, Text } from "react-native";
 import FilledButton from "../../components/FilledButton";
 import HomeScreenStyle from '../../style/HomeScreen/HomeScreenStyle';
 
@@ -21,12 +21,17 @@ function HomeScreen({navigation}) {
         PiuPiuwer,
       </Text>
 
+      <View style={{height: 30}} />
+
       <FilledButton 
         text="Login" 
         onPress={
           () => navigation.navigate('Login')
         } 
       />
+
+      <View style={{height: 30}} />
+
       <FilledButton 
         text="Cadastro" 
         onPress={

@@ -10,7 +10,6 @@ const FilledButton = ({text, onPress, textStyle, width, height}) => {
         borderRadius: 100,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 30,
       },
     text: {
         color: '#FFFFFF',

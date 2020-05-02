@@ -28,24 +28,27 @@ function HollowTextField({placeholder, showHelp, helpText, onChange, value, secu
             
             <Modal 
                 isVisible={visibleModal} 
-                onRequestClose={() => setModalVisibility(false)}>
+                onRequestClose={() => setModalVisibility(false)}
+            >
                 <View style={styles.popupHelp}>
                     <Text 
-                    style={{
-                        textAlign: 'center',
-                        fontSize: 16,
-                    }}>
-                        {
-                        helpText || "Este é um texto de ajuda. Caso não consiga sair, aperte o botão de voltar do sistema ou reinicie o app."
-                        }
+                        style={{
+                            textAlign: 'center',
+                            fontSize: 16,
+                            marginTop: 10,
+                            marginHorizontal: 8,
+                            marginBottom: 20,
+                        }}
+                    >
+                        {helpText || "Este é um texto de ajuda. Caso não consiga sair, aperte o botão de voltar do sistema ou reinicie o app."}
                     </Text>
-                    <TouchableOpacity onPress={() => setModalVisibility(false)} >
-                        <FilledButton 
-                            text="OK" 
-                            textStyle={{fontSize: 17, color: "#fff"}} 
-                            width={180}
-                            height={50} />
-                    </TouchableOpacity>
+                    <FilledButton 
+                        text="OK" 
+                        onPress={() => setModalVisibility(false)}
+                        textStyle={{fontSize: 17, color: "#fff"}} 
+                        width={150}
+                        height={47} 
+                    />
                 </View> 
             </Modal>
         </View>
@@ -71,7 +74,6 @@ const styles = StyleSheet.create({
     },
     helpBox: {
         marginHorizontal: 10,
-        backgroundColor: "#000",
         height: 25,
         width: 25,
         borderRadius: 25,
@@ -87,8 +89,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
-        padding: 30,
-        borderRadius: 30,
+        padding: 20,
+        borderRadius: 20,
     }
 });
 
