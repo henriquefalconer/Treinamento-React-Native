@@ -29,7 +29,7 @@ function LoginScreen({navigation}) {
                     width={170} 
                     height={47} 
                     textStyle={FormScreensStyle.continueButtonText} 
-                    text="Continuar" 
+                    text="Logar" 
                     onPress={
                         () => navigation.navigate('SocialMedia')
                     } 
