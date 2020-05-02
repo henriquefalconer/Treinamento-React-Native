@@ -13,10 +13,10 @@ import PiarButton from "../../components/SocialMedia/General/PiarButton";
 
 const Tab = createBottomTabNavigator();
 
-export default function SocialMediaScreen() {
+export default function SocialMediaScreen({navigation}) {
   return (
     <SafeAreaView style={styles.background}>
-        <FeedHeader />
+        <FeedHeader navigation={navigation} />
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {

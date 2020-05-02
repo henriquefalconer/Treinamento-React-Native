@@ -21,7 +21,7 @@ const reducer = (state, action) => {
 function LoginScreen({navigation}) {
     const { authState, signIn } = useContext(AuthContext);
     const [state, dispatch] = useReducer(reducer, {username: '', password: ''});
-
+    
     return (
         <SafeAreaView style={FormScreensStyle.background}>
             <BlandHeader navigation={navigation} />

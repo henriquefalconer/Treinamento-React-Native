@@ -1,19 +1,31 @@
 import React from "react";
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-function BlandHeader() {
+function BlandHeader({navigation}) {
     return (
         <View 
             style={{
                 alignSelf: 'stretch', 
                 alignItems: 'center', 
-                justifyContent: 'center', 
+                justifyContent: 'space-between',
                 flexDirection: 'row',
                 borderBottomColor: '#ddd',
                 borderBottomWidth: 1,
-                backgroundColor: "#fff"
+                backgroundColor: "#fff",
+                height: 52,
             }}
         >
+            <TouchableOpacity onPress={() => {
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Home' }],
+                  });
+            }}>
+                <Text style={styles.logout}>
+                    Logout
+                </Text>
+            </TouchableOpacity>
             <Image 
                 style={{
                     width: 50, 
@@ -24,8 +36,20 @@ function BlandHeader() {
                     require('../../../../assets/logo.jpg')
                 } 
             />
+            <Text style={{...styles.logout, color: 'transparent'}}>
+                Logout
+            </Text>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    logout: {
+        color: "#F21D1D",
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginHorizontal: 10,
+    }
+});
 
 export default BlandHeader;
