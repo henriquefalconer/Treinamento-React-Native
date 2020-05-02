@@ -1,7 +1,6 @@
 import React from "react";
 import { SafeAreaView, View, Image, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { ScrollView } from "react-native-gesture-handler";
 
 import FeedTab from './Tabs/FeedTab';
 import SearchTab from './Tabs/SearchTab';

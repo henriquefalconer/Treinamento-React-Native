@@ -1,10 +1,15 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image } from "react-native";
 import PiuAction from "./PiuAction";
-import IconType from '../../../utilities/constants';
 import PiuReply from "./PiuReply";
+import { IconType, firstLastName } from '../../../utilities/constants';
+import { baseDeDados, loggedInUser } from "../../../utilities/baseDeDados";
+import { getRelativeTime, getTimeFromPiuId } from "../../../utilities/GeneralFunctions";
 
-export default function Piu({piuData, piuReplyData}) {
+export default function Piu({piuId}) {
+    const infoUsuario = baseDeDados.getDadosUsuarioFromPiuId(piuId);
+    const piuData = baseDeDados.getDadosPiuFromPiuId(piuId);
+
     return (
         <View style={{padding: 8, backgroundColor: '#fff', marginBottom: 8}}>
             <View style={{flexDirection: 'row'}} >
@@ -13,7 +18,7 @@ export default function Piu({piuData, piuReplyData}) {
                             width: 45,
                             height: 45,
                         }} 
-                        source={piuData.avatar} />
+                        source={infoUsuario.avatar} />
                 </View>
                 <View style={{
                         marginHorizontal: 10,
@@ -28,12 +33,12 @@ export default function Piu({piuData, piuReplyData}) {
                             marginRight: 6,
                             fontWeight: "bold",
                             fontSize: 15,
-                        }} >{piuData.name}</Text>
+                        }} >{firstLastName(infoUsuario.nome)}</Text>
                         <Text style={{
                             color: "#8F8F8F",
                             fontSize: 15,
                             fontFamily: 'Sana',
-                            }} >@{piuData.username}</Text>
+                            }} >@{infoUsuario.username}</Text>
                         <View style={{
                             backgroundColor: "#C4C4C4", 
                             height: 5, 
@@ -44,14 +49,15 @@ export default function Piu({piuData, piuReplyData}) {
                         <Text style={{
                             color: "#8F8F8F",
                             fontSize: 15,
-                        }} >{piuData.time}</Text>
+                        }} >{getRelativeTime(getTimeFromPiuId(piuId))}</Text>
                     </View>
                     <View>
                         <Text style={{
                             fontSize: 15,
                         }} >{piuData.message}</Text>
                     </View>
-                    {piuReplyData != undefined && <PiuReply piuReplyData={piuReplyData} />}
+                    {piuData.piuReplyId != undefined && 
+                    (<PiuReply piuReplyId={piuData.piuReplyId} />)}
                 </View>
             </View>
             <View style={{
@@ -67,19 +73,22 @@ export default function Piu({piuData, piuReplyData}) {
                     iconType={IconType.Ionicons} 
                     icon="ios-heart" 
                     size={19} 
-                    actionCount={piuData.likes} 
-                    active={piuData.likesActive} />
+                    actionCount={piuData.getLikes().length} 
+                    active={(piuData.getLikes()).includes(loggedInUser)}
+                    onPress={() => baseDeDados.togglePiuLike(piuId)} />
                 <PiuAction 
                     iconType={IconType.MaterialCommunityIcons} 
                     icon="chat" 
                     size={21} 
-                    actionCount={piuData.replies} 
-                    active={piuData.repliesActive} />
+                    actionCount={piuData.getReplies().length} 
+                    active={(piuData.getReplies()).includes(loggedInUser)}
+                    onPress={() => {}} />
                 <PiuAction 
                     iconType={IconType.MaterialCommunityIcons} 
                     icon="pin" 
                     size={20} 
-                    active={piuData.pinned} />
+                    active={piuData.hasDestaque()}
+                    onPress={() => baseDeDados.togglePiuDestaque(piuId)} />
             </View>
         </View>
     );

@@ -1,8 +1,12 @@
-
 import React from "react";
 import { View, Text, Image } from "react-native";
+import { getRelativeTime, getTimeFromPiuId } from "../../../utilities/GeneralFunctions";
+import { baseDeDados } from "../../../utilities/baseDeDados";
 
-function PiuReply({piuReplyData}) {
+function PiuReply({piuReplyId}) {
+    const infoUsuario = baseDeDados.getDadosUsuarioFromPiuId(piuReplyId);
+    const piuReplyData = baseDeDados.getDadosPiuFromPiuId(piuReplyId);
+
     return (
         <View style={{
             borderRadius: 20,
@@ -23,17 +27,17 @@ function PiuReply({piuReplyData}) {
                         height: 30,
                         marginRight: 8,
                     }} 
-                    source={piuReplyData.avatar} />
+                    source={infoUsuario.avatar} />
                 <Text style={{
                     marginRight: 6,
                     fontWeight: "bold",
                     fontSize: 15,
-                }} >{piuReplyData.name}</Text>
+                }} >{infoUsuario.name}</Text>
                 <Text style={{
                     color: "#8F8F8F",
                     fontSize: 15,
                     fontFamily: 'Sana',
-                    }} >@{piuReplyData.username}</Text>
+                    }} >@{infoUsuario.username}</Text>
                 <View style={{
                     backgroundColor: "#C4C4C4", 
                     height: 5, 
@@ -44,7 +48,7 @@ function PiuReply({piuReplyData}) {
                 <Text style={{
                     color: "#8F8F8F",
                     fontSize: 15,
-                }} >{piuReplyData.time}</Text>
+                }} >{getRelativeTime(getTimeFromPiuId(piuReplyId))}</Text>
             </View>
             <View style={{
                     flex: 1,
