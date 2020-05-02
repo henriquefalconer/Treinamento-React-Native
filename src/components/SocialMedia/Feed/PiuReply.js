@@ -29,15 +29,14 @@ function PiuReply({piuReplyId}) {
                     }} 
                     source={infoUsuario.avatar} />
                 <Text style={{
-                    marginRight: 6,
                     fontWeight: "bold",
                     fontSize: 15,
-                }} >{infoUsuario.name}</Text>
+                }} >{infoUsuario.nome}</Text>
                 <Text style={{
                     color: "#8F8F8F",
                     fontSize: 15,
-                    fontFamily: 'Sana',
-                    }} >@{infoUsuario.username}</Text>
+                    display: 'none',
+                }} >@{infoUsuario.username}</Text>
                 <View style={{
                     backgroundColor: "#C4C4C4", 
                     height: 5, 
