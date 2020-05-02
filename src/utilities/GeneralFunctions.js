@@ -1,10 +1,3 @@
-import { baseDeDados } from "./baseDeDados";
-
-export function sortPius(piusIds){
-    piusIds.sort(function(a, b){return getTimeFromPiuId(b) - getTimeFromPiuId(a)});
-    piusIds.sort(function(a, b){return baseDeDados.getDadosPiuFromPiuId(b).hasDestaque() - baseDeDados.getDadosPiuFromPiuId(b).hasDestaque()});
-}
-
 export function getUserNameFromPiuId(piuId){
     return (piuId == null) ? null : piuId.split(":")[0];
 }

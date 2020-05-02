@@ -12,14 +12,30 @@ function FeedTab() {
             baseDeDados.montarPiusList(TipoDeFeed.contatos)
         );
 
+    function reloadPius() {
+        setPiusList(baseDeDados.montarPiusList(TipoDeFeed.contatos));
+    }
+
     return (
         <SafeAreaView style={styles.background}>
-            <FlatList r
+            <FlatList
                 keyExtractor={(element) => {return element}}
                 data={piusList} 
                 renderItem={({ item, index }) => {
                     // Adiciona um novo piu, ou o Component SemPius, à lista:
-                    return index + 1 < piusList.length ? <Piu piuId={item} /> : <SemPius />;
+                    return index + 1 < piusList.length 
+                        ? <Piu 
+                            piuId={item}
+                            onPressLike={() => {
+                                baseDeDados.togglePiuLike(item);
+                                reloadPius();
+                            }}
+                            onPressReply={() => {}}
+                            onPressDestaque={() => {
+                                baseDeDados.togglePiuDestaque(item);
+                                reloadPius();
+                            }} /> 
+                        : <SemPius />;
                 }}/>
         </SafeAreaView>
     );

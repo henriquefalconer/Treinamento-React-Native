@@ -6,7 +6,7 @@ import { IconType, firstLastName } from '../../../utilities/constants';
 import { baseDeDados, loggedInUser } from "../../../utilities/baseDeDados";
 import { getRelativeTime, getTimeFromPiuId } from "../../../utilities/GeneralFunctions";
 
-export default function Piu({piuId}) {
+export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque}) {
     const infoUsuario = baseDeDados.getDadosUsuarioFromPiuId(piuId);
     const piuData = baseDeDados.getDadosPiuFromPiuId(piuId);
 
@@ -75,20 +75,20 @@ export default function Piu({piuId}) {
                     size={19} 
                     actionCount={piuData.getLikes().length} 
                     active={(piuData.getLikes()).includes(loggedInUser)}
-                    onPress={() => baseDeDados.togglePiuLike(piuId)} />
+                    onPress={onPressLike} />
                 <PiuAction 
                     iconType={IconType.MaterialCommunityIcons} 
                     icon="chat" 
                     size={21} 
                     actionCount={piuData.getReplies().length} 
                     active={(piuData.getReplies()).includes(loggedInUser)}
-                    onPress={() => {}} />
+                    onPress={onPressReply} />
                 <PiuAction 
                     iconType={IconType.MaterialCommunityIcons} 
                     icon="pin" 
                     size={20} 
                     active={piuData.hasDestaque()}
-                    onPress={() => baseDeDados.togglePiuDestaque(piuId)} />
+                    onPress={onPressDestaque} />
             </View>
         </View>
     );

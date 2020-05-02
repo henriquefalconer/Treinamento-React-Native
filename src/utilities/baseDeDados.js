@@ -5,7 +5,12 @@
 import * as GeneralFunctions from "./GeneralFunctions";
 import { TipoDeFeed } from "./constants";
 
-export var loggedInUser = "fulano.beltrano";
+export var loggedInUser = "cleber.cunha";
+
+function sortPius(piusIds){
+    piusIds.sort(function(a, b){return GeneralFunctions.getTimeFromPiuId(b) - GeneralFunctions.getTimeFromPiuId(a)});
+    piusIds.sort(function(a, b){return baseDeDados.getDadosPiuFromPiuId(b).hasDestaque() - baseDeDados.getDadosPiuFromPiuId(a).hasDestaque()});
+}
 
 export class BaseDeDados {
     constructor(data) {
@@ -23,9 +28,6 @@ export class BaseDeDados {
                 piuReplyId,
             ),
         );
-        
-        // Recarregar feed de pius:
-        montarPiusFeed();
     }
 
     togglePiuLike(piuId) {
@@ -39,9 +41,6 @@ export class BaseDeDados {
         else {
             this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.likes.splice(index, 1);
         }
-        
-        // Recarregar feed de pius:
-        montarPiusFeed();
     }
 
     replyPiu(piuReplyId) {
@@ -71,9 +70,6 @@ export class BaseDeDados {
         else {
             this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.destacados.splice(index, 1);
         }
-        
-        // Recarregar feed de pius:
-        montarPiusFeed();
     }
 
     getDadosUsuarioFromUsername(username) {
@@ -176,7 +172,7 @@ export class BaseDeDados {
                 break;
         }
 
-        GeneralFunctions.sortPius(allPius);
+        sortPius(allPius);
 
         // Adiciona o último elemento, que seria um <SemPius />:
         allPius.push("semPius");
