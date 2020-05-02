@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
-import Piu from "../../../components/SocialMedia/Feed/Piu";
 import { FlatList } from "react-native-gesture-handler";
 import { baseDeDados } from "../../../utilities/baseDeDados";
 import { TipoDeFeed } from "../../../utilities/constants";
+import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 
 function FeedTab() {
@@ -34,7 +34,8 @@ function FeedTab() {
                             onPressDestaque={() => {
                                 baseDeDados.togglePiuDestaque(item);
                                 reloadPius();
-                            }} /> 
+                            }} 
+                        /> 
                         : <SemPius />;
                 }}/>
         </SafeAreaView>

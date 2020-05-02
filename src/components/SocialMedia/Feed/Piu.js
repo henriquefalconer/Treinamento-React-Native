@@ -77,9 +77,10 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque})
                     active={(piuData.getLikes()).includes(loggedInUser)}
                     onPress={onPressLike} />
                 <PiuAction 
-                    iconType={IconType.MaterialCommunityIcons} 
-                    icon="chat" 
-                    size={21} 
+                    iconType={IconType.Octicons} 
+                    icon="reply" 
+                    size={20} 
+                    verticalIconDisplacement={2}
                     actionCount={piuData.getReplies().length} 
                     active={(piuData.getReplies()).includes(loggedInUser)}
                     onPress={onPressReply} />

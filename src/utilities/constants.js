@@ -3,6 +3,7 @@ export const IconType = {
     FontAwesome: 'font-awesome',
     MaterialIcons: 'material-icons',
     MaterialCommunityIcons: 'material-community-icons',
+    Octicons: 'octicons',
 }
 
 export function abreviar(string) {
