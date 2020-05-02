@@ -39,7 +39,7 @@ function LoginScreen({navigation}) {
                     />
                     <HollowTextField 
                         placeholder="Senha"
-                        helpText='Caso tenha problemas, a senha é "polijunior"'
+                        helpText='Caso tenha problemas, a senha secreta é "polijunior"'
                         value={state.password}
                         onChange={(newValue) => 
                             dispatch({textInputChange: 'password', newValue: newValue})
