@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
-import { TextInput, TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import Modal from 'react-native-modal';
 import FilledButton from "./FilledButton";
 
-function HollowTextField({placeholder, showHelp, helpText, onChange, value, secureTextEntry}) {
+function HollowTextField({placeholder, helpText, onChange, value, secureTextEntry}) {
 
     let [visibleModal, setModalVisibility] = useState(false);
 
@@ -20,7 +20,7 @@ function HollowTextField({placeholder, showHelp, helpText, onChange, value, secu
                 secureTextEntry={secureTextEntry}
             />
             <TouchableOpacity 
-                style={showHelp || true ? styles.helpBox : {display: 'none'}} 
+                style={helpText != null ? styles.helpBox : {display: 'none'}} 
                 onPress={() => setModalVisibility(true)} 
             >
                 <Image source={require('../../assets/question-icon.jpg')} style={styles.question}/>
@@ -40,7 +40,7 @@ function HollowTextField({placeholder, showHelp, helpText, onChange, value, secu
                             marginBottom: 20,
                         }}
                     >
-                        {helpText || "Este é um texto de ajuda. Caso não consiga sair, aperte o botão de voltar do sistema ou reinicie o app."}
+                        {helpText}
                     </Text>
                     <FilledButton 
                         text="OK" 

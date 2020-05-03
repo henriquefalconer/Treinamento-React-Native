@@ -22,7 +22,7 @@ function PiarButton() {
             shadowRadius: 3.84,
             elevation: 5,
         }}>
-            <Image source={require('../../../../assets/Piar.jpg')} style={{
+            <Image source={require('../../../../assets/Piar.png')} style={{
                 height: undefined,
                 width: undefined,
                 flex: 1,
