@@ -18,8 +18,41 @@ const reducer = (state, action) => {
     }
 };
 
+async function signIn({ username, password }) {
+    try {
+        // Realiza o pedido do tip 'POST' para a API:
+        let response = await fetch(
+            'http://piupiuwer.polijr.com.br/login/', 
+            {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'username': username,
+                    'password': password,
+                }),
+            },
+        );
+
+        // Decodifica os dados para o formato json:
+        let data = await response.json();
+
+        // Imprime os dados obtidos:
+        console.log(data);
+
+        // Retorna os dados:
+        return data;
+        
+    } catch (error) {
+        // Caso haja algum erro, imprima-o e retorne null:
+        console.error(error);
+        return null;
+    }
+}
+
 function LoginScreen({navigation}) {
-    const { authState, signIn } = useContext(AuthContext);
     const [state, dispatch] = useReducer(reducer, {username: '', password: ''});
     
     return (
@@ -59,7 +92,6 @@ function LoginScreen({navigation}) {
                                 username: state.username, 
                                 password: state.password,
                             });
-                            navigation.navigate('SocialMedia');
                         }
                     } 
                 />

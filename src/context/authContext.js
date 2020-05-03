@@ -7,35 +7,12 @@ const authReducer = (state, action) => {
     }
 };
 
-const signIn = (dispatch) => {
-    return ({ username, password }) => {
-        const request = fetch('http://piupiuwer.polijr.com.br/login/', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                'username': username,
-                'password': password,
-            }),
-        })
-        .then((response) => response.json())
-        .then((json) => {
-            console.log(json);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
-};
-
 const signOut = (dispatch) => {
     return;
 };
 
 export const { Provider, Context } = createDataContext(
     authReducer,
-    { signIn, signOut },
+    { signOut },
     { isSignedIn: false },
 );
