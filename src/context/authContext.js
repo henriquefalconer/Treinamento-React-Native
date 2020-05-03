@@ -7,32 +7,6 @@ const authReducer = (state, action) => {
     }
 };
 
-const signUp = (dispatch) => {
-    return ({ firstName, lastName, username, email, password }) => {
-        const request = fetch('http://piupiuwer.polijr.com.br/usuarios/', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                'first_name': firstName,
-                'last_name': lastName,
-                'username': username,
-                'email': email,
-                'password': password,
-            }),
-        })
-        .then((response) => response.json())
-        .then((json) => {
-            console.log(json);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
-};
-
 const signIn = (dispatch) => {
     return ({ username, password }) => {
         const request = fetch('http://piupiuwer.polijr.com.br/login/', {
