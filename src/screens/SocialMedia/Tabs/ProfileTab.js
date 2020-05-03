@@ -5,10 +5,10 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 function ProfileTab() {
     return (
-        <SafeAreaView style={styles.background}>
+        <ImageBackground style={styles.background} source={require('../../../../assets/back-profile.png')}>
             <View style={{justifyContent: 'flex-start'}}>
                 <View style={styles.profileImage}>
-                    <Image source={require('../../../../assets/avatars/Cleber.jpg')}></Image>
+                    <Image style={{borderRadius: 200}} source={require('../../../../assets/avatars/Cleber.jpg')}></Image>
                 </View>
             </View>
             <View style={{flexDirection: "row"}}>
@@ -16,10 +16,17 @@ function ProfileTab() {
                     <Text style={{fontSize: 20, fontWeight: 'bold'}}>Cleber Cunha</Text>
                     <Text style={{fontSize: 15, fontWeight: 'normal'}}>@cleber.cunha</Text>
                 </View>
-                <View style={styles.ProfileButton}>
+                {/* <View style={styles.ProfileButton}>
                     <TouchableOpacity>
                         <Text style={styles.EditProfileText}>Editar Perfil</Text>
                     </TouchableOpacity>
+                </View> */}
+                <View style={styles.BiggerEditProfileButton}>
+                    <View style={styles.EditProfileButton}>
+                        <TouchableOpacity>
+                            <Text style={styles.EditProfileText}>Editar Perfil</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
             <View style={styles.Bio}>
@@ -40,7 +47,7 @@ function ProfileTab() {
                     <Text style={[styles.RedLine, {backgroundColor: '#999999'}]}></Text>
                 </View>
             </View>
-        </SafeAreaView>
+        </ImageBackground>
     );
 };
 
@@ -52,7 +59,7 @@ const styles = StyleSheet.create({
     profileImage: {
         width: 200,
         height: 200,
-        borderRadius: 100,
+        borderRadius: 200,
         marginTop: 110,
         marginLeft: 20,
     },
@@ -81,6 +88,22 @@ const styles = StyleSheet.create({
         width: 114,
         height: 2,
         backgroundColor: '#F21D1D',
+    },
+    BiggerEditProfileButton: {
+        width: 128,
+        height: 40,
+        backgroundColor: '#F21D1D', 
+        borderRadius: 40,
+        marginTop: -65,
+        marginLeft: 90,
+    },
+    EditProfileButton: {
+        width: 120,
+        height: 32,
+        backgroundColor: '#ffffff', 
+        borderRadius: 40,
+        marginTop: 4,
+        marginLeft: 4,
     },
     ProfileButton: {
         width: 138,
