@@ -4,9 +4,13 @@ import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import Modal from 'react-native-modal';
 import FilledButton from "./FilledButton";
 
-function HollowTextField({placeholder, helpText, onChange, value, secureTextEntry}) {
+function HollowTextField({placeholder, helpText, onChange, value, toggleTextVisibility}) {
 
     let [visibleModal, setModalVisibility] = useState(false);
+    let [visiblePassword, setPasswordVisibility] = 
+        toggleTextVisibility || false 
+            ? useState(false) 
+            : [false, null];
 
     return (
         <View style={styles.container}>
@@ -17,8 +21,18 @@ function HollowTextField({placeholder, helpText, onChange, value, secureTextEntr
                 autoCapitalize='none'
                 autoCorrect={false}
                 value={value}
-                secureTextEntry={secureTextEntry}
+                secureTextEntry={!visiblePassword}
             />
+            <TouchableOpacity 
+                style={(toggleTextVisibility || false) && (value.length > 0) ? {} : {display: 'none'}} 
+                onPress={() => setPasswordVisibility(!visiblePassword)} 
+            >
+                <Text
+                    style={styles.toggleVisibility}
+                >
+                    {visiblePassword ? 'Esconder' : 'Ver'}
+                </Text>
+            </TouchableOpacity>
             <TouchableOpacity 
                 style={helpText != null ? styles.helpBox : {display: 'none'}} 
                 onPress={() => setModalVisibility(true)} 
@@ -71,6 +85,10 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         flex: 1,
+    },
+    toggleVisibility: {
+        fontSize: 16, 
+        fontWeight: 'bold',
     },
     helpBox: {
         marginHorizontal: 10,

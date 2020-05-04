@@ -4,7 +4,6 @@ import FilledButton from "../../components/FilledButton";
 import HollowTextField from "../../components/HollowTextField";
 import BlandHeader from "../../components/BlandHeader";
 import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
-import { Context as AuthContext } from '../../context/authContext';
 // import ReturnArrow from '../../assets/return.svg';
 
 const reducer = (state, action) => {
@@ -96,7 +95,7 @@ function LoginScreen({navigation}) {
                         onChange={(newValue) => 
                             dispatch({textInputChange: 'password', newValue: newValue})
                         }
-                        secureTextEntry={true}
+                        toggleTextVisibility={true}
                     />
                     <Text style={{
                             ...styles.errorText, 

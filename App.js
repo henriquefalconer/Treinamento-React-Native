@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Provider as AuthProvider } from './src/context/authContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/Home/HomeScreen';
@@ -29,10 +28,4 @@ function App() {
   );
 }
 
-export default () => {
-  return (
-    <AuthProvider>
-      <App />
-    </AuthProvider>
-  );
-};
+export default App;
