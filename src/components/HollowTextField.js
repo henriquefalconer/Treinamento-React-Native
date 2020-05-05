@@ -1,12 +1,20 @@
 import React, {useState} from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
-import { TextInput, TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import Modal from 'react-native-modal';
 import FilledButton from "./FilledButton";
 
+<<<<<<< HEAD
 function HollowTextField({placeholder, showHelp, helpText, onChange, value, secureTextEntry, onTextSubmit}) {
+=======
+function HollowTextField({placeholder, helpText, onChange, value, toggleTextVisibility}) {
+>>>>>>> c1a8e894036a80146cb374bf29f5e4ca8f7ea661
 
     let [visibleModal, setModalVisibility] = useState(false);
+    let [visiblePassword, setPasswordVisibility] = 
+        toggleTextVisibility || false 
+            ? useState(false) 
+            : [false, null];
 
     return (
         <View style={styles.container}>
@@ -18,10 +26,20 @@ function HollowTextField({placeholder, showHelp, helpText, onChange, value, secu
                 autoCapitalize='none'
                 autoCorrect={false}
                 value={value}
-                secureTextEntry={secureTextEntry}
+                secureTextEntry={!visiblePassword}
             />
             <TouchableOpacity 
-                style={showHelp || true ? styles.helpBox : {display: 'none'}} 
+                style={(toggleTextVisibility || false) && (value.length > 0) ? {} : {display: 'none'}} 
+                onPress={() => setPasswordVisibility(!visiblePassword)} 
+            >
+                <Text
+                    style={styles.toggleVisibility}
+                >
+                    {visiblePassword ? 'Esconder' : 'Ver'}
+                </Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+                style={helpText != null ? styles.helpBox : {display: 'none'}} 
                 onPress={() => setModalVisibility(true)} 
             >
                 <Image source={require('../../assets/question-icon.jpg')} style={styles.question}/>
@@ -41,7 +59,7 @@ function HollowTextField({placeholder, showHelp, helpText, onChange, value, secu
                             marginBottom: 20,
                         }}
                     >
-                        {helpText || "Este é um texto de ajuda. Caso não consiga sair, aperte o botão de voltar do sistema ou reinicie o app."}
+                        {helpText}
                     </Text>
                     <FilledButton 
                         text="OK" 
@@ -72,6 +90,10 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 16,
         flex: 1,
+    },
+    toggleVisibility: {
+        fontSize: 16, 
+        fontWeight: 'bold',
     },
     helpBox: {
         marginHorizontal: 10,

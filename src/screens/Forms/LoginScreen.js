@@ -4,7 +4,6 @@ import FilledButton from "../../components/FilledButton";
 import HollowTextField from "../../components/HollowTextField";
 import BlandHeader from "../../components/BlandHeader";
 import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
-import { Context as AuthContext } from '../../context/authContext';
 // import ReturnArrow from '../../assets/return.svg';
 
 const reducer = (state, action) => {
@@ -13,14 +12,66 @@ const reducer = (state, action) => {
             return { ...state, username: action.newValue};
         case 'password':
             return { ...state, password: action.newValue};
+        case 'errorText':
+            return { ...state, errorText: action.newValue};
         default:
             return;
     }
 };
 
+function hasError(data) {
+    return !Object.keys(data).includes('token');
+}
+
+async function signIn({ username, password }) {
+    try {
+        // Realiza o pedido do tipo 'POST' para a API:
+        let response = await fetch(
+            'http://piupiuwer.polijr.com.br/login/', 
+            {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'username': username,
+                    'password': password,
+                }),
+            },
+        );
+
+        // Decodifica os dados para o formato json:
+        let data = await response.json();
+
+        // Imprime os dados obtidos:
+        console.log(data);
+
+        if (!hasError(data)) {
+            // Retorna os dados:
+            return [data, null];
+        }
+        else {
+            // Retorna o erro:
+            return [null, 'Insira os dados corretamente.'];
+        }
+        
+    } catch (error) {
+        // Caso haja algum erro, imprima-o e retorne o erro:
+        console.error(error);
+        return [null, 'Erro de conexão.'];
+    }
+}
+
 function LoginScreen({navigation}) {
-    const { authState, signIn } = useContext(AuthContext);
-    const [state, dispatch] = useReducer(reducer, {username: '', password: ''});
+    const [state, dispatch] = useReducer(
+        reducer, 
+        {
+            username: '', 
+            password: '', 
+            errorText: '',
+        }
+    );
     
     return (
         <SafeAreaView style={FormScreensStyle.background}>
@@ -44,8 +95,15 @@ function LoginScreen({navigation}) {
                         onChange={(newValue) => 
                             dispatch({textInputChange: 'password', newValue: newValue})
                         }
-                        secureTextEntry={true}
+                        toggleTextVisibility={true}
                     />
+                    <Text style={{
+                            ...styles.errorText, 
+                            ...(state.errorText.length > 0 ? {} : styles.invisible)
+                        }}
+                    >
+                        {state.errorText}
+                    </Text>
                 </View>
 
                 <FilledButton 
@@ -54,18 +112,38 @@ function LoginScreen({navigation}) {
                     textStyle={FormScreensStyle.continueButtonText} 
                     text="Entrar" 
                     onPress={
-                        () => {
-                            signIn({ 
+                        async () => {
+                            const [token, error] = await signIn({ 
                                 username: state.username, 
-                                password: state.password,
+                                password: state.password, 
                             });
-                            navigation.navigate('SocialMedia');
+
+                            if (token != null) {
+                                dispatch({textInputChange: 'errorText', newValue: ''});
+                                dispatch({textInputChange: 'username', newValue: ''});
+                                dispatch({textInputChange: 'password', newValue: ''});
+                                navigation.navigate('SocialMedia');
+                            }
+                            else {
+                                dispatch({textInputChange: 'errorText', newValue: error});
+                            }
                         }
                     } 
                 />
             </View>
         </SafeAreaView>
     );
-}
+};
+
+const styles = StyleSheet.create({
+    errorText: {
+        color: "#f21d1d",
+        fontSize: 15,
+        marginTop: 2,
+    },
+    invisible: {
+        display: 'none',
+    }
+});
 
 export default LoginScreen;
