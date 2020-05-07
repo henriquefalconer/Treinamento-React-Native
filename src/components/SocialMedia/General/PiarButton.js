@@ -6,7 +6,7 @@ function PiarButton() {
     return (
         <View style={{
             position: 'absolute',
-            bottom: 60,
+            bottom: 10,
             right: 10,
             height: 70,
             width: 70,

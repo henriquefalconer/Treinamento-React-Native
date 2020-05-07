@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Image, ImageBackground, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 
 function ProfileTab() {
     return (
@@ -47,6 +48,7 @@ function ProfileTab() {
                     <Text style={[styles.RedLine, {backgroundColor: '#999999'}]}></Text>
                 </View>
             </View>
+            <PiarButton />
         </ImageBackground>
     );
 };

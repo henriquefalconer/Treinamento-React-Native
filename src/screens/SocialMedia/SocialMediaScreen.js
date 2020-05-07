@@ -69,7 +69,6 @@ export default function SocialMediaScreen({navigation}) {
             <Tab.Screen name="Notifications" component={NotificationsTab} />
             <Tab.Screen name="Profile" component={ProfileTab} />
         </Tab.Navigator>
-        {/* <PiarButton /> */}
     </SafeAreaView>
   );
 }

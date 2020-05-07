@@ -1,9 +1,12 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 
 function NotificationTab() {
     return (
-        <View style={styles.background}></View>
+        <View style={styles.background}>
+            <PiarButton />
+        </View>
     );
 };
 

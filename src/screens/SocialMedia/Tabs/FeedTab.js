@@ -5,6 +5,7 @@ import { baseDeDados } from "../../../utilities/baseDeDados";
 import { TipoDeFeed } from "../../../utilities/constants";
 import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
+import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 
 function FeedTab() {
 
@@ -37,7 +38,9 @@ function FeedTab() {
                             }} 
                         /> 
                         : <SemPius />;
-                }}/>
+                }}
+            />
+            <PiarButton />
         </View>
     );
 };
