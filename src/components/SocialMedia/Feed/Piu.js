@@ -37,7 +37,6 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque})
                         <Text style={{
                             color: "#8F8F8F",
                             fontSize: 15,
-                            fontFamily: 'Sana',
                             }} >@{infoUsuario.username}</Text>
                         <View style={{
                             backgroundColor: "#C4C4C4", 

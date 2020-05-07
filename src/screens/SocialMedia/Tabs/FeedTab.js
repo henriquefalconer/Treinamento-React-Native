@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { baseDeDados } from "../../../utilities/baseDeDados";
 import { TipoDeFeed } from "../../../utilities/constants";
@@ -17,7 +17,7 @@ function FeedTab() {
     }
 
     return (
-        <SafeAreaView style={styles.background}>
+        <View style={styles.background}>
             <FlatList
                 keyExtractor={(element) => {return element}}
                 data={piusList} 
@@ -38,7 +38,7 @@ function FeedTab() {
                         /> 
                         : <SemPius />;
                 }}/>
-        </SafeAreaView>
+        </View>
     );
 };
 
