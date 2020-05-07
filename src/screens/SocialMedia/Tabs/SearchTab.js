@@ -1,9 +1,9 @@
 import React from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 function SearchTab() {
     return (
-        <SafeAreaView style={styles.background}></SafeAreaView>
+        <View style={styles.background}></View>
     );
 };
 

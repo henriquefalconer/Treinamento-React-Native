@@ -1,6 +1,7 @@
 import React from "react";
-import { SafeAreaView, View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import FeedTab from './Tabs/FeedTab';
 import SearchTab from './Tabs/SearchTab';
@@ -15,7 +16,9 @@ const Tab = createBottomTabNavigator();
 
 export default function SocialMediaScreen({navigation}) {
   return (
-    <SafeAreaView style={styles.background}>
+    <SafeAreaView 
+        style={styles.background} 
+    >
         <FeedHeader navigation={navigation} />
         <Tab.Navigator
             screenOptions={({ route }) => ({
@@ -66,7 +69,7 @@ export default function SocialMediaScreen({navigation}) {
             <Tab.Screen name="Notifications" component={NotificationsTab} />
             <Tab.Screen name="Profile" component={ProfileTab} />
         </Tab.Navigator>
-        <PiarButton />
+        {/* <PiarButton /> */}
     </SafeAreaView>
   );
 }
@@ -74,6 +77,6 @@ export default function SocialMediaScreen({navigation}) {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#DDD',
+        backgroundColor: '#fff',
     },
 });
