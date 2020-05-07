@@ -10,7 +10,7 @@ function HollowTextField({placeholder, helpText, onChange, value, toggleTextVisi
     let [visiblePassword, setPasswordVisibility] = 
         toggleTextVisibility || false 
             ? useState(false) 
-            : [false, null];
+            : [true, null];
 
     return (
         <View style={styles.container}>
