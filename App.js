@@ -6,6 +6,7 @@ import LoginScreen from './src/screens/Forms/LoginScreen';
 import SignUpScreen from './src/screens/Forms/SignUpScreen';
 import SignUpScreenNext from './src/screens/Forms/SignUpScreenNext';
 import SocialMediaScreen from './src/screens/SocialMedia/SocialMediaScreen';
+import PiarScreen from './src/screens/SocialMedia/PiarScreen';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ function App() {
         <Stack.Screen name="Cadastro" component={SignUpScreen} />
         <Stack.Screen name="CadastroNext" component={SignUpScreenNext} />
         <Stack.Screen name="SocialMedia" component={SocialMediaScreen} />
+        <Stack.Screen name="Piar" component={PiarScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

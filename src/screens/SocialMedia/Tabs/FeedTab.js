@@ -7,7 +7,7 @@ import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 
-function FeedTab() {
+function FeedTab({navigation}) {
 
     let [piusList, setPiusList] = useState(
             baseDeDados.montarPiusList(TipoDeFeed.contatos)
@@ -40,7 +40,7 @@ function FeedTab() {
                         : <SemPius />;
                 }}
             />
-            <PiarButton />
+            <PiarButton navigation={navigation} />
         </View>
     );
 };

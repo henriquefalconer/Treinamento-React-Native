@@ -1,32 +1,43 @@
-import React from "react";
-import { View, Image } from "react-native";
+import React, { useState } from "react";
+import { View, Image, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Modal from 'react-native-modal';
+import FilledButton from "../../FilledButton";
 
-function PiarButton() {
+function PiarButton({navigation}) {
     return (
-        <View style={{
-            position: 'absolute',
-            bottom: 10,
-            right: 10,
-            height: 70,
-            width: 70,
-            borderRadius: 50,
-            padding: 12,
-            backgroundColor: "#f21d1d",
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
-        }}>
-            <Image source={require('../../../../assets/Piar.png')} style={{
-                height: undefined,
-                width: undefined,
-                flex: 1,
-            }}/>
+        <View>
+            <View style={{
+                position: 'absolute',
+                bottom: 10,
+                right: 10,
+                borderRadius: 50,
+                backgroundColor: "#f21d1d",
+                shadowColor: "#000",
+                shadowOffset: {
+                    width: 0,
+                    height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5,
+            }}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Piar')}
+                >
+                    <View style={{
+                        height: 70,
+                        width: 70,
+                        padding: 12,
+                    }}>
+                        <Image source={require('../../../../assets/Piar.png')} style={{
+                            height: undefined,
+                            width: undefined,
+                            flex: 1,
+                        }}/>
+                    </View>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };

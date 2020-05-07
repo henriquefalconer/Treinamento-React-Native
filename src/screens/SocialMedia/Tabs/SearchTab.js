@@ -2,10 +2,10 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 
-function SearchTab() {
+function SearchTab({navigation}) {
     return (
         <View style={styles.background}>
-            <PiarButton />
+            <PiarButton navigation={navigation} />
         </View>
     );
 };

@@ -4,7 +4,7 @@ import { Image, ImageBackground, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 
-function ProfileTab() {
+function ProfileTab({navigation}) {
     return (
         <ImageBackground style={styles.background} source={require('../../../../assets/back-profile.png')}>
             <View style={{justifyContent: 'flex-start'}}>
@@ -48,7 +48,7 @@ function ProfileTab() {
                     <Text style={[styles.RedLine, {backgroundColor: '#999999'}]}></Text>
                 </View>
             </View>
-            <PiarButton />
+            <PiarButton navigation={navigation} />
         </ImageBackground>
     );
 };
