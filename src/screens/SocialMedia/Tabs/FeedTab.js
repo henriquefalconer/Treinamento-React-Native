@@ -19,27 +19,29 @@ function FeedTab({navigation}) {
 
     return (
         <View style={styles.background}>
-            <FlatList
-                keyExtractor={(element) => {return element}}
-                data={piusList} 
-                renderItem={({ item, index }) => {
-                    // Adiciona um novo piu, ou o Component SemPius, à lista:
-                    return index + 1 < piusList.length 
-                        ? <Piu 
-                            piuId={item}
-                            onPressLike={() => {
-                                baseDeDados.togglePiuLike(item);
-                                reloadPius();
-                            }}
-                            onPressReply={() => {}}
-                            onPressDestaque={() => {
-                                baseDeDados.togglePiuDestaque(item);
-                                reloadPius();
-                            }} 
-                        /> 
-                        : <SemPius />;
-                }}
-            />
+            <View style={styles.background}>
+                <FlatList
+                    keyExtractor={(element) => {return element}}
+                    data={piusList} 
+                    renderItem={({ item, index }) => {
+                        // Adiciona um novo piu, ou o Component SemPius, à lista:
+                        return index + 1 < piusList.length 
+                            ? <Piu 
+                                piuId={item}
+                                onPressLike={() => {
+                                    baseDeDados.togglePiuLike(item);
+                                    reloadPius();
+                                }}
+                                onPressReply={() => {}}
+                                onPressDestaque={() => {
+                                    baseDeDados.togglePiuDestaque(item);
+                                    reloadPius();
+                                }} 
+                            /> 
+                            : <SemPius />;
+                    }}
+                />
+            </View>
             <PiarButton navigation={navigation} />
         </View>
     );

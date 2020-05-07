@@ -6,50 +6,52 @@ import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 
 function ProfileTab({navigation}) {
     return (
-        <ImageBackground style={styles.background} source={require('../../../../assets/back-profile.png')}>
-            <View style={{justifyContent: 'flex-start'}}>
-                <View style={styles.profileImage}>
-                    <Image style={{borderRadius: 200}} source={require('../../../../assets/avatars/Cleber.jpg')}></Image>
+        <View style={styles.background} >
+            <ImageBackground style={styles.background} source={require('../../../../assets/back-profile.png')}>
+                <View style={{justifyContent: 'flex-start'}}>
+                    <View style={styles.profileImage}>
+                        <Image style={{borderRadius: 200}} source={require('../../../../assets/avatars/Cleber.jpg')}></Image>
+                    </View>
                 </View>
-            </View>
-            <View style={{flexDirection: "row"}}>
-                <View style={styles.infoContainer}>
-                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>Cleber Cunha</Text>
-                    <Text style={{fontSize: 15, fontWeight: 'normal'}}>@cleber.cunha</Text>
-                </View>
-                {/* <View style={styles.ProfileButton}>
-                    <TouchableOpacity>
-                        <Text style={styles.EditProfileText}>Editar Perfil</Text>
-                    </TouchableOpacity>
-                </View> */}
-                <View style={styles.BiggerEditProfileButton}>
-                    <View style={styles.EditProfileButton}>
+                <View style={{flexDirection: "row"}}>
+                    <View style={styles.infoContainer}>
+                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Cleber Cunha</Text>
+                        <Text style={{fontSize: 15, fontWeight: 'normal'}}>@cleber.cunha</Text>
+                    </View>
+                    {/* <View style={styles.ProfileButton}>
                         <TouchableOpacity>
                             <Text style={styles.EditProfileText}>Editar Perfil</Text>
                         </TouchableOpacity>
+                    </View> */}
+                    <View style={styles.BiggerEditProfileButton}>
+                        <View style={styles.EditProfileButton}>
+                            <TouchableOpacity>
+                                <Text style={styles.EditProfileText}>Editar Perfil</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
-            <View style={styles.Bio}>
-                <Text>bio legal bio legal bio legal bio legal bio legal bio legal bio legal bio legal bio legal.</Text>
-            </View>
-            <View style={styles.BoxesNavigation}>
-                <View style={styles.SelectionBox}>
-                    <Text style={{fontSize: 15, fontWeight: 'bold'}}>Pius</Text>  
-                    <Text style={styles.RedLine}></Text>
+                <View style={styles.Bio}>
+                    <Text>bio legal bio legal bio legal bio legal bio legal bio legal bio legal bio legal bio legal.</Text>
                 </View>
-                <View style={[styles.SelectionBox, {marginTop: -22}]}>
-                    <Text style={{fontSize: 15, fontWeight: 'bold'}}>Pius</Text>
-                    <Text style={{fontSize: 15, fontWeight: 'bold'}}>e Respostas</Text>  
-                    <Text style={[styles.RedLine, {backgroundColor: '#999999', marginTop: 6}]}></Text>
+                <View style={styles.BoxesNavigation}>
+                    <View style={styles.SelectionBox}>
+                        <Text style={{fontSize: 15, fontWeight: 'bold'}}>Pius</Text>  
+                        <Text style={styles.RedLine}></Text>
+                    </View>
+                    <View style={[styles.SelectionBox, {marginTop: -22}]}>
+                        <Text style={{fontSize: 15, fontWeight: 'bold'}}>Pius</Text>
+                        <Text style={{fontSize: 15, fontWeight: 'bold'}}>e Respostas</Text>  
+                        <Text style={[styles.RedLine, {backgroundColor: '#999999', marginTop: 6}]}></Text>
+                    </View>
+                    <View style={styles.SelectionBox}>
+                        <Text style={{fontSize: 15, fontWeight: 'bold'}}>Curtidas</Text>  
+                        <Text style={[styles.RedLine, {backgroundColor: '#999999'}]}></Text>
+                    </View>
                 </View>
-                <View style={styles.SelectionBox}>
-                    <Text style={{fontSize: 15, fontWeight: 'bold'}}>Curtidas</Text>  
-                    <Text style={[styles.RedLine, {backgroundColor: '#999999'}]}></Text>
-                </View>
-            </View>
+            </ImageBackground>
             <PiarButton navigation={navigation} />
-        </ImageBackground>
+        </View>
     );
 };
 

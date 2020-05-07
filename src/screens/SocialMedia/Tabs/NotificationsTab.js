@@ -5,6 +5,7 @@ import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 function NotificationTab({navigation}) {
     return (
         <View style={styles.background}>
+            <View style={styles.background}></View>
             <PiarButton navigation={navigation} />
         </View>
     );
