@@ -118,13 +118,12 @@ export class BaseDeDados {
         return true;
     }
 
-    async montarDadosUsuarioServidor({username, updateProgress}) {
-        let userData = null;
+    async montarDadosUsuarioServidor({username}) {
+        let userData = null; 
 
         const [serverUserData, error] = 
             await getUserDataFromApi({
                     username: username,
-                    progress: updateProgress,
             });
 
         if (error == null) {
@@ -171,13 +170,12 @@ export class BaseDeDados {
         return userData;
     }
 
-    async carregarPiuServidor({updateProgress}) {
+    async carregarPiuServidor() {
         let baseDeDadosChange = false;
 
         const [serverUserData, error] = 
             await getUserDataFromApi({
                 username: loggedInUser,
-                progress: (a) => {},
             });
         
         if (error == null) {
@@ -193,7 +191,6 @@ export class BaseDeDados {
                 servidorRequests.push(this.montarDadosUsuarioServidor(
                             {
                                 username: username,
-                                updateProgress: updateProgress,
                             }
                         )
                     );

@@ -13,7 +13,7 @@ export default async function getUserDataFromApi({username, progress}) {
             // Cria um XMLHttpRequest:
             var oReq = new XMLHttpRequest();
     
-            oReq.addEventListener("progress", progress);
+            // oReq.addEventListener("progress", progress);
     
             // Abre e envia o pedido do tipo 'GET' para a API:
             oReq.open('GET', `http://piupiuwer.polijr.com.br/usuarios/?search=${username}`);
