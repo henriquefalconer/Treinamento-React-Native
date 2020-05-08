@@ -61,6 +61,7 @@ function PiarScreen({navigation}) {
                             right: 4,
                             borderRadius: 25,
                             margin: 3,
+                            backgroundColor: "#ddd"
                         }}
                     />
                     <ExpandingTextInput 

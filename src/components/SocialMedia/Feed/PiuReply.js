@@ -33,6 +33,7 @@ function PiuReply({piuReplyId}) {
                             width: 26,
                             height: 26,
                             borderRadius: 15,
+                            backgroundColor: "#ddd"
                         }} 
                         source={infoUsuario.avatar} />
                 </View>

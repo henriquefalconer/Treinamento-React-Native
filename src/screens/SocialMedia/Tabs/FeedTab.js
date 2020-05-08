@@ -46,7 +46,7 @@ function FeedTab({navigation}) {
     }
 
     function loadPiusArea() {
-        if (piusList.data == null || !baseDeDados.allPiuIdsExist(piusList.data)) {
+        if (piusList.data == null) {
             if (!piusList.loaded) reloadPius();
             return (
                 <View style={{

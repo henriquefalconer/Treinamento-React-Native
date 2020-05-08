@@ -32,13 +32,14 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque})
                             borderRadius: 22.5,
                             padding: 0,
                             justifyContent: 'center',
-                            alignItems: 'center'
+                            alignItems: 'center',
                         }} 
                     >
                         <Image style={{
                                 width: 39,
                                 height: 39,
                                 borderRadius: 22.5,
+                                backgroundColor: "#ddd"
                             }} 
                             source={infoUsuario.avatar} />
                     </View>
