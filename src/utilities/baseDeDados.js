@@ -4,8 +4,9 @@
 
 import * as GeneralFunctions from "./GeneralFunctions";
 import { TipoDeFeed } from "./constants";
+import getUserDataFromApi from "./getUserDataFromApi";
 
-export var loggedInUser = "cleber.cunha";
+export var loggedInUser = 'YeVictor';
 
 function sortPius(piusIds){
     piusIds.sort(function(a, b){return GeneralFunctions.getTimeFromPiuId(b) - GeneralFunctions.getTimeFromPiuId(a)});
@@ -32,7 +33,6 @@ export class BaseDeDados {
 
     togglePiuLike(piuId) {
         const index = this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.likes.indexOf(piuId);
-
         // Se o like não existe, adicioná-lo:
         if (index == -1) {
             this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.likes.push(piuId);
@@ -111,7 +111,63 @@ export class BaseDeDados {
 
         return piuData;
     }
-    
+
+    async montarDadosUsuarioServidor(username) {
+        const [serverUserData, error] = await getUserDataFromApi(username);
+
+        if (error == null) {
+            let allPius = [];
+            let allSeguindo = [];
+
+            serverUserData['pius'].forEach(function(piu){
+                allPius.push(
+                    new Piu(
+                        `${serverUserData['username']}:${Date.parse(piu['horario'])}`,
+                        piu['texto'],
+                        null,
+                    )
+                );
+            });
+
+            serverUserData['seguindo'].forEach(function(usuario){
+                allSeguindo.push(usuario['username']);
+            });
+
+            return new UsuarioData(
+                new InfoUsuario(
+                    `${serverUserData['first_name']} ${serverUserData['last_name']}`,
+                    serverUserData['username'],
+                    require("../../assets/avatars/Cleber.jpg"),
+                    "Porsche 911.jpg",
+                    allSeguindo,
+                    [
+                        "fulano.beltrano:" + Date.parse("15 Apr 2020 11:38:00"),
+                        "cleber.cunha:" + Date.parse("15 Apr 2020 8:00:00"),
+                        "richar.lison:" + Date.parse("15 Apr 2020 8:30:00"),
+                    ],
+                    [],
+                    Date.parse(Date()),
+                    serverUserData['sobre'],
+                ),
+                allPius,
+            )
+        } else {
+            console.log(`ERRO em montarDadosUsuarioServidor: ${error}`);
+        }
+
+        return null;
+    }
+
+    async carregarPiuServidor() {
+        const usuarioServidorData = await this.montarDadosUsuarioServidor(loggedInUser);
+
+        if (this.getDadosUsuarioFromUsername(loggedInUser) == null) {
+            this.data.push(usuarioServidorData);
+            return true;
+        }
+
+        return false;
+    }
 
     montarPiusList(tipoDeFeed) {
         var allPius = [];
@@ -232,7 +288,9 @@ export class Piu {
         var thisPiu = this;
 
         baseDeDados.data.forEach(function(usuarioData){
-            if (usuarioData.infoUsuario.likes.includes(thisPiu.piuId)) likesList.push(usuarioData.infoUsuario.username);
+            if (usuarioData.infoUsuario.likes.includes(thisPiu.piuId)) {
+                likesList.push(usuarioData.infoUsuario.username);
+            }
         });
         
         return likesList;
