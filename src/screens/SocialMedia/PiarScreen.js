@@ -27,6 +27,8 @@ function PiarScreen({navigation}) {
                         style={{
                             fontWeight: '500',
                             fontSize: 16,
+                            paddingVertical: 10,
+                            paddingRight: 20,
                         }}
                     >
                         Cancelar
