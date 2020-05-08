@@ -25,10 +25,20 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque})
         return (
             <View>
                 <View style={{flexDirection: 'row'}} >
-                    <View>
+                    <View 
+                        style={{
+                            width: 45,
+                            height: 45,
+                            borderRadius: 22.5,
+                            padding: 0,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }} 
+                    >
                         <Image style={{
-                                width: 45,
-                                height: 45,
+                                width: 39,
+                                height: 39,
+                                borderRadius: 22.5,
                             }} 
                             source={infoUsuario.avatar} />
                     </View>

@@ -18,6 +18,7 @@ function FeedTab({navigation}) {
 
     async function reloadPius() {
         setPiusList({
+            ...piusList,
             loaded: true,
         });
 
@@ -25,7 +26,7 @@ function FeedTab({navigation}) {
         if (piusList.data != null) {
             setPiusList({
                 ...piusList,
-                data: baseDeDados.montarPiusList(TipoDeFeed.contatos),
+                data: baseDeDados.montarPiusList(),
             });
         }
 
@@ -39,18 +40,18 @@ function FeedTab({navigation}) {
         if (change) {
             setPiusList({
                 ...piusList,
-                data: baseDeDados.montarPiusList(TipoDeFeed.contatos),
+                data: baseDeDados.montarPiusList(),
             });
         }
     }
 
     function loadPiusArea() {
-        if (piusList.data == null) {
+        if (piusList.data == null || !baseDeDados.allPiuIdsExist(piusList.data)) {
             if (!piusList.loaded) reloadPius();
             return (
                 <View style={{
                         flex: 1,
-                        justifyContent: 'center',
+                        justifyContent: 'center', 
                         alignItems: 'center'
                     }}
                 >

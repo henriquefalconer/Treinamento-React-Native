@@ -22,12 +22,20 @@ function PiuReply({piuReplyId}) {
                 alignItems: 'center', 
                 marginTop: 10,
             }} >
-                <Image style={{
+                <View style={{
                         width: 30,
                         height: 30,
-                        marginRight: 8,
+                        borderRadius: 15,
+                        marginRight: 4,
                     }} 
-                    source={infoUsuario.avatar} />
+                >
+                    <Image style={{
+                            width: 26,
+                            height: 26,
+                            borderRadius: 15,
+                        }} 
+                        source={infoUsuario.avatar} />
+                </View>
                 <Text style={{
                     fontWeight: "bold",
                     fontSize: 15,

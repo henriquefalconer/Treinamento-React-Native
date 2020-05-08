@@ -59,6 +59,8 @@ function PiarScreen({navigation}) {
                             height: 50,
                             width: 50,
                             right: 4,
+                            borderRadius: 25,
+                            margin: 3,
                         }}
                     />
                     <ExpandingTextInput 

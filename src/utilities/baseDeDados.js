@@ -144,7 +144,7 @@ export class BaseDeDados {
                 new InfoUsuario(
                     `${serverUserData['first_name']} ${serverUserData['last_name']}`,
                     serverUserData['username'],
-                    require("../../assets/avatars/Cleber.jpg"),
+                    {uri: serverUserData['foto']},
                     "Porsche 911.jpg",
                     allSeguindo,
                     [
@@ -202,10 +202,16 @@ export class BaseDeDados {
         var allPius = [];
 
         const thisBaseDeDados = this;
+
+        const loggedUserData = this.getDadosUsuarioFromUsername(loggedInUser);
+        if (loggedUserData == null) {
+            console.log('ERRO em montarPiusList: usuário logado não existe.');
+            return null;
+        }
         
         switch (tipoDeFeed) {
             case TipoDeFeed.apenasPiusDoUsuario:
-                thisBaseDeDados.getDadosUsuarioFromUsername(loggedInUser).pius.forEach(function(piu){
+                loggedUserData.pius.forEach(function(piu){
                     allPius.push(piu.piuId);
                 });
                 break;
@@ -227,18 +233,18 @@ export class BaseDeDados {
 
                 });
                 break;
-            
+             
             case TipoDeFeed.curtidasDoUsuario:
-                thisBaseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.likes.forEach(function(likePiuId){
+                loggedUserData.infoUsuario.likes.forEach(function(likePiuId){
                     allPius.push(likePiuId);
                 });
                 break;
 
             case TipoDeFeed.contatos:
-                thisBaseDeDados.getDadosUsuarioFromUsername(loggedInUser).pius.forEach(function(piu){
+                loggedUserData.pius.forEach(function(piu){
                     allPius.push(piu.piuId);
                 });
-                thisBaseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.seguindo.forEach(function(usuario){
+                loggedUserData.infoUsuario.seguindo.forEach(function(usuario){
                     const contatoDados = thisBaseDeDados.getDadosUsuarioFromUsername(usuario);
                     if (usuario != loggedInUser && contatoDados != null) {
                         contatoDados.pius.forEach(function(piu){
