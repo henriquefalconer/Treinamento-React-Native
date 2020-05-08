@@ -13,8 +13,11 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque})
     function montarPiuContent() {
         if (infoUsuario == null) {
             return (
-                <Text>
-                    Não foi possível carregar piu...
+                <Text style={{
+                    textAlign: 'center',
+                    margin: 20,
+                }}>
+                    Houve um erro ao carregar o piu...
                 </Text>
             );
         }

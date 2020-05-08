@@ -25,10 +25,10 @@ export default async function getUserDataFromApi(username) {
 
         if (doesntExist(data)) {
             // Retorna o erro:
-            return [null, 'Usuário não existe.'];
+            return [null, `Usuário ${username} não existe.`];
         } else if (hasMultiple(data)) {
             // Retorna o erro:
-            return [null, 'Há mais de um usuário com essa identificação.'];
+            return [null, `Há mais de um usuário com a identificação ${username}.`];
         } else {
             // Retorna os dados:
             return [data[0], null];

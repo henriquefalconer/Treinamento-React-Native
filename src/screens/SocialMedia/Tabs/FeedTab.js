@@ -11,34 +11,42 @@ function FeedTab({navigation}) {
 
     let [piusList, setPiusList] = useState({
         data: null,
-        done: false,
+        loaded: false,
     });
 
+    let [loadingProgress, setLoadingProcess] = useState(0.0);
+
     async function reloadPius() {
+        setPiusList({
+            loaded: true,
+        });
+
         // Permitir mudaças instantâneas locais, recarregando piusList:
-        if (piusList.done) {
+        if (piusList.data != null) {
             setPiusList({
+                ...piusList,
                 data: baseDeDados.montarPiusList(TipoDeFeed.contatos),
-                done: true,
             });
         }
 
         // Carregar pius do servidor à base de dados local:
-        const change = await baseDeDados.carregarPiuServidor();
+        const change = await baseDeDados.carregarPiuServidor({
+            onChangeLoadingProgress: 
+                (newValue) => setLoadingProcess(newValue),
+        });
 
         // Implementar pius, caso algo tenha sido modificado na base de dados local:
         if (change) {
             setPiusList({
+                ...piusList,
                 data: baseDeDados.montarPiusList(TipoDeFeed.contatos),
-                done: true,
             });
         }
     }
 
-
     function loadPiusArea() {
-        if (!piusList.done) {
-            reloadPius();
+        if (piusList.data == null) {
+            if (!piusList.loaded) reloadPius();
             return (
                 <View style={{
                         flex: 1,
@@ -53,6 +61,13 @@ function FeedTab({navigation}) {
                     >
                         Carregando pius...
                     </Text>
+                    <Text style={{
+                            fontSize: 22,
+                            color: '#777',
+                        }}
+                    >
+                        {(loadingProgress*100).toFixed(1)}%
+                    </Text>
                 </View>
             );
         }
@@ -60,10 +75,10 @@ function FeedTab({navigation}) {
         return (
             <FlatList
                 keyExtractor={(element) => {return element}}
-                data={piusList.data} 
-                renderItem={({ item, index }) => {
+                data={[...piusList.data, 'semPius']} 
+                renderItem={({ item }) => {
                     // Adiciona um novo piu, ou o Component SemPius, à lista:
-                    return index + 1 < piusList.data.length 
+                    return item !== 'semPius' 
                         ? <Piu 
                             piuId={item}
                             onPressLike={async () => {

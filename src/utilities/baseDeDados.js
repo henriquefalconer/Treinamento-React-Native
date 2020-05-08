@@ -6,7 +6,7 @@ import * as GeneralFunctions from "./GeneralFunctions";
 import { TipoDeFeed } from "./constants";
 import getUserDataFromApi from "./getUserDataFromApi";
 
-export var loggedInUser = 'YeVictor';
+export var loggedInUser = 'Magodosdoces';
 
 function sortPius(piusIds){
     piusIds.sort(function(a, b){return GeneralFunctions.getTimeFromPiuId(b) - GeneralFunctions.getTimeFromPiuId(a)});
@@ -74,7 +74,6 @@ export class BaseDeDados {
 
     getDadosUsuarioFromUsername(username) {
         var correctUsuarioData = null;
-
         this.data.forEach(function(usuarioData){
             if (usuarioData.infoUsuario.username == username) correctUsuarioData = usuarioData;
         });
@@ -112,12 +111,18 @@ export class BaseDeDados {
         return piuData;
     }
 
+    allPiuIdsExist(piuIds) {
+        for (let piuId of piuIds) {
+            if (this.getDadosPiuFromPiuId(piuId) == null) return false;
+        }
+        return true;
+    }
+
     async montarDadosUsuarioServidor(username) {
         const [serverUserData, error] = await getUserDataFromApi(username);
 
         if (error == null) {
             let allPius = [];
-            let allSeguindo = [];
 
             serverUserData['pius'].forEach(function(piu){
                 allPius.push(
@@ -128,6 +133,8 @@ export class BaseDeDados {
                     )
                 );
             });
+
+            let allSeguindo = [];
 
             serverUserData['seguindo'].forEach(function(usuario){
                 allSeguindo.push(usuario['username']);
@@ -158,15 +165,37 @@ export class BaseDeDados {
         return null;
     }
 
-    async carregarPiuServidor() {
-        const usuarioServidorData = await this.montarDadosUsuarioServidor(loggedInUser);
+    async carregarPiuServidor({onChangeLoadingProgress}) {
+        let baseDeDadosChange = false;
 
-        if (this.getDadosUsuarioFromUsername(loggedInUser) == null) {
-            this.data.push(usuarioServidorData);
-            return true;
+        const [serverUserData, error] = await getUserDataFromApi(loggedInUser);
+        
+        if (error == null) {
+            let contatos = [];
+
+            serverUserData['seguindo'].forEach(function(usuario){
+                contatos.push(usuario['username']);
+            });
+
+            let index = 1;
+
+            for (let username of [...contatos, loggedInUser]) {
+                onChangeLoadingProgress(index/[...contatos, loggedInUser].length);
+
+                const usuarioServidorData = await this.montarDadosUsuarioServidor(username);
+    
+                if (this.getDadosUsuarioFromUsername(username) == null && usuarioServidorData != null) {
+                    this.data.push(usuarioServidorData);
+                    baseDeDadosChange = true;
+                }
+
+                index++;
+            }
+        } else {
+            console.log(`ERRO em carregarPiuServidor: ${error}`);
         }
-
-        return false;
+    
+        return baseDeDadosChange;
     }
 
     montarPiusList(tipoDeFeed) {
@@ -229,9 +258,6 @@ export class BaseDeDados {
         }
 
         sortPius(allPius);
-
-        // Adiciona o último elemento, que seria um <SemPius />:
-        allPius.push("semPius");
 
         return allPius;
     }
