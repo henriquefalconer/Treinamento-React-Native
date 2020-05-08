@@ -14,7 +14,7 @@ function FeedTab({navigation}) {
         loaded: false,
     });
 
-    let [loadingProgress, setLoadingProcess] = useState(0.0);
+    let [loadingProgress, setLoadingProcess] = useState(null);
 
     async function reloadPius() {
         setPiusList({
@@ -32,8 +32,16 @@ function FeedTab({navigation}) {
 
         // Carregar pius do servidor à base de dados local:
         const change = await baseDeDados.carregarPiuServidor({
-            onChangeLoadingProgress: 
-                (newValue) => setLoadingProcess(newValue),
+            updateProgress: 
+                (event) => {
+                    if (event.lengthComputable) {
+                        console.log(event.loaded/event.total);
+                        setLoadingProcess(event.loaded/event.total);
+                    } else {
+                        setLoadingProcess(null);
+                        console.log("ERRO em updateProgress de carregarPiuServidor: progresso não pôde ser calculado.");
+                    }
+                },
         });
 
         // Implementar pius, caso algo tenha sido modificado na base de dados local:
@@ -67,7 +75,7 @@ function FeedTab({navigation}) {
                             color: '#777',
                         }}
                     >
-                        {(loadingProgress*100).toFixed(1)}%
+                        {loadingProgress == null ? '' : (loadingProgress*100).toFixed(1)+ '%'}
                     </Text>
                 </View>
             );

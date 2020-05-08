@@ -118,8 +118,14 @@ export class BaseDeDados {
         return true;
     }
 
-    async montarDadosUsuarioServidor(username) {
-        const [serverUserData, error] = await getUserDataFromApi(username);
+    async montarDadosUsuarioServidor({username, updateProgress}) {
+        let userData = null;
+
+        const [serverUserData, error] = 
+            await getUserDataFromApi({
+                    username: username,
+                    progress: updateProgress,
+            });
 
         if (error == null) {
             let allPius = [];
@@ -140,7 +146,7 @@ export class BaseDeDados {
                 allSeguindo.push(usuario['username']);
             });
 
-            return new UsuarioData(
+            userData = new UsuarioData(
                 new InfoUsuario(
                     `${serverUserData['first_name']} ${serverUserData['last_name']}`,
                     serverUserData['username'],
@@ -162,13 +168,17 @@ export class BaseDeDados {
             console.log(`ERRO em montarDadosUsuarioServidor: ${error}`);
         }
 
-        return null;
+        return userData;
     }
 
-    async carregarPiuServidor({onChangeLoadingProgress}) {
+    async carregarPiuServidor({updateProgress}) {
         let baseDeDadosChange = false;
 
-        const [serverUserData, error] = await getUserDataFromApi(loggedInUser);
+        const [serverUserData, error] = 
+            await getUserDataFromApi({
+                username: loggedInUser,
+                progress: (a) => {},
+            });
         
         if (error == null) {
             let contatos = [];
@@ -177,19 +187,27 @@ export class BaseDeDados {
                 contatos.push(usuario['username']);
             });
 
-            let index = 1;
+            let servidorRequests = [];
 
             for (let username of [...contatos, loggedInUser]) {
-                onChangeLoadingProgress(index/[...contatos, loggedInUser].length);
+                servidorRequests.push(this.montarDadosUsuarioServidor(
+                            {
+                                username: username,
+                                updateProgress: updateProgress,
+                            }
+                        )
+                    );
+            }
 
-                const usuarioServidorData = await this.montarDadosUsuarioServidor(username);
-    
-                if (this.getDadosUsuarioFromUsername(username) == null && usuarioServidorData != null) {
-                    this.data.push(usuarioServidorData);
-                    baseDeDadosChange = true;
+            const usuariosData = await Promise.all(servidorRequests);
+
+            for (let servidorUsuarioData of usuariosData) {
+                if (servidorUsuarioData != null) {
+                    if (this.getDadosUsuarioFromUsername(servidorUsuarioData.infoUsuario.username) == null && servidorUsuarioData != null) {
+                        this.data.push(servidorUsuarioData);
+                        baseDeDadosChange = true;
+                    }
                 }
-
-                index++;
             }
         } else {
             console.log(`ERRO em carregarPiuServidor: ${error}`);
@@ -197,6 +215,8 @@ export class BaseDeDados {
     
         return baseDeDadosChange;
     }
+
+    
 
     montarPiusList(tipoDeFeed) {
         var allPius = [];
@@ -316,7 +336,6 @@ export class Piu {
 
     getLikes() {
         var likesList = [];
-
         var thisPiu = this;
 
         baseDeDados.data.forEach(function(usuarioData){
@@ -345,7 +364,8 @@ export class Piu {
     }
 
     hasDestaque() {
-        return baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.destacados.includes(this.piuId);
+        const usuarioData = baseDeDados.getDadosUsuarioFromUsername(loggedInUser);
+        return usuarioData == null ? false : usuarioData.infoUsuario.destacados.includes(this.piuId);
     }
 }
 
