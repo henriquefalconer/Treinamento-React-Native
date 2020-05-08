@@ -5,12 +5,11 @@ import HollowTextField from "../../components/HollowTextField";
 import BlandHeader from "../../components/BlandHeader";
 import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
 import { useState } from 'react';
-import { signUp } from '../../api/Users'; 
 
 function SignUpScreen({navigation}) {
-    const [first_name, setName] = useState('')
-    const [last_name, setLastName] = useState('')
-    const [username, setUsername] = useState('')
+    const [first_name, setName] = useState('');
+    const [last_name, setLastName] = useState('');
+    const [username, setUsername] = useState('');
 
     return (
         <SafeAreaView style={FormScreensStyle.background}>

@@ -10,7 +10,6 @@ import ProfileTab from './Tabs/ProfileTab';
 
 import FeedHeader from '../../components/SocialMedia/General/FeedHeader';
 import IconWithBadge from "../../components/SocialMedia/General/IconWithBadge";
-import PiarButton from "../../components/SocialMedia/General/PiarButton";
 
 const Tab = createBottomTabNavigator();
 

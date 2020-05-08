@@ -54,7 +54,7 @@ function PiarScreen({navigation}) {
                             baseDeDados
                                 .getDadosUsuarioFromUsername(loggedInUser)
                                 .infoUsuario.avatar
-                            } 
+                        } 
                         style={{
                             height: 50,
                             width: 50,
@@ -69,6 +69,7 @@ function PiarScreen({navigation}) {
                             flex: 1,
                             fontSize: 18,
                             textAlignVertical: 'top',
+                            marginLeft: 5,
                         }}
                         onSubmitEditing={(event) => this.textHandler( event.nativeEvent.text )}
                         autoCapitalize='none'
