@@ -6,6 +6,7 @@ const FormScreensStyle = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: '#FFFFFF',
+        alignSelf: 'stretch',
     },
     content: {
         flex: 1,

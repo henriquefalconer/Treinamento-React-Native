@@ -1,12 +1,14 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, SafeAreaView } from "react-native";
 import { Image, ImageBackground, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import FeedHeader from "../../../components/SocialMedia/General/FeedHeader";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 
 function ProfileTab({navigation}) {
     return (
-        <View style={styles.background} >
+        <SafeAreaView style={styles.background} >
+            <FeedHeader navigation={navigation} />
             <ImageBackground style={styles.background} source={require('../../../../assets/back-profile.png')}>
                 <View style={{justifyContent: 'flex-start'}}>
                     <View style={styles.profileImage}>
@@ -51,14 +53,13 @@ function ProfileTab({navigation}) {
                 </View>
             </ImageBackground>
             <PiarButton navigation={navigation} />
-        </View>
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
     },
     profileImage: {
         width: 200,

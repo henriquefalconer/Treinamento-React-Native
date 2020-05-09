@@ -8,17 +8,15 @@ import SearchTab from './Tabs/SearchTab';
 import NotificationsTab from './Tabs/NotificationsTab';
 import ProfileTab from './Tabs/ProfileTab';
 
-import FeedHeader from '../../components/SocialMedia/General/FeedHeader';
 import IconWithBadge from "../../components/SocialMedia/General/IconWithBadge";
+import CustomStatusBar from "../../components/General/CustomStatusBar";
 
 const Tab = createBottomTabNavigator();
 
-export default function SocialMediaScreen({navigation}) {
+export default function SocialMediaScreen() {
   return (
-    <SafeAreaView 
-        style={styles.background} 
-    >
-        <FeedHeader navigation={navigation} />
+      <View style={styles.background}>
+        <CustomStatusBar barStyle='dark-content' backgroundColor="#fff" />
         <Tab.Navigator
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
@@ -55,7 +53,7 @@ export default function SocialMediaScreen({navigation}) {
                     }
 
                     return <IconWithBadge name={iconName} size={28} color={color} badgeCount={badgeCount} />;
-                },
+                }
             })}
             tabBarOptions={{
                 activeTintColor: '#F21D1D',
@@ -68,13 +66,13 @@ export default function SocialMediaScreen({navigation}) {
             <Tab.Screen name="Notifications" component={NotificationsTab} />
             <Tab.Screen name="Profile" component={ProfileTab} />
         </Tab.Navigator>
-    </SafeAreaView>
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#eee',
     },
 });

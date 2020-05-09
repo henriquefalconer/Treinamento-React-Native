@@ -5,15 +5,15 @@ const FilledButton = ({text, onPress, textStyle, width, height}) => {
     let styles = StyleSheet.create({
     filledButton: {
         backgroundColor: "#F21D1D",
-        width: width || 280,
-        height: height || 55,
+        width: width || 250,
+        height: height || 49,
         borderRadius: 100,
         justifyContent: 'center',
         alignItems: 'center',
       },
     text: {
         color: '#FFFFFF',
-        fontSize: 25,
+        fontSize: 23,
         fontWeight: 'normal'
     }
     });

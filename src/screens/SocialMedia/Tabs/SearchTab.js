@@ -1,13 +1,15 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView } from "react-native";
+import FeedHeader from "../../../components/SocialMedia/General/FeedHeader";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 
 function SearchTab({navigation}) {
     return (
-        <View style={styles.background}>
+        <SafeAreaView style={styles.background}>
+            <FeedHeader navigation={navigation} />
             <View style={styles.background}></View>
             <PiarButton navigation={navigation} />
-        </View>
+        </SafeAreaView>
     );
 };
 

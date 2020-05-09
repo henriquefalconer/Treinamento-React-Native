@@ -52,8 +52,9 @@ function PiarScreen({navigation}) {
                     <Image  
                         source={
                             baseDeDados
-                                .getDadosUsuarioFromUsername(loggedInUser)
-                                .infoUsuario.avatar
+                                .getDadosUsuarioFromUsername(loggedInUser) == null 
+                                    ? null 
+                                    : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.avatar
                         } 
                         style={{
                             height: 50,

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { baseDeDados } from "../../../utilities/baseDeDados";
-import { TipoDeFeed } from "../../../utilities/constants";
+import FeedHeader from "../../../components/SocialMedia/General/FeedHeader";
 import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
@@ -91,12 +91,13 @@ function FeedTab({navigation}) {
     }
 
     return (
-        <View style={styles.background}>
+        <SafeAreaView style={styles.background}>
+            <FeedHeader navigation={navigation} />
             <View style={styles.background}>
                 {loadPiusArea()}
             </View>
             <PiarButton navigation={navigation} />
-        </View>
+        </SafeAreaView>
     );
 };
 

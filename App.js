@@ -7,6 +7,7 @@ import SignUpScreen from './src/screens/Forms/SignUpScreen';
 import SignUpScreenNext from './src/screens/Forms/SignUpScreenNext';
 import SocialMediaScreen from './src/screens/SocialMedia/SocialMediaScreen';
 import PiarScreen from './src/screens/SocialMedia/PiarScreen';
+import CustomStatusBar from './src/components/General/CustomStatusBar';
 
 const Stack = createStackNavigator();
 
