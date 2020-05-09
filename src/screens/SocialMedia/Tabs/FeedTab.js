@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { baseDeDados } from "../../../utilities/baseDeDados";
+import AsyncStorage from '@react-native-community/async-storage';
 import FeedHeader from "../../../components/SocialMedia/General/FeedHeader";
 import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
@@ -15,20 +16,16 @@ function FeedTab({navigation}) {
     });
 
     function changePiusList(newPiusList) {
+        AsyncStorage.setItem('piusList', JSON.stringify(piusList));
         setPiusList(newPiusList);
     }
 
     async function reloadPius() {
-        changePiusList({
-            ...piusList,
-            loaded: true,
-        });
-
         // Permitir mudaças instantâneas locais, recarregando piusList:
         if (piusList.data != null) {
             changePiusList({
                 ...piusList,
-                data: baseDeDados.montarPiusList(),
+                data: await baseDeDados.montarPiusList(),
             });
         }
 
@@ -39,7 +36,7 @@ function FeedTab({navigation}) {
         if (change) {
             changePiusList({
                 ...piusList,
-                data: baseDeDados.montarPiusList(),
+                data: await baseDeDados.montarPiusList(),
             });
         }
     }
@@ -75,12 +72,12 @@ function FeedTab({navigation}) {
                         ? <Piu 
                             piuId={item}
                             onPressLike={async () => {
-                                baseDeDados.togglePiuLike(item);
+                                baseDeDados.togglePiuLike({ piuId: item });
                                 await reloadPius();
                             }}
                             onPressReply={() => {}}
                             onPressDestaque={async () => {
-                                baseDeDados.togglePiuDestaque(item);
+                                baseDeDados.togglePiuDestaque({ piuId: item });
                                 await reloadPius();
                             }} 
                         /> 

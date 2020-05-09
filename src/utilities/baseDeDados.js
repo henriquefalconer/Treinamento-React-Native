@@ -31,9 +31,10 @@ export class BaseDeDados {
                 piuReplyId,
             ),
         );
-    }
+    } 
 
-    async togglePiuLike(piuId) {
+    async togglePiuLike({piuId, requestListener}) {
+
         const infoUsuario = this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario;
 
         const index = infoUsuario.likes.indexOf(piuId);
@@ -46,12 +47,19 @@ export class BaseDeDados {
             this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.likes.splice(index, 1);
         }
 
-        response = await sendLikeToApi({
+        const maxRetries = 4;
+
+        retries = await sendLikeToApi({
             apiPiuId: GeneralFunctions.getApiPiuIdFromPiuId(piuId),
             apiUserId: infoUsuario.apiId,
+            maxRetries: maxRetries,
         });
 
-        console.log(response);
+        if (retries < maxRetries) {
+            console.log("togglePiuLike: piu like sent with " + retries + " retries.")
+        } else {
+            console.log("togglePiuLike: piu like was not sent after " + retries + " retries.")
+        }
     }
 
     replyPiu(piuReplyId) {
@@ -70,7 +78,7 @@ export class BaseDeDados {
         popupPiarReplyPiu.appendChild(piuReply);
     }
 
-    togglePiuDestaque(piuId) {
+    togglePiuDestaque({piuId}) {
         const index = this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.destacados.indexOf(piuId);
 
         // Se o piu não está destacado, destaque-o:
@@ -263,15 +271,20 @@ export class BaseDeDados {
         return baseDeDadosChange;
     }
 
-    montarPiusList(tipoDeFeed) {
+    async montarPiusList(tipoDeFeed) {
         var allPius = [];
-
-        const thisBaseDeDados = this;
+ 
+        const thisBaseDeDados = this; 
 
         const loggedUserData = this.getDadosUsuarioFromUsername(loggedInUser);
         if (loggedUserData == null) {
-            console.log('ERRO em montarPiusList: usuário logado não existe.');
-            return null;
+
+            const change = await this.carregarAllDataFromApi();
+
+            if (!change) {
+                console.log('ERRO em montarPiusList: usuário logado não existe.');
+                return null;
+            }
         }
         
         switch (tipoDeFeed) {

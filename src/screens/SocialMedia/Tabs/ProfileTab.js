@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
         marginLeft: 2,
         flexDirection: "row",
         alignSelf: "center",
-
     },
     SelectionBox: {
         alignItems: "center",
