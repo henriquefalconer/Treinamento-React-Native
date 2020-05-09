@@ -1,61 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, Image, ImageBackground, Text, Dimensions } from "react-native";
 import FilledButton from "../../components/FilledButton";
 import HomeScreenStyle from '../../style/HomeScreen/HomeScreenStyle';
-import { gyroscope } from "react-native-sensors";
-
-const window = Dimensions.get("window");
-
-const deviceWidth = window.width;
-const deviceHeight = window.height;
-
-const scalingFactor = 1.2;
-
-const imageWidth = scalingFactor*deviceWidth;
-const imageHeight = scalingFactor*deviceHeight;
 
 function HomeScreen({navigation}) {
-  [gyroscopePos, setGyroscopePostion] = useState({
-    x: 0,
-    y: 0,
-    z: 0,
-    subscription: null,
-  });
-
-  async function subscribeToGyroscope() {
-
-    const subscription = gyroscope
-        .subscribe(({x, y, z}) => {
-          setGyroscopePostion({
-            ...gyroscopePos,
-            x: gyroscopePos.x + x,
-            y: gyroscopePos.y + y,
-            z: gyroscopePos.z + z,
-          });
-      });
-
-    setGyroscopePostion({
-      ...gyroscopePos,
-      subscription: subscription,
-    })
-  };
-
-  function unsubscribeToGyroscope() {
-    gyroscopePos.subscription.unsubscribe();
-  }
-
-  if (gyroscopePos.subscription == null) subscribeToGyroscope();
 
   return (
     <ImageBackground 
       style={HomeScreenStyle.backgrondImage} 
-      imageStyle={{
-        top: gyroscopePos.x / 5,
-        right: gyroscopePos.y / 5,
-        height: imageHeight,
-        width: imageWidth,
-        position: 'absolute',
-      }}
       source={require('../../../assets/fundo.jpg')} 
     >
       <Image 
@@ -76,7 +28,6 @@ function HomeScreen({navigation}) {
         text="Login" 
         onPress={
           () => {
-            unsubscribeToGyroscope();
             navigation.navigate('Login');
           }
         } 
@@ -88,7 +39,6 @@ function HomeScreen({navigation}) {
         text="Cadastro" 
         onPress={
             () => {
-              unsubscribeToGyroscope();
               navigation.navigate('Cadastro');
             }
         } 
