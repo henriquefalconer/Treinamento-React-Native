@@ -6,6 +6,10 @@ export function getTimeFromPiuId(piuId){
     return (piuId == null) ? null : piuId.split(":")[1];
 }
 
+export function getApiPiuIdFromPiuId(piuId){
+    return (piuId == null) ? null : piuId.split(":")[2];
+}
+
 export function getRelativeTime(timeInMilliseconds) {
     var relativeTime = "";
 

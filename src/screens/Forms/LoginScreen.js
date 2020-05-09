@@ -4,6 +4,7 @@ import FilledButton from "../../components/FilledButton";
 import HollowTextField from "../../components/HollowTextField";
 import BlandHeader from "../../components/BlandHeader";
 import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
+import AsyncStorage from '@react-native-community/async-storage';
 // import ReturnArrow from '../../assets/return.svg';
 
 const reducer = (state, action) => {
@@ -49,7 +50,7 @@ async function signIn({ username, password }) {
 
         if (!hasError(data)) {
             // Retorna os dados:
-            return [data, null];
+            return [data.token, null];
         }
         else {
             // Retorna o erro:
@@ -122,6 +123,7 @@ function LoginScreen({navigation}) {
                                 dispatch({textInputChange: 'errorText', newValue: ''});
                                 dispatch({textInputChange: 'username', newValue: ''});
                                 dispatch({textInputChange: 'password', newValue: ''});
+                                AsyncStorage.setItem('token', token);
                                 navigation.navigate('SocialMedia');
                             }
                             else {

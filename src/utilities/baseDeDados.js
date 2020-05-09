@@ -5,6 +5,8 @@
 import * as GeneralFunctions from "./GeneralFunctions";
 import { TipoDeFeed } from "./constants";
 import getUserDataFromApi from "./getUserDataFromApi";
+import getAllApiData from "./getAllApiData";
+import sendLikeToApi from "./sendLikeToApi";
 
 export var loggedInUser = 'Magodosdoces';
 
@@ -31,8 +33,10 @@ export class BaseDeDados {
         );
     }
 
-    togglePiuLike(piuId) {
-        const index = this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.likes.indexOf(piuId);
+    async togglePiuLike(piuId) {
+        const infoUsuario = this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario;
+
+        const index = infoUsuario.likes.indexOf(piuId);
         // Se o like não existe, adicioná-lo:
         if (index == -1) {
             this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.likes.push(piuId);
@@ -41,6 +45,13 @@ export class BaseDeDados {
         else {
             this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.likes.splice(index, 1);
         }
+
+        response = await sendLikeToApi({
+            apiPiuId: GeneralFunctions.getApiPiuIdFromPiuId(piuId),
+            apiUserId: infoUsuario.apiId,
+        });
+
+        console.log(response);
     }
 
     replyPiu(piuReplyId) {
@@ -118,59 +129,103 @@ export class BaseDeDados {
         return true;
     }
 
-    async montarDadosUsuarioServidor({username}) {
+    converterDadosUsuarioApi(serverUserData) {
         let userData = null; 
+        let allPius = [];
 
-        const [serverUserData, error] = 
-            await getUserDataFromApi({
-                    username: username,
-            });
+        serverUserData['pius'].forEach(function(piu){
+            allPius.push(
+                new Piu(
+                    `${serverUserData['username']}:${Date.parse(piu['horario'])}:${piu['id']}`,
+                    piu['texto'],
+                    null,
+                )
+            );
+        });
 
-        if (error == null) {
-            let allPius = [];
+        let likes = [];
 
-            serverUserData['pius'].forEach(function(piu){
-                allPius.push(
-                    new Piu(
-                        `${serverUserData['username']}:${Date.parse(piu['horario'])}`,
-                        piu['texto'],
-                        null,
-                    )
-                );
-            });
-
-            let allSeguindo = [];
-
-            serverUserData['seguindo'].forEach(function(usuario){
-                allSeguindo.push(usuario['username']);
-            });
-
-            userData = new UsuarioData(
-                new InfoUsuario(
-                    `${serverUserData['first_name']} ${serverUserData['last_name']}`,
-                    serverUserData['username'],
-                    {uri: serverUserData['foto']},
-                    "Porsche 911.jpg",
-                    allSeguindo,
-                    [
-                        "fulano.beltrano:" + Date.parse("15 Apr 2020 11:38:00"),
-                        "cleber.cunha:" + Date.parse("15 Apr 2020 8:00:00"),
-                        "richar.lison:" + Date.parse("15 Apr 2020 8:30:00"),
-                    ],
-                    [],
-                    Date.parse(Date()),
-                    serverUserData['sobre'],
-                ),
-                allPius,
-            )
-        } else {
-            console.log(`ERRO em montarDadosUsuarioServidor: ${error}`);
+        if (lastDownloadedApiDatabase != null) {
+            for (let apiDadosUsuario of lastDownloadedApiDatabase) {
+                for (let piu of apiDadosUsuario['pius']) {
+                    for (let likerData of piu['likers']) {
+                        if (likerData['username'] == serverUserData['username']) 
+                            likes.push(`${piu['usuario']['username']}:${Date.parse(piu['horario'])}`);
+                    }
+                }
+            }
         }
+
+        let favoritados = [];
+
+        if (lastDownloadedApiDatabase != null) {
+            for (let apiDadosUsuario of lastDownloadedApiDatabase) {
+                for (let piu of apiDadosUsuario['pius']) {
+                    for (let userQueFavoritou of piu['favoritado_por']) {
+                        if (userQueFavoritou['username'] == serverUserData['username']) 
+                        favoritados.push(`${piu['usuario']['username']}:${Date.parse(piu['horario'])}`);
+                    }
+                }
+            }
+        }
+
+        let allSeguindo = [];
+
+        serverUserData['seguindo'].forEach(function(usuario){
+            allSeguindo.push(usuario['username']);
+        });
+
+        userData = new UsuarioData(
+            new InfoUsuario(
+                `${serverUserData['first_name']} ${serverUserData['last_name']}`,
+                serverUserData['username'],
+                {uri: serverUserData['foto']},
+                "Porsche 911.jpg",
+                allSeguindo,
+                likes,
+                favoritados,
+                Date.parse(Date()),
+                serverUserData['sobre'],
+                serverUserData['id'],
+            ),
+            allPius,
+        );
 
         return userData;
     }
 
-    async carregarPiuServidor() {
+    async carregarAllDataFromApi() {
+        let baseDeDadosChange = false;
+
+        const [allApiData, error] = 
+            await getAllApiData({
+                username: loggedInUser,
+            });
+
+        // Salvar dados da API na variável global do arquivo:
+        lastDownloadedApiDatabase = allApiData;
+        
+        if (error == null) {
+
+            for (let servidorUsuarioData of allApiData) {
+                const localUsuarioData = this.converterDadosUsuarioApi(servidorUsuarioData);
+
+                if (localUsuarioData != null) {
+                    if (this.getDadosUsuarioFromUsername(localUsuarioData.infoUsuario.username) == null && localUsuarioData != null) {
+                        this.data.push(localUsuarioData);
+                        baseDeDadosChange = true;
+                    }
+                }
+            }
+
+        } else {
+            console.log(`ERRO em carregarAllDataFromApi: ${error}`);
+        }
+    
+        return baseDeDadosChange;
+    }
+
+    async carregarOnlyContactsFromApi() {
         let baseDeDadosChange = false;
 
         const [serverUserData, error] = 
@@ -179,20 +234,15 @@ export class BaseDeDados {
             });
         
         if (error == null) {
-            let contatos = [];
 
-            serverUserData['seguindo'].forEach(function(usuario){
+            allApiData.forEach(function(usuario){
                 contatos.push(usuario['username']);
             });
 
             let servidorRequests = [];
 
             for (let username of [...contatos, loggedInUser]) {
-                servidorRequests.push(this.montarDadosUsuarioServidor(
-                            {
-                                username: username,
-                            }
-                        )
+                servidorRequests.push(this.converterDadosUsuarioApi(username)
                     );
             }
 
@@ -207,13 +257,11 @@ export class BaseDeDados {
                 }
             }
         } else {
-            console.log(`ERRO em carregarPiuServidor: ${error}`);
+            console.log(`ERRO em carregarOnlyContactsFromApi: ${error}`);
         }
     
         return baseDeDadosChange;
     }
-
-    
 
     montarPiusList(tipoDeFeed) {
         var allPius = [];
@@ -311,7 +359,7 @@ export class InfoUsuario {
     constructor(nome, username, avatar, 
         background, seguindo, 
         likes, destacados, conoscoDesde, 
-        descricao) {
+        descricao, apiId) {
             this.nome = nome;
             this.username = username;
             this.avatar = avatar;
@@ -321,6 +369,7 @@ export class InfoUsuario {
             this.destacados = destacados;
             this.conoscoDesde = conoscoDesde;
             this.descricao = descricao;
+            this.apiId = apiId;
     }
 }
 
@@ -333,12 +382,11 @@ export class Piu {
 
     getLikes() {
         var likesList = [];
+
         var thisPiu = this;
 
         baseDeDados.data.forEach(function(usuarioData){
-            if (usuarioData.infoUsuario.likes.includes(thisPiu.piuId)) {
-                likesList.push(usuarioData.infoUsuario.username);
-            }
+            if (usuarioData.infoUsuario.likes.includes(thisPiu.piuId)) likesList.push(usuarioData.infoUsuario.username);
         });
         
         return likesList;
@@ -365,6 +413,8 @@ export class Piu {
         return usuarioData == null ? false : usuarioData.infoUsuario.destacados.includes(this.piuId);
     }
 }
+
+var lastDownloadedApiDatabase = null;
 
 export var baseDeDados = new BaseDeDados([
     new UsuarioData(
@@ -399,8 +449,8 @@ export var baseDeDados = new BaseDeDados([
             ],
             // IDs dos pius que o usuário deu like:
             [
-                "richar.lison:" + Date.parse("15 Apr 2020 8:30:00"),
-                "rosi.plat:" + Date.parse("15 Apr 2020 7:00:00"),
+                "richar.lison:" + Date.parse("15 Apr 2020 8:30:00") + ":-1",
+                "rosi.plat:" + Date.parse("15 Apr 2020 7:00:00") + ":-1",
             ],
             // Pius destacados:
             [],
@@ -411,9 +461,9 @@ export var baseDeDados = new BaseDeDados([
         ),
         [
             new Piu(
-                "fulano.beltrano:" + Date.parse("15 Apr 2020 11:38:00"),
+                "fulano.beltrano:" + Date.parse("15 Apr 2020 11:38:00") + ":-1",
                 "E pensar que tem caras por aí que só piam a quantidade de pius que eles já postaram... Eles parecem mal saber de todo o potencial que a plataforma PiuPiuwer tem!",
-                "cleber.cunha:" + Date.parse("15 Apr 2020 11:00:00"),
+                "cleber.cunha:" + Date.parse("15 Apr 2020 11:00:00") + ":-1",
             ),
         ]
     ),
@@ -442,9 +492,9 @@ export var baseDeDados = new BaseDeDados([
                 "MagaldiNarguileiro",
             ],
             [
-                "fulano.beltrano:" + Date.parse("15 Apr 2020 11:38:00"),
-                "cleber.cunha:" + Date.parse("15 Apr 2020 8:00:00"),
-                "richar.lison:" + Date.parse("15 Apr 2020 8:30:00"),
+                "fulano.beltrano:" + Date.parse("15 Apr 2020 11:38:00") + ":-1",
+                "cleber.cunha:" + Date.parse("15 Apr 2020 8:00:00") + ":-1",
+                "richar.lison:" + Date.parse("15 Apr 2020 8:30:00") + ":-1",
             ],
             [],
             Date.parse("30 Mar 2020 7:00:00"),
@@ -452,12 +502,12 @@ export var baseDeDados = new BaseDeDados([
         ),
         [
             new Piu(
-                "cleber.cunha:" + Date.parse("15 Apr 2020 11:00:00"),
+                "cleber.cunha:" + Date.parse("15 Apr 2020 11:00:00") + ":-1",
                 "Este é meu 100º piu! Esperei bastante por este momento!",
                 null,            
             ),
             new Piu(
-                "cleber.cunha:" + Date.parse("15 Apr 2020 8:00:00"),
+                "cleber.cunha:" + Date.parse("15 Apr 2020 8:00:00") + ":-1",
                 "Este é meu 99º piu! Isso é 1 a menos que 100!",
                 null,      
             ),
@@ -488,9 +538,9 @@ export var baseDeDados = new BaseDeDados([
                 "MagaldiNarguileiro",
             ],
             [
-                "cleber.cunha:" + Date.parse("15 Apr 2020 8:00:00"),
-                "richar.lison:" + Date.parse("15 Apr 2020 8:30:00"),
-                "rosi.plat:" + Date.parse("15 Apr 2020 7:00:00"),
+                "cleber.cunha:" + Date.parse("15 Apr 2020 8:00:00") + ":-1",
+                "richar.lison:" + Date.parse("15 Apr 2020 8:30:00") + ":-1",
+                "rosi.plat:" + Date.parse("15 Apr 2020 7:00:00") + ":-1",
             ],
             [],
             Date.parse("01 Apr 2020 7:00:00"),
@@ -498,14 +548,14 @@ export var baseDeDados = new BaseDeDados([
         ),
         [
             new Piu(
-                "richar.lison:" + Date.parse("18 Apr 2020 11:07:00"),
+                "richar.lison:" + Date.parse("18 Apr 2020 11:07:00") + ":-1",
                 "Concordo totalmente!",
-                "fulano.beltrano:" + Date.parse("15 Apr 2020 11:38:00"),
+                "fulano.beltrano:" + Date.parse("15 Apr 2020 11:38:00") + ":-1",
             ),
             new Piu(
-                "richar.lison:" + Date.parse("15 Apr 2020 8:30:00"),
+                "richar.lison:" + Date.parse("15 Apr 2020 8:30:00") + ":-1",
                 "Sim! Sem dúvidas, é a melhor rede social que existe.",
-                "rosi.plat:" + Date.parse("15 Apr 2020 7:00:00"),
+                "rosi.plat:" + Date.parse("15 Apr 2020 7:00:00") + ":-1",
             ),
         ]
     ),
@@ -540,7 +590,7 @@ export var baseDeDados = new BaseDeDados([
         ),
         [
             new Piu(
-                "rosi.plat:" + Date.parse("15 Apr 2020 7:00:00"),
+                "rosi.plat:" + Date.parse("15 Apr 2020 7:00:00") + ":-1",
                 "Comecei a usar hoje! Parece ser bom esse PiuPiuwer.",
                 null,
             ),

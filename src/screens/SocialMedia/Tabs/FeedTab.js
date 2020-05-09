@@ -14,26 +14,30 @@ function FeedTab({navigation}) {
         loaded: false,
     });
 
+    function changePiusList(newPiusList) {
+        setPiusList(newPiusList);
+    }
+
     async function reloadPius() {
-        setPiusList({
+        changePiusList({
             ...piusList,
             loaded: true,
         });
 
         // Permitir mudaças instantâneas locais, recarregando piusList:
         if (piusList.data != null) {
-            setPiusList({
+            changePiusList({
                 ...piusList,
                 data: baseDeDados.montarPiusList(),
             });
         }
 
         // Carregar pius do servidor à base de dados local:
-        const change = await baseDeDados.carregarPiuServidor();
+        const change = await baseDeDados.carregarAllDataFromApi();
 
         // Implementar pius, caso algo tenha sido modificado na base de dados local:
         if (change) {
-            setPiusList({
+            changePiusList({
                 ...piusList,
                 data: baseDeDados.montarPiusList(),
             });
