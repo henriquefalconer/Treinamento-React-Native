@@ -8,8 +8,8 @@ const HomeScreenStyle = StyleSheet.create({
       alignSelf: 'stretch',
     },
     logo: {
-      height: 200,
-      width: 200,
+      height: 185,
+      width: 185,
       borderRadius: 100,
     },
     title: {

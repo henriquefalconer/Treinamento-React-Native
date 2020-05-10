@@ -4,6 +4,8 @@ import FilledButton from "../../components/FilledButton";
 import HollowTextField from "../../components/HollowTextField";
 import BlandHeader from "../../components/BlandHeader";
 import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
+import AsyncStorage from '@react-native-community/async-storage';
+import CustomStatusBar from "../../components/General/CustomStatusBar";
 // import ReturnArrow from '../../assets/return.svg';
 
 const reducer = (state, action) => {
@@ -49,7 +51,7 @@ async function signIn({ username, password }) {
 
         if (!hasError(data)) {
             // Retorna os dados:
-            return [data, null];
+            return [data.token, null];
         }
         else {
             // Retorna o erro:
@@ -74,64 +76,68 @@ function LoginScreen({navigation}) {
     );
     
     return (
-        <SafeAreaView style={FormScreensStyle.background}>
-            <BlandHeader navigation={navigation} />
-            <View style={FormScreensStyle.content}>
-                <Text style={FormScreensStyle.title}>Login</Text>
-        
-                <View>
-                    <HollowTextField 
-                        placeholder="Nome de usuário"
-                        helpText='Você pode logar como "polijr"'
-                        value={state.username}
-                        onChange={(newValue) => 
-                            dispatch({textInputChange: 'username', newValue: newValue})
-                        }
+        <View style={FormScreensStyle.background}>
+            <CustomStatusBar barStyle='dark-content' backgroundColor="#eee" />
+            <SafeAreaView style={FormScreensStyle.background}>
+                <BlandHeader navigation={navigation} />
+                <View style={FormScreensStyle.content}>
+                    <Text style={FormScreensStyle.title}>Login</Text>
+            
+                    <View>
+                        <HollowTextField 
+                            placeholder="Nome de usuário"
+                            helpText='Você pode logar como "polijr"'
+                            value={state.username}
+                            onChange={(newValue) => 
+                                dispatch({textInputChange: 'username', newValue: newValue})
+                            }
+                        />
+                        <HollowTextField 
+                            placeholder="Senha"
+                            helpText='Caso tenha problemas, a senha secreta é "polijunior"'
+                            value={state.password}
+                            onChange={(newValue) => 
+                                dispatch({textInputChange: 'password', newValue: newValue})
+                            }
+                            toggleTextVisibility={true}
+                        />
+                        <Text style={{
+                                ...styles.errorText, 
+                                ...(state.errorText.length > 0 ? {} : styles.invisible)
+                            }}
+                        >
+                            {state.errorText}
+                        </Text>
+                    </View>
+
+                    <FilledButton 
+                        width={170} 
+                        height={47} 
+                        textStyle={FormScreensStyle.continueButtonText} 
+                        text="Entrar" 
+                        onPress={
+                            async () => {
+                                const [token, error] = await signIn({ 
+                                    username: state.username, 
+                                    password: state.password, 
+                                });
+
+                                if (token != null) {
+                                    dispatch({textInputChange: 'errorText', newValue: ''});
+                                    dispatch({textInputChange: 'username', newValue: ''});
+                                    dispatch({textInputChange: 'password', newValue: ''});
+                                    AsyncStorage.setItem('token', token);
+                                    navigation.navigate('SocialMedia');
+                                }
+                                else {
+                                    dispatch({textInputChange: 'errorText', newValue: error});
+                                }
+                            }
+                        } 
                     />
-                    <HollowTextField 
-                        placeholder="Senha"
-                        helpText='Caso tenha problemas, a senha secreta é "polijunior"'
-                        value={state.password}
-                        onChange={(newValue) => 
-                            dispatch({textInputChange: 'password', newValue: newValue})
-                        }
-                        toggleTextVisibility={true}
-                    />
-                    <Text style={{
-                            ...styles.errorText, 
-                            ...(state.errorText.length > 0 ? {} : styles.invisible)
-                        }}
-                    >
-                        {state.errorText}
-                    </Text>
                 </View>
-
-                <FilledButton 
-                    width={170} 
-                    height={47} 
-                    textStyle={FormScreensStyle.continueButtonText} 
-                    text="Entrar" 
-                    onPress={
-                        async () => {
-                            const [token, error] = await signIn({ 
-                                username: state.username, 
-                                password: state.password, 
-                            });
-
-                            if (token != null) {
-                                dispatch({textInputChange: 'errorText', newValue: ''});
-                                dispatch({textInputChange: 'username', newValue: ''});
-                                dispatch({textInputChange: 'password', newValue: ''});
-                                navigation.navigate('SocialMedia');
-                            }
-                            else {
-                                dispatch({textInputChange: 'errorText', newValue: error});
-                            }
-                        }
-                    } 
-                />
-            </View>
-        </SafeAreaView>
+            </SafeAreaView>
+        </View>
     );
 };
 
