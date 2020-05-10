@@ -5,7 +5,6 @@ import HollowTextField from "../../components/HollowTextField";
 import BlandHeader from "../../components/BlandHeader";
 import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
 import { useState } from 'react';
-<<<<<<< HEAD
 
 // import { signUp } from '../../api/Users'; 
 
@@ -53,9 +52,7 @@ import { useState } from 'react';
 //         return null;
 //     }
 // } 
-=======
 import CustomStatusBar from "../../components/General/CustomStatusBar";
->>>>>>> 6c78d207344a0c2e25cde7ab8862f0614609317f
 
 function SignUpScreen({navigation}) {
     const [first_name, setName] = useState('');
