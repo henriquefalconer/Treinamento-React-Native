@@ -75,7 +75,9 @@ function FeedTab({navigation}) {
                                 baseDeDados.togglePiuLike({ piuId: item });
                                 await reloadPius();
                             }}
-                            onPressReply={() => {}}
+                            onPressReply={() => {
+                                baseDeDados.replyPiu({ piuReplyId: item, navigation: navigation });
+                            }}
                             onPressDestaque={async () => {
                                 baseDeDados.togglePiuDestaque({ piuId: item });
                                 await reloadPius();

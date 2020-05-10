@@ -7,6 +7,7 @@ import { TipoDeFeed } from "./constants";
 import getUserDataFromApi from "./getUserDataFromApi";
 import getAllApiData from "./getAllApiData";
 import sendLikeToApi from "./sendLikeToApi";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export var loggedInUser = 'Magodosdoces';
 
@@ -62,20 +63,9 @@ export class BaseDeDados {
         }
     }
 
-    replyPiu(piuReplyId) {
-        // Acionar popup de tela cheia:
-        togglePopupWholeScreen("#popup_piar_reply");
-
-        // Encontrar o popup de tela cheia:
-        var popupBox = document.querySelector("#popup_piar_reply");
-
-        // Montar o piu de reply:
-        var piuReply = montarPiuReply(piuReplyId);
-
-        // Inserir o piu de reply no popup:
-        var popupPiarReplyPiu = popupBox.querySelector(".piu_reply_box");
-        popupPiarReplyPiu.innerHTML = "";
-        popupPiarReplyPiu.appendChild(piuReply);
+    replyPiu({piuReplyId, navigation}) {
+        // Navegar para a tela de piar:
+        navigation.navigate('Piar', { piuReplyId });
     }
 
     togglePiuDestaque({piuId}) {

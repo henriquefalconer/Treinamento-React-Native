@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, View, Text, Image } from "react-native";
+import { SafeAreaView, StyleSheet, View, Text, Image, Platform } from "react-native";
 import FilledButton from "../../components/FilledButton";
-import { TouchableOpacity, TextInput, ScrollView } from "react-native-gesture-handler";
+import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import { baseDeDados, loggedInUser } from "../../utilities/baseDeDados";
+import PiuReply from '../../components/SocialMedia/Feed/PiuReply';
 import ExpandingTextInput from "../../components/General/AutoExpandingTextInput";
+import CustomStatusBar from "../../components/General/CustomStatusBar";
 
-function PiarScreen({navigation}) {
+function PiarScreen({navigation, route}) {
     let [piuText, changePiuText] = useState("");
+    let { piuReplyId } = route.params != undefined ? route.params : { piuReplyId: null };
 
     return (
         <SafeAreaView style={styles.background}>
+            {Platform.OS == 'ios' ? null : <CustomStatusBar barStyle='dark-content' backgroundColor="#fff" />}
             <View style={{
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -43,7 +47,7 @@ function PiarScreen({navigation}) {
                 />
             </View>
 
-            <ScrollView>
+            <ScrollView style={{ flex: 1 }}>
                 <View style={{
                     paddingHorizontal: 20,
                     paddingVertical: 10,
@@ -65,19 +69,28 @@ function PiarScreen({navigation}) {
                             backgroundColor: "#ddd"
                         }}
                     />
-                    <ExpandingTextInput 
-                        placeholder="Em que você está pensando?"
-                        value={piuText}
-                        onChange={(newValue) => changePiuText(newValue)}
-                        style={{
-                            flex: 1,
-                            fontSize: 18,
-                            textAlignVertical: 'top',
-                            marginLeft: 5,
-                        }}
-                        onSubmitEditing={(event) => this.textHandler( event.nativeEvent.text )}
-                        autoCapitalize='none'
-                    />
+                    <View style={{ flex: 1 }} >
+                        <ExpandingTextInput 
+                            placeholder="Em que você está pensando?"
+                            value={piuText}
+                            onChangeText={(newValue) => changePiuText(newValue)}
+                            style={{
+                                flex: 1,
+                                fontSize: 18,
+                                textAlignVertical: 'top',
+                                marginLeft: 5,
+                                padding: 0,
+                                paddingTop: 15,
+                                paddingBottom: 5
+                            }}
+                            autoCapitalize='none'
+                        />
+                        {
+                            piuReplyId != null
+                                ? <PiuReply piuReplyId={piuReplyId} />
+                                : null
+                        }
+                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>

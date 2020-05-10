@@ -1,7 +1,6 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import FeedTab from './Tabs/FeedTab';
 import SearchTab from './Tabs/SearchTab';
