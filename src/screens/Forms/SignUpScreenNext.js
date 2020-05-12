@@ -7,33 +7,6 @@ import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
 import { useState } from 'react';
 
 function hasError(data) {
-<<<<<<< HEAD
-    return !Objects.keys(data).includes('id')
-}
-// data assume o valor de json quando ela chamar
-
-function signUp ({first_name, last_name, username, email, password}) {
-    return fetch('http://piupiuwer.polijr.com.br/usuarios/', 
-    {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify ({
-            'first_name': first_name, 
-            'last_name': last_name, 
-            'username': username,
-            'email': email,
-            'password': password
-        })
-    }
-    ).then((response) => response.json())
-    .then((json) => {
-        console.log(json)
-        if (hasError(json)) {
-            return "Erro";
-=======
     return !Object.keys(data).includes('id');
 }
 
@@ -60,13 +33,11 @@ function signUp({first_name, last_name, username, email, password}) {
         console.log(json);
         if (hasError(json)) {
             return 'Insira os dados corretamente.';
->>>>>>> 6c78d207344a0c2e25cde7ab8862f0614609317f
         } else {
             return null;
         }
     })
     .catch((error) => {
-<<<<<<< HEAD
         return "Erro de conexão";
         console.log(error)
     })
@@ -77,17 +48,6 @@ function SignUpScreenNext({ route, navigation}) {
     const [password, setPassword] = useState('')
     const [errorTexto, setErrorTexto] = useState('')
     const  { first_name, last_name, username } = route.params;
-=======
-        console.log(error);
-        return 'Erro de conexão.';
-    });
-}
-
-function SignUpScreenNext({navigation}) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorText, setErrorText] = useState('');
->>>>>>> 6c78d207344a0c2e25cde7ab8862f0614609317f
 
     return (
         <SafeAreaView style={FormScreensStyle.background}>
@@ -144,7 +104,7 @@ function SignUpScreenNext({navigation}) {
                                 navigation.navigate('SocialMedia');
                             }
                     }
-                    }
+                }
                 />
             </View>
         </SafeAreaView>
