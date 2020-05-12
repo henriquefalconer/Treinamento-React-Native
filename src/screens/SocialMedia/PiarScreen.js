@@ -6,14 +6,26 @@ import { baseDeDados, loggedInUser } from "../../utilities/baseDeDados";
 import PiuReply from '../../components/SocialMedia/Feed/PiuReply';
 import ExpandingTextInput from "../../components/General/AutoExpandingTextInput";
 import CustomStatusBar from "../../components/General/CustomStatusBar";
+import adicionarPiuAPI from "../../utilities/criarPiu";
 
 function PiarScreen({navigation, route}) {
     let [piuText, changePiuText] = useState("");
     let { piuReplyId } = route.params != undefined ? route.params : { piuReplyId: null };
 
+    function criarPiu() {
+        let usuario = 'ala'
+        let texto = 'to chegando com os refrii rapaziada !!' 
+
+        console.log('um')
+        adicionarPiuAPI(usuario, texto)
+            .then(console.log('dois'))
+            .then(() => navigation.goBack())
+    }
+
     return (
         <SafeAreaView style={styles.background}>
             {Platform.OS == 'ios' ? null : <CustomStatusBar barStyle='dark-content' backgroundColor="#fff" />}
+            
             <View style={{
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -40,7 +52,7 @@ function PiarScreen({navigation, route}) {
                 </TouchableOpacity>
                 <FilledButton 
                     text="Piar" 
-                    onPress={() => navigation.goBack()}
+                    onPress={criarPiu}
                     textStyle={{fontSize: 17, color: "#fff"}} 
                     width={100}
                     height={38} 
@@ -55,7 +67,8 @@ function PiarScreen({navigation, route}) {
                 }}>
                     <Image  
                         source={
-                            baseDeDados
+                            // {uri: adicionarPiuAPI.usuario.foto}
+                            baseDeDados //mudar aqui
                                 .getDadosUsuarioFromUsername(loggedInUser) == null 
                                     ? null 
                                     : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.avatar

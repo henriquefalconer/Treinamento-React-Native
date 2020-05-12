@@ -7,31 +7,32 @@ import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
 import { useState } from 'react';
 
 function hasError(data) {
-    return !Objects.keys(data).includes('id')
+    return !Object.keys(data).includes('id');
 }
-// data assume o valor de json quando ela chamar
 
-function signUp ({first_name, last_name, username, email, password}) {
-    return fetch('http://piupiuwer.polijr.com.br/usuarios/', 
-    {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify ({
-            'first_name': first_name, 
-            'last_name': last_name, 
-            'username': username,
-            'email': email,
-            'password': password
-        })
-    }
-    ).then((response) => response.json())
+function signUp({first_name, last_name, username, email, password}) {
+    return fetch(
+        'http://piupiuwer.polijr.com.br/usuarios/', 
+        {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                'first_name': first_name, 
+                'last_name': last_name, 
+                'username': username,
+                'email': email,
+                'password': password,
+            })
+        }
+    )
+    .then((response) => response.json())
     .then((json) => {
-        console.log(json)
+        console.log(json);
         if (hasError(json)) {
-            return "Erro";
+            return 'Insira os dados corretamente.';
         } else {
             return null;
         }
@@ -103,7 +104,7 @@ function SignUpScreenNext({ route, navigation}) {
                                 navigation.navigate('SocialMedia');
                             }
                     }
-                    }
+                }
                 />
             </View>
         </SafeAreaView>
