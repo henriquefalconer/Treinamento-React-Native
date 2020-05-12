@@ -13,8 +13,8 @@ function PiarScreen({navigation, route}) {
     let { piuReplyId } = route.params != undefined ? route.params : { piuReplyId: null };
 
     function criarPiu() {
-        let usuario = 'polijr'
-        let texto = 'to chegando com os refrii rapaziada !!'
+        let usuario = 'ala'
+        let texto = 'to chegando com os refrii rapaziada !!' 
 
         console.log('um')
         adicionarPiuAPI(usuario, texto)

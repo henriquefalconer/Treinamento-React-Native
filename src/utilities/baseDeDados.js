@@ -8,11 +8,13 @@ import getUserDataFromApi from "./getUserDataFromApi";
 import getAllApiData from "./getAllApiData";
 import sendLikeToApi from "./sendLikeToApi";
 import AsyncStorage from "@react-native-community/async-storage";
+import adicionarPiuAPI from "./criarPiu";
 
+//export var loggedInUser = 'Magodosdoces'; //mudar aqui
 
-export var loggedInUser = 'Magodosdoces'; //mudar aqui
+export var loggedInUser = adicionarPiuAPI.get('/usuario/<id>');
+//export var loggedInUser = adicionarPiuAPI.usuario.foto;
 
-//export var loggedInUser = adicionarPiuAPI.get('/usuarios/<id>');
 
 //Coloca pius na ordem de tempo
 function sortPius(piusIds){

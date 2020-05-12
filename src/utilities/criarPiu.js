@@ -1,5 +1,8 @@
 import AsyncStorage from "@react-native-community/async-storage";
 
+function hasError(data) {
+    return !Object.keys(data).includes('id');
+}
 
 async function adicionarPiuAPI(usuario, texto) {
     const token = await AsyncStorage.getItem('token');
@@ -20,7 +23,6 @@ async function adicionarPiuAPI(usuario, texto) {
     .then((response) => response.json())
     .then((json) => {
         console.log(json);
-        
         if (hasError(json)) {
             return 'Insira os dados corretamente.';
         } else {
