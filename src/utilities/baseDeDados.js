@@ -10,22 +10,14 @@ import sendLikeToApi from "./sendLikeToApi";
 import AsyncStorage from "@react-native-community/async-storage";
 import adicionarPiuAPI from "./criarPiu";
 
-<<<<<<< HEAD
 export var loggedInUser = null;
 
 export function setLoggedInUser(user) {
     AsyncStorage.setItem('loggedInUser', user);
     loggedInUser = user;
 }
-=======
-//export var loggedInUser = 'Magodosdoces'; //mudar aqui
->>>>>>> 5418885506c885ede5ee3b891fe700a8fab21c11
 
-export var loggedInUser = adicionarPiuAPI.get('/usuario/<id>');
-//export var loggedInUser = adicionarPiuAPI.usuario.foto;
-
-
-//Coloca pius na ordem de tempo
+// Coloca pius na ordem de tempo:
 function sortPius(piusIds){
     piusIds.sort(function(a, b){return GeneralFunctions.getTimeFromPiuId(b) - GeneralFunctions.getTimeFromPiuId(a)});
     piusIds.sort(function(a, b){return baseDeDados.getDadosPiuFromPiuId(b).hasDestaque() - baseDeDados.getDadosPiuFromPiuId(a).hasDestaque()});
