@@ -82,6 +82,10 @@ function FeedTab({navigation}) {
                                 baseDeDados.togglePiuDestaque({ piuId: item });
                                 await reloadPius();
                             }} 
+                            onPressDelete={async () => {
+                                await baseDeDados.togglePiuDelete({ piuId: item });
+                                await reloadPius();
+                            }} 
                         /> 
                         : <SemPius />;
                 }}

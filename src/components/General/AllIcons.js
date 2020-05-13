@@ -8,6 +8,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Octicons from 'react-native-vector-icons/Octicons';
 
 function AllIcons({iconType, name, size, color}) {
+    if (iconType == IconType.Ionicons) {
+        return <Ionicons name={name} size={size} color={color} />;
+    } else if (iconType == IconType.Fon) {
+        return <Ionicons name={name} size={size} color={color} />;
+    } 
+
+
     switch (iconType) {
         case IconType.Ionicons:
             return <Ionicons name={name} size={size} color={color} />;

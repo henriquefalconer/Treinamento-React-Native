@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
-const FilledButton = ({text, onPress, textStyle, width, height}) => {
+const FilledButton = ({text, onPress, textStyle, width, height, disabled}) => {
     let styles = StyleSheet.create({
     filledButton: {
         backgroundColor: "#F21D1D",
@@ -10,6 +10,7 @@ const FilledButton = ({text, onPress, textStyle, width, height}) => {
         borderRadius: 100,
         justifyContent: 'center',
         alignItems: 'center',
+        opacity: (disabled || false) ? 0.5 : 1.0,
       },
     text: {
         color: '#FFFFFF',
@@ -21,7 +22,7 @@ const FilledButton = ({text, onPress, textStyle, width, height}) => {
     return (
         <TouchableOpacity
           style={styles.filledButton}
-          onPress={onPress}
+          onPress={(disabled || false) ? null : onPress}
         >
           <Text style={textStyle || styles.text}>{text}</Text>
         </TouchableOpacity>

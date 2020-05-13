@@ -13,11 +13,9 @@ function PiarScreen({navigation, route}) {
     let { piuReplyId } = route.params != undefined ? route.params : { piuReplyId: null };
 
     function criarPiu() {
-        let usuario = 'ala'
-        let texto = 'to chegando com os refrii rapaziada !!' 
 
         console.log('um')
-        adicionarPiuAPI(usuario, texto)
+        adicionarPiuAPI(12, piuText)
             .then(console.log('dois'))
             .then(() => navigation.goBack())
     }
@@ -52,6 +50,7 @@ function PiarScreen({navigation, route}) {
                 </TouchableOpacity>
                 <FilledButton 
                     text="Piar" 
+                    disabled={true}
                     onPress={criarPiu}
                     textStyle={{fontSize: 17, color: "#fff"}} 
                     width={100}
