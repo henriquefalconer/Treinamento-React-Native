@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image } from "react-native";
 import { getRelativeTime, getTimeFromPiuId } from "../../../utilities/GeneralFunctions";
 import { baseDeDados } from "../../../utilities/baseDeDados";
+import { firstLastName } from "../../../utilities/constants";
 
 function PiuReply({piuReplyId}) {
     const infoUsuario = baseDeDados.getDadosUsuarioFromPiuId(piuReplyId);
@@ -40,7 +41,7 @@ function PiuReply({piuReplyId}) {
                 <Text style={{
                     fontWeight: "bold",
                     fontSize: 15,
-                }} >{infoUsuario.nome}</Text>
+                }} >{firstLastName(infoUsuario.nome)}</Text>
                 <Text style={{
                     color: "#8F8F8F",
                     fontSize: 15,

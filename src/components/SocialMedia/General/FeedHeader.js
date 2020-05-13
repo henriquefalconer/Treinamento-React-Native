@@ -1,8 +1,10 @@
 import React from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { setLoggedInUser } from "../../../utilities/baseDeDados";
+import AsyncStorage from "@react-native-community/async-storage";
 
-function BlandHeader({navigation}) {
+function FeedHeader({ navigation }) {
     return (
         <View 
             style={{
@@ -54,4 +56,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default BlandHeader;
+export default FeedHeader;

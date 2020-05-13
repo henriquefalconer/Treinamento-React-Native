@@ -1,4 +1,4 @@
-import React, { useReducer, useContext } from "react";
+import React, { useReducer } from "react";
 import { Text, View, SafeAreaView, StyleSheet } from "react-native";
 import FilledButton from "../../components/FilledButton";
 import HollowTextField from "../../components/HollowTextField";
@@ -6,6 +6,8 @@ import BlandHeader from "../../components/BlandHeader";
 import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
 import AsyncStorage from '@react-native-community/async-storage';
 import CustomStatusBar from "../../components/General/CustomStatusBar";
+import { Buffer } from "buffer";
+import { loggedInUser, baseDeDados, setLoggedInUser } from "../../utilities/baseDeDados";
 // import ReturnArrow from '../../assets/return.svg';
 
 const reducer = (state, action) => {
@@ -74,6 +76,25 @@ function LoginScreen({navigation}) {
             errorText: '',
         }
     );
+
+    async function onLogin() {
+        const [token, error] = await signIn({ 
+            username: state.username, 
+            password: state.password, 
+        });
+
+        if (token != null) {
+            dispatch({textInputChange: 'errorText', newValue: ''});
+            dispatch({textInputChange: 'username', newValue: ''});
+            dispatch({textInputChange: 'password', newValue: ''});
+            AsyncStorage.setItem('token', token);
+            setLoggedInUser(state.username);
+            navigation.navigate('SocialMedia');
+        }
+        else {
+            dispatch({textInputChange: 'errorText', newValue: error});
+        }
+    }
     
     return (
         <View style={FormScreensStyle.background}>
@@ -100,6 +121,7 @@ function LoginScreen({navigation}) {
                                 dispatch({textInputChange: 'password', newValue: newValue})
                             }
                             toggleTextVisibility={true}
+                            onSubmitEditing={onLogin}
                         />
                         <Text style={{
                                 ...styles.errorText, 
@@ -115,25 +137,7 @@ function LoginScreen({navigation}) {
                         height={47} 
                         textStyle={FormScreensStyle.continueButtonText} 
                         text="Entrar" 
-                        onPress={
-                            async () => {
-                                const [token, error] = await signIn({ 
-                                    username: state.username, 
-                                    password: state.password, 
-                                });
-
-                                if (token != null) {
-                                    dispatch({textInputChange: 'errorText', newValue: ''});
-                                    dispatch({textInputChange: 'username', newValue: ''});
-                                    dispatch({textInputChange: 'password', newValue: ''});
-                                    AsyncStorage.setItem('token', token);
-                                    navigation.navigate('SocialMedia');
-                                }
-                                else {
-                                    dispatch({textInputChange: 'errorText', newValue: error});
-                                }
-                            }
-                        } 
+                        onPress={onLogin} 
                     />
                 </View>
             </SafeAreaView>

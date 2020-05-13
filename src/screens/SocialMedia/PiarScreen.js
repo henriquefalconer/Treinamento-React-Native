@@ -6,18 +6,21 @@ import { baseDeDados, loggedInUser } from "../../utilities/baseDeDados";
 import PiuReply from '../../components/SocialMedia/Feed/PiuReply';
 import ExpandingTextInput from "../../components/General/AutoExpandingTextInput";
 import CustomStatusBar from "../../components/General/CustomStatusBar";
-import adicionarPiuAPI from "../../utilities/criarPiu";
+import sendPiuToApi from "../../utilities/sendPiuToApi";
 
 function PiarScreen({navigation, route}) {
     let [piuText, changePiuText] = useState("");
     let { piuReplyId } = route.params != undefined ? route.params : { piuReplyId: null };
 
-    function criarPiu() {
+    async function criarPiu() {
 
-        console.log('um')
-        adicionarPiuAPI(12, piuText)
-            .then(console.log('dois'))
-            .then(() => navigation.goBack())
+        await sendPiuToApi({
+            mensagem: piuText,
+            piuReplyId: piuReplyId,
+        });
+        
+        navigation.goBack();
+        
     }
 
     return (
