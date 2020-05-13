@@ -9,6 +9,7 @@ import getAllApiData from "./getAllApiData";
 import sendLikeToApi from "./sendLikeToApi";
 import AsyncStorage from "@react-native-community/async-storage";
 import deletePiuAPI from "./deletePost";
+import destacarPiuApi from "./destacarPiuApi";
 
 export var loggedInUser = null;
 
@@ -66,7 +67,7 @@ export class BaseDeDados {
         navigation.navigate('Piar', { piuReplyId });
     }
 
-    togglePiuDestaque({piuId}) {
+    async togglePiuDestaque({piuId}) {
         const index = this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.destacados.indexOf(piuId);
 
         // Se o piu não está destacado, destaque-o:
@@ -77,6 +78,11 @@ export class BaseDeDados {
         else {
             this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.destacados.splice(index, 1);
         }
+
+        await destacarPiuApi({
+            apiUserId: this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.apiId,
+            apiPiuId: GeneralFunctions.getApiPiuIdFromPiuId(piuId),
+        });
     }
 
     async togglePiuDelete({piuId}) {
