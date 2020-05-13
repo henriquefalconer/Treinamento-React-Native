@@ -33,9 +33,13 @@ export class BaseDeDados {
         this.data = data;
     }
 
-    async togglePiuLike({piuId, requestListener}) {
-
+    async togglePiuLike({piuId}) {
         const infoUsuario = this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario;
+
+        sendLikeToApi({
+            apiPiuId: GeneralFunctions.getApiPiuIdFromPiuId(piuId),
+            apiUserId: infoUsuario.apiId,
+        });
 
         const index = infoUsuario.likes.indexOf(piuId);
         // Se o like não existe, adicioná-lo:
@@ -46,20 +50,6 @@ export class BaseDeDados {
         else {
             this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.likes.splice(index, 1);
         }
-
-        const maxRetries = 4;
-
-        retries = await sendLikeToApi({
-            apiPiuId: GeneralFunctions.getApiPiuIdFromPiuId(piuId),
-            apiUserId: infoUsuario.apiId,
-            maxRetries: maxRetries,
-        });
-
-        if (retries < maxRetries) {
-            console.log("togglePiuLike: piu like sent with " + retries + " retries.")
-        } else {
-            console.log("togglePiuLike: piu like was not sent after " + retries + " retries.")
-        }
     }
 
     replyPiu({piuReplyId, navigation}) {
@@ -68,6 +58,11 @@ export class BaseDeDados {
     }
 
     async togglePiuDestaque({piuId}) {
+        destacarPiuApi({
+            apiUserId: this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.apiId,
+            apiPiuId: GeneralFunctions.getApiPiuIdFromPiuId(piuId),
+        });
+
         const index = this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.destacados.indexOf(piuId);
 
         // Se o piu não está destacado, destaque-o:
@@ -78,11 +73,6 @@ export class BaseDeDados {
         else {
             this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.destacados.splice(index, 1);
         }
-
-        await destacarPiuApi({
-            apiUserId: this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.apiId,
-            apiPiuId: GeneralFunctions.getApiPiuIdFromPiuId(piuId),
-        });
     }
 
     async togglePiuDelete({piuId}) {
