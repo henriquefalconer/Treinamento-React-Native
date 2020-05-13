@@ -6,6 +6,7 @@ import { baseDeDados, loggedInUser } from "../../utilities/baseDeDados";
 import PiuReply from '../../components/SocialMedia/Feed/PiuReply';
 import ExpandingTextInput from "../../components/General/AutoExpandingTextInput";
 import CustomStatusBar from "../../components/General/CustomStatusBar";
+import sendPiuToApi from "../../utilities/sendPiuToApi";
 
 function PiarScreen({navigation, route}) {
     let [piuText, changePiuText] = useState("");
@@ -40,7 +41,15 @@ function PiarScreen({navigation, route}) {
                 </TouchableOpacity>
                 <FilledButton 
                     text="Piar" 
-                    onPress={() => navigation.goBack()}
+                    onPress={async () => {
+                        
+                        await sendPiuToApi({
+                            mensagem: piuText,
+                            piuReplyId: piuReplyId,
+                        });
+                        
+                        navigation.goBack();
+                    }}
                     textStyle={{fontSize: 17, color: "#fff"}} 
                     width={100}
                     height={38} 

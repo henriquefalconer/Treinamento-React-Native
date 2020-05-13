@@ -11,7 +11,7 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque})
     const piuData = baseDeDados.getDadosPiuFromPiuId(piuId);
 
     function montarPiuContent() {
-        if (infoUsuario == null) {
+        if (infoUsuario == null || piuData == null) {
             return (
                 <Text style={{
                     textAlign: 'center',
@@ -51,6 +51,7 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque})
                             flexDirection: 'row', 
                             alignItems: 'center', 
                             marginTop: 10,
+                            marginBottom: 2,
                         }} >
                             <Text style={{
                                 marginRight: 6,
@@ -87,7 +88,7 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque})
                     flex: 1,
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    marginTop: 5,
+                    marginTop: 4,
                     marginLeft: 50,
                     marginRight: 45,
                 }} >

@@ -1,13 +1,21 @@
 export function getUserNameFromPiuId(piuId){
-    return (piuId == null) ? null : piuId.split(":")[0];
+    return (piuId == null) ? null : JSON.parse(piuId).username;
 }
 
 export function getTimeFromPiuId(piuId){
-    return (piuId == null) ? null : piuId.split(":")[1];
+    return (piuId == null) ? null : JSON.parse(piuId).time;
 }
 
 export function getApiPiuIdFromPiuId(piuId){
-    return (piuId == null) ? null : piuId.split(":")[2];
+    return (piuId == null) ? null : JSON.parse(piuId).apiId;
+}
+
+export function createPiuId({ username, time, apiId }) {
+    return JSON.stringify({
+        username,
+        time,
+        apiId: apiId || -1,
+    });
 }
 
 export function getRelativeTime(timeInMilliseconds) {
@@ -55,4 +63,15 @@ export function createImgElement(classList, alt, src) {
 export function getDateFromMilisseconds(milliseconds) {
     const date = new Date(milliseconds);
     return date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+}
+
+export function getApiFormatDate(milliseconds) {
+    const date = new Date(milliseconds);
+    return `${date.getFullYear().pad(4)}-${(date.getMonth() + 1).pad(2)}-${date.getDate().pad(2)}T${date.getHours().pad(2)}:${date.getMinutes().pad(2)}:${date.getSeconds().pad(2)}-${(date.getTimezoneOffset()/60).pad(2)}:00`;
+}
+
+Number.prototype.pad = function(size) {
+    var s = String(this);
+    while (s.length < (size || 2)) {s = "0" + s;}
+    return s;
 }
