@@ -101,6 +101,10 @@ export default class FeedTab extends Component {
                                 baseDeDados.togglePiuDestaque({ piuId: item });
                                 await this.refreshLocalPius();
                             }} 
+                            onPressDelete={async () => {
+                                await baseDeDados.togglePiuDelete({ piuId: item });
+                                await reloadPius();
+                            }} 
                         /> 
                         : <SemPius />;
                 }}

@@ -9,6 +9,7 @@ import getAllApiData from "./getAllApiData";
 import sendLikeToApi from "./sendLikeToApi";
 import AsyncStorage from "@react-native-community/async-storage";
 import adicionarPiuAPI from "./criarPiu";
+import deletePiuAPI from "./deletePost";
 
 export var loggedInUser = null;
 
@@ -77,6 +78,10 @@ export class BaseDeDados {
         else {
             this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.destacados.splice(index, 1);
         }
+    }
+
+    async togglePiuDelete({piuId}) {
+        await deletePiuAPI(GeneralFunctions.getApiPiuIdFromPiuId(piuId));
     }
 
     getDadosUsuarioFromUsername(username) {
