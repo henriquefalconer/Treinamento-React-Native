@@ -9,7 +9,7 @@ export default async function signUp({ nome, sobrenome, username, password }) {
     try {
         // Realiza o pedido do tip 'POST' para a API:
         let response = await fetch(
-            'http://piupiuwer.polijr.com.br/login/', 
+            'http://piupiuwer.polijr.com.br/usuarios/', 
             {
                 method: 'POST',
                 headers: {

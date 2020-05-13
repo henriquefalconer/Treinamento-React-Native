@@ -38,15 +38,16 @@ function signUp({first_name, last_name, username, email, password}) {
         }
     })
     .catch((error) => {
-        console.log(error);
-        return 'Erro de conexão.';
-    });
+        return "Erro de conexão";
+        console.log(error)
+    })
 }
 
-function SignUpScreenNext({navigation}) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorText, setErrorText] = useState('');
+function SignUpScreenNext({ route, navigation}) {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [errorTexto, setErrorTexto] = useState('')
+    const  { first_name, last_name, username } = route.params;
 
     return (
         <SafeAreaView style={FormScreensStyle.background}>
@@ -55,35 +56,55 @@ function SignUpScreenNext({navigation}) {
                 <Text style={FormScreensStyle.title}>Cadastro</Text>
         
                 <View>
-                    <Text style={{color: 'red'}}>{errorText}</Text>
+                    <Text style={FormScreensStyle.title}>{errorTexto}</Text>
                     <HollowTextField 
                         placeholder="Insire o email"
                         value={email}
-                        onChange = {valor => setEmail(valor)}
-                    />
+                        onChange = {NovoEmail => setEmail(NovoEmail)}
+                        // onTextSubmit={() => console.log('email enviado')}
+                    >
+                    </HollowTextField>
+
+                    {/* <HollowTextField placeholder="Data de nascimento"></HollowTextField> */}
+
                     <HollowTextField 
                         placeholder="Senha"
                         value={password}
-                        onChange={valor => setPassword(valor)}
-                    />
+                        onChange={NovaSenha => setPassword(NovaSenha)}
+                        // onTextSubmit={() => console.log('senha enviada')}
+                    >
+                    </HollowTextField>
                 </View>
 
-                <FilledButton width={170} height={47} textStyle={FormScreensStyle.continueButtonText} text="Cadastrar" onPress={async () => {
-                        const error = await signUp({
-                            first_name: 'aa', 
-                            last_name: 'áa', 
-                            username: 'tr', 
-                            email: 'h@s.com', 
-                            password: 'ddf', 
+                <FilledButton 
+                    width={170} 
+                    height={47} 
+                    textStyle={FormScreensStyle.continueButtonText}
+                    text="Cadastrar" 
+                    onPress= {
+                       async () => {
+                            console.log(first_name);
+                            console.log(last_name);
+                            console.log(username);
+                            console.log(password);
+
+                            const error = await signUp(
+                        { 
+                            first_name: first_name,
+                            last_name: last_name, 
+                            username: username,
+                            email: email,
+                            password: password
                         });
-                        
-                        if (error != null) {
-                            setErrorText(error);
-                        } else {
-                            setErrorText('');
-                            navigation.navigate('SocialMedia');
-                        }
-                    }} 
+                            if (error != null) {
+                                setErrorTexto(error);
+                            }
+                            else {
+                                setErrorTexto('');
+                                navigation.navigate('SocialMedia');
+                            }
+                    }
+                }
                 />
             </View>
         </SafeAreaView>
@@ -91,3 +112,4 @@ function SignUpScreenNext({navigation}) {
 }
 
 export default SignUpScreenNext;
+

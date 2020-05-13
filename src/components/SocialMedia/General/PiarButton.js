@@ -23,7 +23,9 @@ function PiarButton({navigation}) {
                 elevation: 5,
             }}>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Piar')}
+                    onPress={() => 
+                        navigation.navigate('Piar')
+                    }
                 >
                     <View style={{
                         height: 70,
