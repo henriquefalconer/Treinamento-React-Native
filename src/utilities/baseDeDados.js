@@ -9,14 +9,10 @@ import getAllApiData from "./getAllApiData";
 import sendLikeToApi from "./sendLikeToApi";
 import AsyncStorage from "@react-native-community/async-storage";
 import adicionarPiuAPI from "./criarPiu";
+import deletePiuAPI from "./deletePiu";
 
-//export var loggedInUser = 'Magodosdoces'; //mudar aqui
+export var loggedInUser = 'Magodosdoces'; //mudar aqui
 
-export var loggedInUser = adicionarPiuAPI.get('/usuario/<id>');
-//export var loggedInUser = adicionarPiuAPI.usuario.foto;
-
-
-//Coloca pius na ordem de tempo
 function sortPius(piusIds){
     piusIds.sort(function(a, b){return GeneralFunctions.getTimeFromPiuId(b) - GeneralFunctions.getTimeFromPiuId(a)});
     piusIds.sort(function(a, b){return baseDeDados.getDadosPiuFromPiuId(b).hasDestaque() - baseDeDados.getDadosPiuFromPiuId(a).hasDestaque()});
@@ -85,6 +81,11 @@ export class BaseDeDados {
         else {
             this.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.destacados.splice(index, 1);
         }
+    }
+
+    togglePiuDelete({piuId}) {
+        // console.log(GeneralFunctions.getApiPiuIdFromPiuId(piuId))
+        deletePiuAPI(GeneralFunctions.getApiPiuIdFromPiuId(piuId))
     }
 
     getDadosUsuarioFromUsername(username) {

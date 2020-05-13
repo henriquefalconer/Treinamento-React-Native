@@ -6,8 +6,9 @@ import { IconType, firstLastName } from '../../../utilities/constants';
 import { baseDeDados, loggedInUser } from "../../../utilities/baseDeDados";
 import { getRelativeTime, getTimeFromPiuId } from "../../../utilities/GeneralFunctions";
 
-export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque}) {
+export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque, onPressDelete}) {
     const infoUsuario = baseDeDados.getDadosUsuarioFromPiuId(piuId);
+    //console.log(infoUsuario.username)
     const piuData = baseDeDados.getDadosPiuFromPiuId(piuId);
 
     function montarPiuContent() {
@@ -112,6 +113,15 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque})
                         size={20} 
                         active={piuData.hasDestaque()}
                         onPress={onPressDestaque} />
+                    { infoUsuario.username == loggedInUser ? 
+                        <PiuAction 
+                        iconType={IconType.Ionicons} 
+                        icon="md-trash" 
+                        size={20} 
+                        active={false}
+                        onPress={onPressDelete} 
+                        /> : null
+                    }
                 </View>
             </View>
         );

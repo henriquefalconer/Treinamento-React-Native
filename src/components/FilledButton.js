@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
-const FilledButton = ({text, onPress, textStyle, width, height}) => {
+const FilledButton = ({text, onPress, textStyle, width, height, disabled}) => {
     let styles = StyleSheet.create({
     filledButton: {
         backgroundColor: "#F21D1D",

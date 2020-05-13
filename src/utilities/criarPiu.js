@@ -7,13 +7,13 @@ function hasError(data) {
 async function adicionarPiuAPI(usuario, texto) {
     const token = await AsyncStorage.getItem('token');
     return fetch(
-        'http://piupiuwer.polijr.com.br/pius/ ', 
+        'http://piupiuwer.polijr.com.br/pius/', 
         {
             method: 'POST',
-            headers: {
+            headers: new Headers ({  
                 Accept: 'application/json',
-                'Authorization': 'JW T' + token,
-            },
+                'Authorization': 'JWT ' + token,
+            }),
             body: JSON.stringify({
                'usuario': usuario, 
                'texto': texto
