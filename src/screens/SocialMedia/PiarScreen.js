@@ -53,7 +53,7 @@ function PiarScreen({navigation, route}) {
                 </TouchableOpacity>
                 <FilledButton 
                     text="Piar" 
-                    disabled={true}
+                    disabled={false}
                     onPress={criarPiu}
                     textStyle={{fontSize: 17, color: "#fff"}} 
                     width={100}

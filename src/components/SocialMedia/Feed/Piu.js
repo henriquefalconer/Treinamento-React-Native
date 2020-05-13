@@ -7,7 +7,7 @@ import { baseDeDados, loggedInUser } from "../../../utilities/baseDeDados";
 import { getRelativeTime, getTimeFromPiuId } from "../../../utilities/GeneralFunctions";
 
 export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque, onPressDelete}) {
-    const infoUsuario = baseDeDados.getDadosUsuarioFromPiuId(piuId);
+    const infoUsuario = baseDeDados.getInfoUsuarioFromPiuId(piuId);
     const piuData = baseDeDados.getDadosPiuFromPiuId(piuId);
 
     function montarPiuContent() {
@@ -84,13 +84,13 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque, 
                     </View>
                 </View>
                 <View style={{
-                    marginHorizontal: 10,
                     flex: 1,
                     flexDirection: 'row',
                     justifyContent: 'space-between',
+                    margin: 0,
                     marginTop: 4,
-                    marginLeft: 50,
-                    marginRight: 45,
+                    paddingLeft: 50,
+                    paddingRight: 55,
                 }} >
                     <PiuAction 
                         iconType={IconType.Ionicons} 
@@ -113,16 +113,23 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque, 
                         size={20} 
                         active={piuData.hasDestaque()}
                         onPress={onPressDestaque} />
-                    {
-                        infoUsuario.username == loggedInUser
-                            ? <PiuAction 
-                                iconType={IconType.Ionicons} 
-                                icon="md-trash" 
-                                size={20} 
-                                active={piuData.hasDestaque()}
-                                onPress={onPressDelete} />
-                            : null
-                    }
+                    <View style={{
+                        position: 'absolute',
+                        right: 0,
+                    }}>
+                        {
+                            infoUsuario.username == loggedInUser
+                                ? <PiuAction 
+                                    noMargin
+                                    iconType={IconType.Ionicons} 
+                                    icon="md-trash" 
+                                    size={23} 
+                                    verticalIconDisplacement={-2.5}
+                                    active={false}
+                                    onPress={onPressDelete} />
+                                : null
+                        }
+                    </View>
                 </View>
             </View>
         );

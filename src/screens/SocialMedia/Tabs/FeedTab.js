@@ -102,8 +102,8 @@ export default class FeedTab extends Component {
                                 await this.refreshLocalPius();
                             }} 
                             onPressDelete={async () => {
-                                await baseDeDados.togglePiuDelete({ piuId: item });
-                                await reloadPius();
+                                baseDeDados.togglePiuDelete({ piuId: item });
+                                await this.refreshLocalPius();
                             }} 
                         /> 
                         : <SemPius />;

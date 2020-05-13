@@ -8,7 +8,6 @@ import getUserDataFromApi from "./getUserDataFromApi";
 import getAllApiData from "./getAllApiData";
 import sendLikeToApi from "./sendLikeToApi";
 import AsyncStorage from "@react-native-community/async-storage";
-import adicionarPiuAPI from "./criarPiu";
 import deletePiuAPI from "./deletePost";
 
 export var loggedInUser = null;
@@ -81,7 +80,14 @@ export class BaseDeDados {
     }
 
     async togglePiuDelete({piuId}) {
-        await deletePiuAPI(GeneralFunctions.getApiPiuIdFromPiuId(piuId));
+        deletePiuAPI(GeneralFunctions.getApiPiuIdFromPiuId(piuId));
+        
+        const piusUsuario = this.getDadosUsuarioFromPiuId(piuId).pius;
+        const index = piusUsuario.indexOf(this.getDadosPiuFromPiuId(piuId));
+
+        if (index != -1) {
+            piusUsuario.splice(index, 1);
+        }
     }
 
     getDadosUsuarioFromUsername(username) {
@@ -93,7 +99,7 @@ export class BaseDeDados {
         return correctUsuarioData;
     }
     
-    getDadosUsuarioFromPiuId(piuId) {
+    getInfoUsuarioFromPiuId(piuId) {
         var nomeUsuario = GeneralFunctions.getUserNameFromPiuId(piuId);
     
         var infoUsuario = null;
@@ -105,6 +111,20 @@ export class BaseDeDados {
         });
     
         return infoUsuario;
+    }
+    
+    getDadosUsuarioFromPiuId(piuId) {
+        var nomeUsuario = GeneralFunctions.getUserNameFromPiuId(piuId);
+    
+        var correctData = null;
+    
+        this.data.forEach(function(dadosUsuario){
+            if (dadosUsuario.infoUsuario.username == nomeUsuario) {
+                correctData = dadosUsuario;
+            }
+        });
+    
+        return correctData;
     }
     
     getDadosPiuFromPiuId(piuId) {
@@ -148,7 +168,12 @@ export class BaseDeDados {
             });
         });
 
-        if (piuReplyId == null) console.log(`ERRO em convertMessageApi: não foi possível encontrar piuReply da seguinte mensagem na base de dados.\n${piuMessage}`);
+        if (piuReplyId == null) {
+            console.log(`convertMessageApi: piuReply da mensagem "${piuMessage}" não existe. Provavelmente foi deletado`);
+            piuReplyId = GeneralFunctions.createPiuId({
+                apiId: 'deleted',
+            });
+        }
 
         return [piuReplyId, piuMessage.split(') ')[1]];
     }
@@ -187,14 +212,15 @@ export class BaseDeDados {
             for (let apiDadosUsuario of lastDownloadedApiDatabase) {
                 for (let piu of apiDadosUsuario['pius']) {
                     for (let likerData of piu['likers']) {
-                        if (likerData['username'] == serverUserData['username']) 
+                        if (likerData['username'] == serverUserData['username']) {
                             likes.push(
-                                    GeneralFunctions.createPiuId({
-                                    usuario: piu['usuario']['username'],
+                                GeneralFunctions.createPiuId({
+                                    username: piu['usuario']['username'],
                                     time: Date.parse(piu['horario']),
                                     apiId: piu['id'],
                                 })
                             );
+                        }
                     }
                 }
             }
@@ -206,14 +232,15 @@ export class BaseDeDados {
             for (let apiDadosUsuario of lastDownloadedApiDatabase) {
                 for (let piu of apiDadosUsuario['pius']) {
                     for (let userQueFavoritou of piu['favoritado_por']) {
-                        if (userQueFavoritou['username'] == serverUserData['username']) 
-                        favoritados.push(
+                        if (userQueFavoritou['username'] == serverUserData['username']) {
+                            favoritados.push(
                                 GeneralFunctions.createPiuId({
-                                usuario: piu['usuario']['username'],
-                                time: Date.parse(piu['horario']),
-                                apiId: piu['id'],
-                            })
-                        );
+                                    username: piu['usuario']['username'],
+                                    time: Date.parse(piu['horario']),
+                                    apiId: piu['id'],
+                                })
+                            );
+                        }
                     }
                 }
             }
@@ -260,6 +287,9 @@ export class BaseDeDados {
 
             if (!this.compare(lastDownloadedApiDatabase, allApiData)) {
 
+                // Salvar dados da API na variável global do arquivo:
+                lastDownloadedApiDatabase = allApiData;
+
                 for (let servidorUsuarioData of allApiData) {
                     const newUsuarioData = this.converterDadosUsuarioApi(servidorUsuarioData);
                     const previousUsuarioData = this.getDadosUsuarioFromUsername(newUsuarioData.infoUsuario.username);
@@ -274,9 +304,6 @@ export class BaseDeDados {
                 }
 
                 this.carregarRelacoesDePiuReply();
-
-                // Salvar dados da API na variável global do arquivo:
-                lastDownloadedApiDatabase = allApiData;
             }
 
         } else {

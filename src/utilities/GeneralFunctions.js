@@ -12,8 +12,8 @@ export function getApiPiuIdFromPiuId(piuId){
 
 export function createPiuId({ username, time, apiId }) {
     return JSON.stringify({
-        username,
-        time,
+        username: username,
+        time: time,
         apiId: apiId || -1,
     });
 }
