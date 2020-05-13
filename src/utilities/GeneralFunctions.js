@@ -18,6 +18,15 @@ export function createPiuId({ username, time, apiId }) {
     });
 }
 
+export async function wait(milliseconds) {
+  return new Promise((resolve) =>
+    setTimeout(
+      () => { resolve('result') },
+      milliseconds
+    )
+  );
+}
+
 export function getRelativeTime(timeInMilliseconds) {
     var relativeTime = "";
 

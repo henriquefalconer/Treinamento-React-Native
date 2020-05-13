@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import { View, Text, Image } from "react-native";
 import PiuAction from "./PiuAction";
 import PiuReply from "./PiuReply";
@@ -6,11 +6,12 @@ import { IconType, firstLastName } from '../../../utilities/constants';
 import { baseDeDados, loggedInUser } from "../../../utilities/baseDeDados";
 import { getRelativeTime, getTimeFromPiuId } from "../../../utilities/GeneralFunctions";
 
-export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque, onPressDelete}) {
-    const infoUsuario = baseDeDados.getInfoUsuarioFromPiuId(piuId);
-    const piuData = baseDeDados.getDadosPiuFromPiuId(piuId);
+export default class Piu extends PureComponent {
 
-    function montarPiuContent() {
+    montarPiuContent() {
+        const infoUsuario = baseDeDados.getInfoUsuarioFromPiuId(this.props.piuId);
+        const piuData = baseDeDados.getDadosPiuFromPiuId(this.props.piuId);
+
         if (infoUsuario == null || piuData == null) {
             return (
                 <Text style={{
@@ -72,7 +73,7 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque, 
                             <Text style={{
                                 color: "#8F8F8F",
                                 fontSize: 15,
-                            }} >{getRelativeTime(getTimeFromPiuId(piuId))}</Text>
+                            }} >{getRelativeTime(getTimeFromPiuId(this.props.piuId))}</Text>
                         </View>
                         <View>
                             <Text style={{
@@ -98,7 +99,7 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque, 
                         size={19} 
                         actionCount={piuData.getLikes().length} 
                         active={(piuData.getLikes()).includes(loggedInUser)}
-                        onPress={onPressLike} />
+                        onPress={this.props.onPressLike} />
                     <PiuAction 
                         iconType={IconType.Octicons} 
                         icon="reply" 
@@ -106,13 +107,13 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque, 
                         verticalIconDisplacement={2}
                         actionCount={piuData.getReplies().length} 
                         active={(piuData.getReplies()).includes(loggedInUser)}
-                        onPress={onPressReply} />
+                        onPress={this.props.onPressReply} />
                     <PiuAction 
                         iconType={IconType.MaterialCommunityIcons} 
                         icon="pin" 
                         size={20} 
                         active={piuData.hasDestaque()}
-                        onPress={onPressDestaque} />
+                        onPress={this.props.onPressDestaque} />
                     <View style={{
                         position: 'absolute',
                         right: 0,
@@ -126,7 +127,7 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque, 
                                     size={23} 
                                     verticalIconDisplacement={-2.5}
                                     active={false}
-                                    onPress={onPressDelete} />
+                                    onPress={this.props.onPressDelete} />
                                 : null
                         }
                     </View>
@@ -135,9 +136,12 @@ export default function Piu({piuId, onPressLike, onPressReply, onPressDestaque, 
         );
     }
 
-    return (
-        <View style={{padding: 8, backgroundColor: '#fff', marginBottom: 8}}>
-            {montarPiuContent()}
-        </View>
-    );
+    render() {
+        return (
+            <View style={{padding: 8, backgroundColor: '#fff', marginBottom: 8}}>
+                {this.montarPiuContent()}
+            </View>
+        );
+    }
+
 };
