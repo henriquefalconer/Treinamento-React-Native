@@ -6,19 +6,26 @@ import { baseDeDados, loggedInUser } from "../../utilities/baseDeDados";
 import PiuReply from '../../components/SocialMedia/Feed/PiuReply';
 import ExpandingTextInput from "../../components/General/AutoExpandingTextInput";
 import CustomStatusBar from "../../components/General/CustomStatusBar";
-import adicionarPiuAPI from "../../utilities/criarPiu";
+import sendPiuToApi from "../../utilities/sendPiuToApi";
 
 function PiarScreen({navigation, route}) {
     let [piuText, changePiuText] = useState("");
     let { piuReplyId } = route.params != undefined ? route.params : { piuReplyId: null };
     let contador = piuText.length;
 
+<<<<<<< HEAD
     function criarPiu() {
+=======
+    async function criarPiu() {
+>>>>>>> 8b713dbab42937579cdc444627d5e334dc7ceb91
 
-        console.log('um')
-        adicionarPiuAPI(usuario, texto)
-            .then(console.log('dois'))
-            .then(() => navigation.goBack())
+        await sendPiuToApi({
+            mensagem: piuText,
+            piuReplyId: piuReplyId,
+        });
+        
+        navigation.goBack();
+        
     }
 
     return (
@@ -50,8 +57,13 @@ function PiarScreen({navigation, route}) {
                     </Text>
                 </TouchableOpacity>
                 <FilledButton 
+<<<<<<< HEAD
                     text="Piar"
                     disabled={true}
+=======
+                    text="Piar" 
+                    disabled={false}
+>>>>>>> 8b713dbab42937579cdc444627d5e334dc7ceb91
                     onPress={criarPiu}
                     textStyle={{fontSize: 17, color: "#fff"}} 
                     width={100}

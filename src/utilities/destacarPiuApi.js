@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 async function sendRequest({ apiUserId, apiPiuId }) { 
     return await fetch(
-        'http://piupiuwer.polijr.com.br/pius/dar-like/',
+        'http://piupiuwer.polijr.com.br/pius/favoritar/',
         {
             method: 'POST',
             headers: new Headers({
@@ -19,7 +19,7 @@ async function sendRequest({ apiUserId, apiPiuId }) {
 
 const MAX_RETRIES = 4;
 
-export default async function sendLikeToApi({ apiUserId, apiPiuId }) {
+export default async function destacarPiuApi({ apiUserId, apiPiuId }) {
     let response = null;
 
     let retryCount = 0;
@@ -39,10 +39,11 @@ export default async function sendLikeToApi({ apiUserId, apiPiuId }) {
         }
     }
 
+
     if (retryCount < MAX_RETRIES) {
-        console.log("sendLikeToApi: piu sent with " + retryCount + " retries.")
+        console.log("destacarPiuApi: piu sent with " + retryCount + " retries.")
     } else {
-        console.log("sendLikeToApi: piu was not sent after " + retryCount + " retries.")
+        console.log("destacarPiuApi: piu was not sent after " + retryCount + " retries.")
     }
 
 }
