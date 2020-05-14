@@ -11,13 +11,8 @@ import sendPiuToApi from "../../utilities/sendPiuToApi";
 function PiarScreen({navigation, route}) {
     let [piuText, changePiuText] = useState("");
     let { piuReplyId } = route.params != undefined ? route.params : { piuReplyId: null };
-    let contador = piuText.length;
 
-<<<<<<< HEAD
-    function criarPiu() {
-=======
     async function criarPiu() {
->>>>>>> 8b713dbab42937579cdc444627d5e334dc7ceb91
 
         await sendPiuToApi({
             mensagem: piuText,
@@ -57,18 +52,12 @@ function PiarScreen({navigation, route}) {
                     </Text>
                 </TouchableOpacity>
                 <FilledButton 
-<<<<<<< HEAD
-                    text="Piar"
-                    disabled={true}
-=======
                     text="Piar" 
-                    disabled={false}
->>>>>>> 8b713dbab42937579cdc444627d5e334dc7ceb91
+                    disabled={piuText.length > 140 || piuText.length == 0}
                     onPress={criarPiu}
                     textStyle={{fontSize: 17, color: "#fff"}} 
                     width={100}
                     height={38} 
-                    {contador > 140 ? disabled={true} : null}
                 />
             </View>
 
