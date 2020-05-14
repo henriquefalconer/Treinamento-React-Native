@@ -10,6 +10,7 @@ const FilledButton = ({text, onPress, textStyle, width, height, disabled}) => {
         borderRadius: 100,
         justifyContent: 'center',
         alignItems: 'center',
+        opacity: (disabled || false) ? 0.5 : 1.0,
       },
     text: {
         color: '#FFFFFF',
@@ -21,7 +22,7 @@ const FilledButton = ({text, onPress, textStyle, width, height, disabled}) => {
     return (
         <TouchableOpacity
           style={styles.filledButton}
-          onPress={onPress}
+          onPress={ (disabled || false) ? null : onPress}
         >
           <Text style={textStyle || styles.text}>{text}</Text>
         </TouchableOpacity>

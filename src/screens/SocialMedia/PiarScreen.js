@@ -11,6 +11,7 @@ import adicionarPiuAPI from "../../utilities/criarPiu";
 function PiarScreen({navigation, route}) {
     let [piuText, changePiuText] = useState("");
     let { piuReplyId } = route.params != undefined ? route.params : { piuReplyId: null };
+    let contador = piuText.length;
 
     function criarPiu() {
 
@@ -49,11 +50,13 @@ function PiarScreen({navigation, route}) {
                     </Text>
                 </TouchableOpacity>
                 <FilledButton 
-                    text="Piar" 
+                    text="Piar"
+                    disabled={true}
                     onPress={criarPiu}
                     textStyle={{fontSize: 17, color: "#fff"}} 
                     width={100}
                     height={38} 
+                    {contador > 140 ? disabled={true} : null}
                 />
             </View>
 
@@ -81,6 +84,7 @@ function PiarScreen({navigation, route}) {
                         }}
                     />
                     <View style={{ flex: 1 }} >
+                    {piuText.length > 140 ? <Text style={styles.piuAviso}>A mensagem não pode conter mais de 140 caracteres.</Text> : null}
                         <ExpandingTextInput 
                             placeholder="Em que você está pensando?"
                             value={piuText}
@@ -96,6 +100,8 @@ function PiarScreen({navigation, route}) {
                             }}
                             autoCapitalize='none'
                         />
+                        <Text>{piuText.length}</Text>
+                        <Text style={styles.LimiteDeCaracteres}>/140</Text>
                         {
                             piuReplyId != null
                                 ? <PiuReply piuReplyId={piuReplyId} />
@@ -113,6 +119,18 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FFFFFF',
     },
+    piuAviso: {
+        color: 'black',
+        fontSize: 18,
+        textAlign: 'center',
+        backgroundColor: 'red',
+        opacity: 0.4,
+        marginTop: 30,
+    },
+    LimiteDeCaracteres: {
+        marginTop: 20,
+        marginLeft: 20,
+    }
 });
 
 export default PiarScreen;
