@@ -1,17 +1,17 @@
 import React from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
-const FilledButton = ({text, onPress, textStyle, width, height, disabled}) => {
-
+export default function FilledButton({text, onPress, textStyle, width=250, height=49, disabled=false}) {
+  
   let styles = StyleSheet.create({
     filledButton: {
       backgroundColor: "#F21D1D",
-      width: width || 250,
-      height: height || 49,
+      width: width,
+      height: height,
       borderRadius: 100,
       justifyContent: 'center',
       alignItems: 'center',
-      opacity: (disabled || false) ? 0.5 : 1.0,
+      opacity: disabled ? 0.5 : 1.0,
     },
     text: {
       color: '#FFFFFF',
@@ -30,5 +30,3 @@ const FilledButton = ({text, onPress, textStyle, width, height, disabled}) => {
       </TouchableOpacity>
   );
 };
-
-export default FilledButton;

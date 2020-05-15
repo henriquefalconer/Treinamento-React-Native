@@ -1,8 +1,8 @@
 import React, { useReducer } from "react";
 import { Text, View, SafeAreaView, StyleSheet, Modal, ActivityIndicator } from "react-native";
-import FilledButton from "../../components/FilledButton";
-import HollowTextField from "../../components/HollowTextField";
-import BlandHeader from "../../components/BlandHeader";
+import FilledButton from "../../components/General/FilledButton";
+import HollowTextField from "../../components/Forms/HollowTextField";
+import BlandHeader from "../../components/General/BlandHeader";
 import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
 import AsyncStorage from '@react-native-community/async-storage';
 import CustomStatusBar from "../../components/General/CustomStatusBar";
@@ -148,7 +148,8 @@ function LoginScreen({navigation}) {
                     />
                 </View>
                 <FullScreenLoading
-                    isLoading={state.loading}    
+                    isLoading={state.loading}
+                    text={null}
                 />
             </SafeAreaView>
         </View>

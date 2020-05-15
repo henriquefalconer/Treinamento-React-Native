@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, SafeAreaView } from "react-native";
-import FilledButton from "../../components/FilledButton";
-import HollowTextField from "../../components/HollowTextField";
-import BlandHeader from "../../components/BlandHeader";
+import FilledButton from "../../components/General/FilledButton";
+import HollowTextField from "../../components/Forms/HollowTextField";
+import BlandHeader from "../../components/General/BlandHeader";
 import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
-import { useState } from 'react';
 import FullScreenLoading from "../../components/General/FullScreenLoading";
 
 function hasError(data) {
@@ -126,6 +125,7 @@ function SignUpScreenNext({ route, navigation}) {
             </View>
             <FullScreenLoading
                 isLoading={loading}    
+                text="" 
             />
         </SafeAreaView>
     );

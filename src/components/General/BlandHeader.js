@@ -29,7 +29,7 @@ function BlandHeader({navigation, title}) {
                         flex: 1, 
                     }} 
                     source={
-                        require('../../assets/red-back-arrow.jpg')
+                        require('../../../assets/red-back-arrow.jpg')
                     } 
                 />
             </TouchableOpacity>

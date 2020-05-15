@@ -1,57 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, SafeAreaView } from "react-native";
-import FilledButton from "../../components/FilledButton";
-import HollowTextField from "../../components/HollowTextField";
-import BlandHeader from "../../components/BlandHeader";
+import FilledButton from "../../components/General/FilledButton";
+import HollowTextField from "../../components/Forms/HollowTextField";
+import BlandHeader from "../../components/General/BlandHeader";
 import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
-import { useState } from 'react';
-
-// import { signUp } from '../../api/Users'; 
-
-// function hasError(data) {
-//     return !Object.keys(data).includes('token');
-// }
-
-// async function signUp({ first_name, last_name, username }) {
-//     try {
-//         // Realiza o pedido do tip 'POST' para a API:
-//         let response = await fetch(
-//             'http://piupiuwer.polijr.com.br/usuarios/', 
-//             {
-//                 method: 'POST',
-//                 headers: {
-//                     Accept: 'application/json',
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify({
-//                     'first_name': first_name,
-//                     'last_name': last_name,
-//                     'username': username,
-//                 }),
-//             },
-//         );
-
-//         // Decodifica os dados para o formato json:
-//         let data = await response.json();
-
-//         // Imprime os dados obtidos:
-//         console.log(data);
-
-//         if (!hasError(data)) {
-//             // Retorna os dados:
-//             return data;
-//         }
-//         else {
-//             // Retorna null:
-//             return null;
-//         }
-        
-//     } catch (error) {
-//         // Caso haja algum erro, imprima-o e retorne null:
-//         console.error(error);
-//         return null;
-//     }
-// } 
 import CustomStatusBar from "../../components/General/CustomStatusBar";
 
 function SignUpScreen({navigation}) {

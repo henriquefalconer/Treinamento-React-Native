@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, View, Text, Image, Platform } from "react-native";
-import FilledButton from "../../components/FilledButton";
+import FilledButton from "../../components/General/FilledButton";
 import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import { baseDeDados, loggedInUser } from "../../utilities/baseDeDados";
 import PiuReply from '../../components/SocialMedia/Feed/PiuReply';

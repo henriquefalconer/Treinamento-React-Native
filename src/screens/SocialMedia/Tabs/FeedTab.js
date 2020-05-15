@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, StyleSheet, Text, SafeAreaView, ActivityIndicator } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { baseDeDados, signOut } from "../../../utilities/baseDeDados";
-import FeedHeader from "../../../components/SocialMedia/General/FeedHeader";
+import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
 import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
@@ -117,7 +117,7 @@ export default class FeedTab extends Component {
     render() {
         return (
             <SafeAreaView style={styles.background}>
-                <FeedHeader navigation={this.props.navigation} />
+                <SocialMediaHeader navigation={this.props.navigation} />
                 <View style={styles.background}>
                     {this.loadPiusArea()}
                 </View>

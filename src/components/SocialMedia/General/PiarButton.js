@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Image, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Modal from 'react-native-modal';
-import FilledButton from "../../FilledButton";
+import FilledButton from "../../General/FilledButton";
 
 function PiarButton({navigation}) {
     return (
