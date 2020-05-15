@@ -52,12 +52,12 @@ function PiarScreen({navigation, route}) {
                     </Text>
                 </TouchableOpacity>
                 <FilledButton 
-                    text="Piar" 
-                    disabled={piuText.length > 140 || piuText.length == 0}
+                    text="Piar"
                     onPress={criarPiu}
-                    textStyle={{fontSize: 17, color: "#fff"}} 
+                    disabled={piuText.length > 140 || piuText.length == 0}
+                    textStyle={{fontSize: 17, color: "#fff"}}
                     width={100}
-                    height={38} 
+                    height={38}
                 />
             </View>
 
@@ -69,8 +69,7 @@ function PiarScreen({navigation, route}) {
                 }}>
                     <Image  
                         source={
-                            // {uri: adicionarPiuAPI.usuario.foto}
-                            baseDeDados //mudar aqui
+                            baseDeDados
                                 .getDadosUsuarioFromUsername(loggedInUser) == null 
                                     ? null 
                                     : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.avatar
@@ -101,8 +100,7 @@ function PiarScreen({navigation, route}) {
                             }}
                             autoCapitalize='none'
                         />
-                        <Text>{piuText.length}</Text>
-                        <Text style={styles.LimiteDeCaracteres}>/140</Text>
+                        <Text style={styles.LimiteDeCaracteres}>{piuText.length}/140</Text>
                         {
                             piuReplyId != null
                                 ? <PiuReply piuReplyId={piuReplyId} />

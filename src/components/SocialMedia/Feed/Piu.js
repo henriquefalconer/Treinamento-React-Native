@@ -121,10 +121,10 @@ export default class Piu extends PureComponent {
                         {
                             infoUsuario.username == loggedInUser
                                 ? <PiuAction 
-                                    noMargin
+                                    noMargin={true}
                                     iconType={IconType.Ionicons} 
                                     icon="md-trash" 
-                                    size={23} 
+                                    size={22.5} 
                                     verticalIconDisplacement={-2.5}
                                     active={false}
                                     onPress={this.props.onPressDelete} />
