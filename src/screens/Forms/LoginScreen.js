@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { Text, View, SafeAreaView, StyleSheet } from "react-native";
+import { Text, View, SafeAreaView, StyleSheet, Modal, ActivityIndicator } from "react-native";
 import FilledButton from "../../components/FilledButton";
 import HollowTextField from "../../components/HollowTextField";
 import BlandHeader from "../../components/BlandHeader";
@@ -7,16 +7,19 @@ import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
 import AsyncStorage from '@react-native-community/async-storage';
 import CustomStatusBar from "../../components/General/CustomStatusBar";
 import { setLoggedInUser } from "../../utilities/baseDeDados";
+import FullScreenLoading from "../../components/General/FullScreenLoading";
 // import ReturnArrow from '../../assets/return.svg';
 
 const reducer = (state, action) => {
-    switch (action.textInputChange) {
+    switch (action.change) {
         case 'username':
             return { ...state, username: action.newValue};
         case 'password':
             return { ...state, password: action.newValue};
         case 'errorText':
             return { ...state, errorText: action.newValue};
+        case 'loading':
+            return { ...state, loading: action.newValue};
         default:
             return;
     }
@@ -73,26 +76,31 @@ function LoginScreen({navigation}) {
             username: '', 
             password: '', 
             errorText: '',
+            loading: false,
         }
     );
 
     async function onLogin() {
+        dispatch({change: 'loading', newValue: true});
+        
         const [token, error] = await signIn({ 
             username: state.username, 
             password: state.password, 
         });
 
         if (token != null) {
-            dispatch({textInputChange: 'errorText', newValue: ''});
-            dispatch({textInputChange: 'username', newValue: ''});
-            dispatch({textInputChange: 'password', newValue: ''});
+            dispatch({change: 'errorText', newValue: ''});
+            dispatch({change: 'username', newValue: ''});
+            dispatch({change: 'password', newValue: ''});
             AsyncStorage.setItem('token', token);
             setLoggedInUser(state.username);
             navigation.navigate('SocialMedia');
         }
         else {
-            dispatch({textInputChange: 'errorText', newValue: error});
+            dispatch({change: 'errorText', newValue: error});
         }
+
+        dispatch({change: 'loading', newValue: false});
     }
     
     return (
@@ -109,7 +117,7 @@ function LoginScreen({navigation}) {
                             helpText='Você pode logar como "polijr"'
                             value={state.username}
                             onChange={(newValue) => 
-                                dispatch({textInputChange: 'username', newValue: newValue})
+                                dispatch({change: 'username', newValue: newValue})
                             }
                         />
                         <HollowTextField 
@@ -117,7 +125,7 @@ function LoginScreen({navigation}) {
                             helpText='Caso tenha problemas, a senha secreta é "polijunior"'
                             value={state.password}
                             onChange={(newValue) => 
-                                dispatch({textInputChange: 'password', newValue: newValue})
+                                dispatch({change: 'password', newValue: newValue})
                             }
                             toggleTextVisibility={true}
                             onSubmitEditing={onLogin}
@@ -139,6 +147,9 @@ function LoginScreen({navigation}) {
                         onPress={onLogin} 
                     />
                 </View>
+                <FullScreenLoading
+                    isLoading={state.loading}    
+                />
             </SafeAreaView>
         </View>
     );

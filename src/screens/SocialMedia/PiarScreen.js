@@ -7,12 +7,15 @@ import PiuReply from '../../components/SocialMedia/Feed/PiuReply';
 import ExpandingTextInput from "../../components/General/AutoExpandingTextInput";
 import CustomStatusBar from "../../components/General/CustomStatusBar";
 import sendPiuToApi from "../../utilities/sendPiuToApi";
+import FullScreenLoading from "../../components/General/FullScreenLoading";
 
 function PiarScreen({navigation, route}) {
     let [piuText, changePiuText] = useState("");
+    let [sendingPiu, setSendingPiu] = useState(false);
     let { piuReplyId } = route.params != undefined ? route.params : { piuReplyId: null };
 
     async function criarPiu() {
+        setSendingPiu(true);
 
         await sendPiuToApi({
             mensagem: piuText,
@@ -21,6 +24,7 @@ function PiarScreen({navigation, route}) {
         
         navigation.goBack();
         
+        setSendingPiu(false);
     }
 
     return (
@@ -109,6 +113,9 @@ function PiarScreen({navigation, route}) {
                     </View>
                 </View>
             </ScrollView>
+            <FullScreenLoading 
+                isLoading={sendingPiu}
+            />
         </SafeAreaView>
     );
 };

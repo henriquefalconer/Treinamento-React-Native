@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text, SafeAreaView } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, ActivityIndicator } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { baseDeDados, signOut } from "../../../utilities/baseDeDados";
 import FeedHeader from "../../../components/SocialMedia/General/FeedHeader";
@@ -67,8 +67,10 @@ export default class FeedTab extends Component {
                         alignItems: 'center'
                     }}
                 >
+                    <ActivityIndicator />
                     <Text style={{
                             fontSize: 20,
+                            marginTop: 10,
                             color: '#777',
                         }}
                     >

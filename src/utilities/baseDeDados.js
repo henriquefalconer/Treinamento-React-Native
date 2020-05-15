@@ -20,8 +20,8 @@ export function setLoggedInUser(user) {
 
 // Coloca pius na ordem de tempo:
 function sortPius(piusIds){
-    piusIds.sort(function(a, b){return GeneralFunctions.getTimeFromPiuId(b) - GeneralFunctions.getTimeFromPiuId(a)});
-    piusIds.sort(function(a, b){return baseDeDados.getDadosPiuFromPiuId(b).hasDestaque() - baseDeDados.getDadosPiuFromPiuId(a).hasDestaque()});
+    piusIds.sort((a, b) => GeneralFunctions.getTimeFromPiuId(b) - GeneralFunctions.getTimeFromPiuId(a));
+    piusIds.sort((a, b) => baseDeDados.getDadosPiuFromPiuId(b).hasDestaque() - baseDeDados.getDadosPiuFromPiuId(a).hasDestaque());
 }
 
 export function signOut() {
