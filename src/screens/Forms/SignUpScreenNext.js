@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, SafeAreaView } from "react-native";
+import { Text, View, KeyboardAvoidingView } from "react-native";
 import FilledButton from "../../components/General/FilledButton";
 import HollowTextField from "../../components/Forms/HollowTextField";
 import BlandHeader from "../../components/General/BlandHeader";
@@ -59,7 +59,10 @@ function SignUpScreenNext({ route, navigation}) {
     }
 
     return (
-        <SafeAreaView style={FormScreensStyle.background}>
+        <KeyboardAvoidingView 
+            behavior={'padding'}
+            style={{flex: 1, backgroundColor: '#fff'}}
+        >
             <BlandHeader navigation={navigation} />
             <View style={FormScreensStyle.content}>
                 <Text style={FormScreensStyle.title}>Cadastro</Text>
@@ -127,7 +130,7 @@ function SignUpScreenNext({ route, navigation}) {
                 isLoading={loading}    
                 text="" 
             />
-        </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 }
 

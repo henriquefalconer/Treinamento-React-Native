@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { Text, View, SafeAreaView, StyleSheet, Modal, ActivityIndicator } from "react-native";
+import { Text, View, SafeAreaView, StyleSheet, KeyboardAvoidingView } from "react-native";
 import FilledButton from "../../components/General/FilledButton";
 import HollowTextField from "../../components/Forms/HollowTextField";
 import BlandHeader from "../../components/General/BlandHeader";
@@ -104,7 +104,10 @@ function LoginScreen({navigation}) {
     }
     
     return (
-        <View style={FormScreensStyle.background}>
+        <KeyboardAvoidingView 
+            behavior={'padding'}
+            style={FormScreensStyle.background}
+        >
             <CustomStatusBar barStyle='dark-content' backgroundColor="#eee" />
             <SafeAreaView style={FormScreensStyle.background}>
                 <BlandHeader navigation={navigation} />
@@ -152,7 +155,7 @@ function LoginScreen({navigation}) {
                     text={null}
                 />
             </SafeAreaView>
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 

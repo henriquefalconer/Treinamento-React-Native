@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, SafeAreaView } from "react-native";
+import { Text, View, SafeAreaView, KeyboardAvoidingView } from "react-native";
 import FilledButton from "../../components/General/FilledButton";
 import HollowTextField from "../../components/Forms/HollowTextField";
 import BlandHeader from "../../components/General/BlandHeader";
@@ -12,7 +12,8 @@ function SignUpScreen({navigation}) {
     const [username, setUsername] = useState('');
 
     return (
-        <View
+        <KeyboardAvoidingView 
+            behavior={'padding'}
             style={{flex: 1, backgroundColor: '#fff'}}
         >
             <CustomStatusBar barStyle='dark-content' backgroundColor="#eee" />
@@ -65,7 +66,7 @@ function SignUpScreen({navigation}) {
                     />
                 </View>
             </SafeAreaView>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
