@@ -9,7 +9,7 @@ function ProfileTab({navigation}) {
     return (
         <SafeAreaView style={styles.background} >
             <SocialMediaHeader navigation={navigation} />
-            <ImageBackground style={styles.background} source={require('../../../../assets/back-profile.png')}>
+            <ImageBackground style={{flex: 1, backgroundColor: "#fff"}} source={require('../../../../assets/back-profile.png')}>
                 <View style={{justifyContent: 'flex-start'}}>
                     <View style={styles.profileImage}>
                         <Image style={{borderRadius: 200}} source={require('../../../../assets/avatars/Cleber.jpg')}></Image>

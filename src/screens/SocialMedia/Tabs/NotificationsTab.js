@@ -7,7 +7,12 @@ function NotificationTab({navigation}) {
     return (
         <SafeAreaView style={styles.background}>
             <SocialMediaHeader navigation={navigation} />
-            <View style={styles.background}></View>
+            <View style={{
+                flex: 1,
+                backgroundColor: "#fff",
+            }}>
+                
+            </View>
             <PiarButton navigation={navigation} />
         </SafeAreaView>
     );
