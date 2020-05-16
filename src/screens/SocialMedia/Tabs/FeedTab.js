@@ -69,6 +69,7 @@ export default class FeedTab extends Component {
                 >
                     <ActivityIndicator 
                         size='large'
+                        color='#888'
                     />
                     <Text style={{
                             fontSize: 20,

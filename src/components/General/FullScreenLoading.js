@@ -18,6 +18,7 @@ export default function FullScreenLoading({ isLoading, text="Carregando..." }) {
             >
                 <ActivityIndicator 
                     size='large'
+                    color='#888'
                 />
                 {
                     text === null 
