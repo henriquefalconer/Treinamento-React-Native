@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, Keyboard } from "react-native";
 import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 import PiusSearchBar from "../../../components/SocialMedia/Search/PiusSearchBar";
@@ -11,6 +11,7 @@ import { count } from "../../../utilities/constants";
 function SearchTab({navigation}) {
     let [searchText, changeSearchText] = useState('');
     let [usersList, changeUsersList] = useState([]);
+    let [flatListHeight, changeFlatListHeight] = useState(0);
 
     function searchUsers(searchTerm) {
         var allResults = [];
@@ -56,35 +57,48 @@ function SearchTab({navigation}) {
                         reloadSearchTab('');
                     }}
                 />
-                {
-                    usersList.length > 0
-                    ? <FlatList
+                <View
+                    style={{
+                        flex: 1, 
+                        alignSelf: 'stretch',
+                    }}
+                    onLayout={(event) => {
+                        changeFlatListHeight(event.nativeEvent.layout.height);
+                    }}
+                >
+                    <FlatList
                         style={{
                             flex: 1, 
                             alignSelf: 'stretch',
                         }}
+                        onScrollBeginDrag={() => {
+                            Keyboard.dismiss();
+                        }}
                         keyExtractor={(element) => {return element}}
-                        data={usersList} 
+                        data={usersList.length > 0 ? usersList : ['helpText']} 
                         renderItem={({ item }) => {
                             return (
-                                <UserSearchCard 
-                                    username={item}
-                                />
-                            );
+                                item !== 'helpText'
+                                    ? <UserSearchCard 
+                                            username={item}
+                                    />
+                                    : <View style={{
+                                        flex: 1,
+                                        justifyContent: 'center',
+                                        height: flatListHeight,
+                                    }}>
+                                        <Text style={{
+                                            fontSize: 18,
+                                            color: '#666',
+                                            textAlign: 'center',
+                                        }}>
+                                            Tente buscar por pessoas no PiuPiuwer
+                                        </Text>
+                                    </View>
+                                );
                         }}
                     />
-                    : <View style={{
-                        flex: 1,
-                        justifyContent: 'center',
-                    }}>
-                        <Text style={{
-                            fontSize: 18,
-                            color: '#666'
-                        }}>
-                            Tente buscar por pessoas no PiuPiuwer
-                        </Text>
-                    </View>
-                }
+                </View>
             </View>
             <PiarButton navigation={navigation} />
         </SafeAreaView>
