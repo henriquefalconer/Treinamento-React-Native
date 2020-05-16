@@ -30,6 +30,14 @@ function SearchTab({navigation}) {
         return allResults;
     }
 
+    function reloadSearchTab(newValue) {
+        changeSearchText(newValue);
+
+        const usersSearchList = searchUsers(newValue);
+
+        changeUsersList(usersSearchList);
+    }
+
     return (
         <SafeAreaView style={{flex: 1}}>
             <SocialMediaHeader navigation={navigation} />
@@ -40,13 +48,12 @@ function SearchTab({navigation}) {
             }}>
                 <PiusSearchBar 
                     value={searchText}
-                    onChange={(newValue) => {
-                        changeSearchText(newValue);
-                        const usersSearchList = searchUsers(newValue);
-                        changeUsersList(usersSearchList);
-                    }} 
+                    onChange={reloadSearchTab} 
                     style={{
                         marginHorizontal: 10,
+                    }}
+                    onPressClear={() => {
+                        reloadSearchTab('');
                     }}
                 />
                 {

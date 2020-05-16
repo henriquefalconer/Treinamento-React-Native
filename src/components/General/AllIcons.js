@@ -7,25 +7,19 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 
-function AllIcons({iconType, name, size, color}) {
-    if (iconType == IconType.Ionicons) {
-        return <Ionicons name={name} size={size} color={color} />;
-    } else if (iconType == IconType.Fon) {
-        return <Ionicons name={name} size={size} color={color} />;
-    } 
-
+function AllIcons({iconType, name, size, color, style}) {
 
     switch (iconType) {
         case IconType.Ionicons:
-            return <Ionicons name={name} size={size} color={color} />;
+            return <Ionicons style={style} name={name} size={size} color={color} />;
         case IconType.FontAwesome:
-            return <FontAwesome name={name} size={size} color={color} />;
+            return <FontAwesome style={style} name={name} size={size} color={color} />;
         case IconType.MaterialIcons:
-            return <MaterialIcons name={name} size={size} color={color} />;
+            return <MaterialIcons style={style} name={name} size={size} color={color} />;
         case IconType.MaterialCommunityIcons:
-            return <MaterialCommunityIcons name={name} size={size} color={color} />;
+            return <MaterialCommunityIcons style={style} name={name} size={size} color={color} />;
         case IconType.Octicons:
-            return <Octicons name={name} size={size} color={color} />;
+            return <Octicons style={style} name={name} size={size} color={color} />;
         default:
             return;
     }

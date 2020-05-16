@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import AllIcons from "../../General/AllIcons";
 import { IconType } from "../../../utilities/constants";
 
@@ -12,6 +12,7 @@ export default function PiusSearchBar({
         onFocus,
         style, 
         active=false,
+        onPressClear,
     }) {
 
     return (
@@ -20,7 +21,7 @@ export default function PiusSearchBar({
             borderColor: active ? "#f21d1d" : "#e3e3e3",
             borderWidth: 2,
             borderRadius: 30,
-            paddingLeft: 15,
+            paddingHorizontal: 15,
             height: 40,
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -33,12 +34,15 @@ export default function PiusSearchBar({
                 name="ios-search"
                 size={23}
                 color="#999"
+                style={{
+                    top: 1.5
+                }}
             />
             <TextInput 
                 style={{
                     fontSize: 16,
                     flex: 1,
-                    marginLeft: 10, 
+                    marginHorizontal: 10, 
                 }} 
                 onFocus={onFocus}
                 placeholder={placeholder} 
@@ -48,6 +52,23 @@ export default function PiusSearchBar({
                 value={value}
                 onSubmitEditing={onSubmitEditing}
             />
+            {
+                value.length > 0
+                ? <TouchableOpacity
+                    onPress={onPressClear}
+                >
+                    <AllIcons 
+                        iconType={IconType.Ionicons}
+                        name="md-close"
+                        size={23}
+                        color="#999"
+                        style={{
+                            top: 1.5
+                        }}
+                    />
+                </TouchableOpacity>
+                : null
+            }
         </View>
     );
 };
