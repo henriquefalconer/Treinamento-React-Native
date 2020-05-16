@@ -67,7 +67,9 @@ export default class FeedTab extends Component {
                         alignItems: 'center'
                     }}
                 >
-                    <ActivityIndicator />
+                    <ActivityIndicator 
+                        size='large'
+                    />
                     <Text style={{
                             fontSize: 20,
                             marginTop: 10,

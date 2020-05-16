@@ -43,6 +43,7 @@ export default function PiusSearchBar({
                     fontSize: 16,
                     flex: 1,
                     marginHorizontal: 10, 
+                    padding: 0,
                 }} 
                 onFocus={onFocus}
                 placeholder={placeholder} 
