@@ -85,11 +85,10 @@ export default class FeedTab extends Component {
         return (
             <FlatList
                 keyExtractor={(element) => {return element}}
-                data={[...this.state.piusList, 'semPius']} 
+                data={this.state.piusList} 
                 renderItem={({ item }) => {
-                    // Adiciona um novo piu, ou o Component SemPius, à lista:
-                    return item !== 'semPius' 
-                        ? <Piu 
+                    return (
+                        <Piu 
                             piuId={item}
                             onPressLike={async () => {
                                 baseDeDados.togglePiuLike({ piuId: item });
@@ -109,9 +108,10 @@ export default class FeedTab extends Component {
                                 baseDeDados.togglePiuDelete({ piuId: item });
                                 await this.refreshLocalPius();
                             }} 
-                        /> 
-                        : <SemPius />;
+                        />
+                    );
                 }}
+                ListFooterComponent={<SemPius />}
             />
         );
     }
