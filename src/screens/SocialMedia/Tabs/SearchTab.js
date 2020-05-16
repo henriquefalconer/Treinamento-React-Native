@@ -75,28 +75,29 @@ function SearchTab({navigation}) {
                             Keyboard.dismiss();
                         }}
                         keyExtractor={(element) => {return element}}
-                        data={usersList.length > 0 ? usersList : ['helpText']} 
+                        data={usersList} 
                         renderItem={({ item }) => {
                             return (
-                                item !== 'helpText'
-                                    ? <UserSearchCard 
-                                            username={item}
-                                    />
-                                    : <View style={{
-                                        flex: 1,
-                                        justifyContent: 'center',
-                                        height: flatListHeight,
-                                    }}>
-                                        <Text style={{
-                                            fontSize: 18,
-                                            color: '#666',
-                                            textAlign: 'center',
-                                        }}>
-                                            Tente buscar por pessoas no PiuPiuwer
-                                        </Text>
-                                    </View>
-                                );
+                                <UserSearchCard 
+                                        username={item}
+                                />
+                            );
                         }}
+                        ListEmptyComponent={
+                            <View style={{
+                                flex: 1,
+                                justifyContent: 'center',
+                                height: flatListHeight,
+                            }}>
+                                <Text style={{
+                                    fontSize: 18,
+                                    color: '#666',
+                                    textAlign: 'center',
+                                }}>
+                                    Tente buscar por pessoas no PiuPiuwer
+                                </Text>
+                            </View>
+                        }
                     />
                 </View>
             </View>
