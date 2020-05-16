@@ -635,7 +635,7 @@ export var baseDeDados = new BaseDeDados([
     ),
     new UsuarioData(
         new InfoUsuario(
-            "Richarlison Dos Santos Neves Querubim Machado",
+            "Richarlison Dos Santos Neves Querubim Machado dos Santos Neves",
             "richar.lison",
             require("../../assets/avatars/Richarlison.jpg"),
             "Palmeira.jpg",
