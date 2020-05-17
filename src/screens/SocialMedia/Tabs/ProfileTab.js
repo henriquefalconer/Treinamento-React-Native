@@ -5,6 +5,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 import { onChange } from "react-native-reanimated";
+import { baseDeDados, loggedInUser } from "../../../utilities/baseDeDados";
 
 function changeButton() {
     <TouchableOpacity style={{alignItems: 'center'}}>
@@ -25,17 +26,27 @@ function ProfileTab({navigation}) {
             <SocialMediaHeader navigation={navigation} />
             <ImageBackground style={{flex: 1, backgroundColor: "#fff"}} source={require('../../../../assets/back-profile.png')}>
                 <View style={{justifyContent: 'flex-start'}}>
-                    <View style={styles.profileImage}>
-                        <Image 
-                           style={{borderRadius: 200}} 
-                           source={require('../../../../assets/avatars/Cleber.jpg')}
-                        >
-                        </Image>
-                    </View>
+                    <Image  
+                        source={
+                            baseDeDados
+                                .getDadosUsuarioFromUsername(loggedInUser) == null 
+                                    ? null 
+                                    : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.avatar
+                        } 
+                        style={{
+                            width: 100,
+                            height: 100,
+                            borderRadius: 200,
+                            marginTop: 110,
+                            marginLeft: 20,
+                        }}
+                    />
                 </View>
                 <View style={{flexDirection: "row"}}>
                     <View style={styles.infoContainer}>
-                        <Text style={{fontSize: 20, fontWeight: 'bold'}}>Cleber Cunha</Text>
+                        <Text 
+                            style={{fontSize: 20, fontWeight: 'bold'}}
+                        >Cleber Cunha</Text>
                         <Text style={{fontSize: 15, fontWeight: 'normal'}}>@cleber.cunha</Text>
                     </View>
                     <View style={{flexDirection: "column"}}>
@@ -142,7 +153,7 @@ const styles = StyleSheet.create({
     },
     infoContainer: {
         marginLeft: 25,
-        marginTop: -70,
+        marginTop: 10,
     },
     Bio: {
         width: 332, 
