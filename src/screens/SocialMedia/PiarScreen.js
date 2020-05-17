@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, View, Text, Image, Platform } from "react-native";
+import { SafeAreaView, StyleSheet, View, Text, Image, Platform} from "react-native";
 import FilledButton from "../../components/FilledButton";
 import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import { baseDeDados, loggedInUser } from "../../utilities/baseDeDados";
@@ -7,10 +7,12 @@ import PiuReply from '../../components/SocialMedia/Feed/PiuReply';
 import ExpandingTextInput from "../../components/General/AutoExpandingTextInput";
 import CustomStatusBar from "../../components/General/CustomStatusBar";
 import sendPiuToApi from "../../utilities/sendPiuToApi";
+import Modal from 'react-native-modal';
 
 function PiarScreen({navigation, route}) {
     let [piuText, changePiuText] = useState("");
     let { piuReplyId } = route.params != undefined ? route.params : { piuReplyId: null };
+    let [visibleModal, setModalVisibility] = useState(false);
 
     async function criarPiu() {
 
@@ -85,7 +87,34 @@ function PiarScreen({navigation, route}) {
                         }}
                     />
                     <View style={{ flex: 1 }} >
-                    {piuText.length > 140 ? <Text style={styles.piuAviso}>A mensagem não pode conter mais de 140 caracteres.</Text> : null}
+                        {piuText.length > 140 ? <Text style={styles.piuAviso}>A mensagem não pode conter mais de 140 caracteres.</Text> : null}
+                        {piuText.length > 140 ?  
+                            <Modal 
+                                isVisible={visibleModal} 
+                                onRequestClose={() => setModalVisibility(false)}
+                            >
+                                <View style={styles.popupHelp}>
+                                        <Text 
+                                            style={{ 
+                                                textAlign: 'center',
+                                                fontSize: 16,
+                                                //marginTop: 200,
+                                                //marginHorizontal: 8,
+                                                //marginBottom: 20,
+                                            }}
+                                        >
+                                            O texto não pode ultrapassar 140 caracteres.
+                                        </Text>
+                                        <FilledButton 
+                                            text="OK" 
+                                            onPress={() => setModalVisibility(false)}
+                                            textStyle={{fontSize: 17, color: "#fff"}} 
+                                            width={150}
+                                            height={47} 
+                                        />
+                                    </View>
+                            </Modal>
+                        : null}
                         <ExpandingTextInput 
                             placeholder="Em que você está pensando?"
                             value={piuText}
@@ -101,8 +130,10 @@ function PiarScreen({navigation, route}) {
                             }}
                             autoCapitalize='none'
                         />
-                        <Text>{piuText.length}</Text>
-                        <Text style={styles.LimiteDeCaracteres}>/140</Text>
+                        <View style={styles.ContadorBox}>
+                            {piuText.length > 140 ? <Text style={{color: 'red'}}>{piuText.length}</Text> : <Text style={{color: 'black'}}>{piuText.length}</Text>}
+                            <Text style={styles.LimiteDeCaracteres}>/140</Text>
+                        </View>
                         {
                             piuReplyId != null
                                 ? <PiuReply piuReplyId={piuReplyId} />
@@ -121,17 +152,34 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     piuAviso: {
-        color: 'black',
+        color: 'red',
         fontSize: 18,
         textAlign: 'center',
-        backgroundColor: 'red',
         opacity: 0.4,
         marginTop: 30,
     },
-    LimiteDeCaracteres: {
+    ContadorBox: {
+        flexDirection: "row",
+        marginLeft: -55,
         marginTop: 20,
-        marginLeft: 20,
-    }
+    },  
+    LimiteDeCaracteres: {
+        opacity: 0.6,
+    },
+    Warning: {
+        color: 'red',
+    },
+    Classic: {
+        color: 'black',
+    },
+    popupHelp: {
+        flexDirection: 'column', 
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        padding: 80,
+        marginTop: 200,
+        borderRadius: 20,
+    },
 });
 
 export default PiarScreen;

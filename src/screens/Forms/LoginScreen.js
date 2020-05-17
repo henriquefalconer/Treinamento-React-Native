@@ -6,7 +6,6 @@ import BlandHeader from "../../components/BlandHeader";
 import FormScreensStyle from '../../style/FormScreens/FormScreensStyle';
 import AsyncStorage from '@react-native-community/async-storage';
 import CustomStatusBar from "../../components/General/CustomStatusBar";
-import { Buffer } from "buffer";
 import { loggedInUser, baseDeDados, setLoggedInUser } from "../../utilities/baseDeDados";
 // import ReturnArrow from '../../assets/return.svg';
 

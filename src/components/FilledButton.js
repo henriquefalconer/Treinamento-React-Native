@@ -22,7 +22,7 @@ const FilledButton = ({text, onPress, textStyle, width, height, disabled}) => {
     return (
         <TouchableOpacity
           style={styles.filledButton}
-          onPress={ (disabled || false) ? null : onPress}
+          onPress={(disabled || false) ? null : onPress}
         >
           <Text style={textStyle || styles.text}>{text}</Text>
         </TouchableOpacity>
