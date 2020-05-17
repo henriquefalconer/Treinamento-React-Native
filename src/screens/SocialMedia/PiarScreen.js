@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, View, Text, Image, Platform} from "react-native";
-import FilledButton from "../../components/FilledButton";
+import { SafeAreaView, StyleSheet, View, Text, Image, Platform } from "react-native";
+import FilledButton from "../../components/General/FilledButton";
 import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import { baseDeDados, loggedInUser } from "../../utilities/baseDeDados";
 import PiuReply from '../../components/SocialMedia/Feed/PiuReply';
@@ -8,13 +8,16 @@ import ExpandingTextInput from "../../components/General/AutoExpandingTextInput"
 import CustomStatusBar from "../../components/General/CustomStatusBar";
 import sendPiuToApi from "../../utilities/sendPiuToApi";
 import Modal from 'react-native-modal';
+import FullScreenLoading from "../../components/General/FullScreenLoading";
 
 function PiarScreen({navigation, route}) {
     let [piuText, changePiuText] = useState("");
+    let [sendingPiu, setSendingPiu] = useState(false);
     let { piuReplyId } = route.params != undefined ? route.params : { piuReplyId: null };
     let [visibleModal, setModalVisibility] = useState(false);
 
     async function criarPiu() {
+        setSendingPiu(true);
 
         await sendPiuToApi({
             mensagem: piuText,
@@ -23,6 +26,7 @@ function PiarScreen({navigation, route}) {
         
         navigation.goBack();
         
+        setSendingPiu(false);
     }
 
     return (
@@ -54,12 +58,12 @@ function PiarScreen({navigation, route}) {
                     </Text>
                 </TouchableOpacity>
                 <FilledButton 
-                    text="Piar" 
-                    disabled={piuText.length > 140 || piuText.length == 0}
+                    text="Piar"
                     onPress={criarPiu}
-                    textStyle={{fontSize: 17, color: "#fff"}} 
+                    disabled={piuText.length > 140 || piuText.length == 0}
+                    textStyle={{fontSize: 17, color: "#fff"}}
                     width={100}
-                    height={38} 
+                    height={38}
                 />
             </View>
 
@@ -71,8 +75,7 @@ function PiarScreen({navigation, route}) {
                 }}>
                     <Image  
                         source={
-                            // {uri: adicionarPiuAPI.usuario.foto}
-                            baseDeDados //mudar aqui
+                            baseDeDados
                                 .getDadosUsuarioFromUsername(loggedInUser) == null 
                                     ? null 
                                     : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.avatar
@@ -142,6 +145,9 @@ function PiarScreen({navigation, route}) {
                     </View>
                 </View>
             </ScrollView>
+            <FullScreenLoading 
+                isLoading={sendingPiu}
+            />
         </SafeAreaView>
     );
 };

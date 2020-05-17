@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, SafeAreaView } from "react-native";
 import { Image, ImageBackground, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import FeedHeader from "../../../components/SocialMedia/General/FeedHeader";
+import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 import { onChange } from "react-native-reanimated";
 
@@ -22,8 +22,8 @@ function ProfileTab({navigation}) {
     // const [ShowButton, setShowButton] = useState(true);
     return (
         <SafeAreaView style={styles.background} >
-            <FeedHeader navigation={navigation} />
-            <ImageBackground style={styles.background} source={require('../../../../assets/back-profile.png')}>
+            <SocialMediaHeader navigation={navigation} />
+            <ImageBackground style={{flex: 1, backgroundColor: "#fff"}} source={require('../../../../assets/back-profile.png')}>
                 <View style={{justifyContent: 'flex-start'}}>
                     <View style={styles.profileImage}>
                         <Image 

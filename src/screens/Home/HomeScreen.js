@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Image, ImageBackground, Text } from "react-native";
-import FilledButton from "../../components/FilledButton";
+import FilledButton from "../../components/General/FilledButton";
 import HomeScreenStyle from '../../style/HomeScreen/HomeScreenStyle';
 import CustomStatusBar from "../../components/General/CustomStatusBar";
 

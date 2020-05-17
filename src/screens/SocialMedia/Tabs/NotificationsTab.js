@@ -1,13 +1,18 @@
 import React from "react";
 import { View, StyleSheet, SafeAreaView } from "react-native";
-import FeedHeader from "../../../components/SocialMedia/General/FeedHeader";
+import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 
 function NotificationTab({navigation}) {
     return (
         <SafeAreaView style={styles.background}>
-            <FeedHeader navigation={navigation} />
-            <View style={styles.background}></View>
+            <SocialMediaHeader navigation={navigation} />
+            <View style={{
+                flex: 1,
+                backgroundColor: "#fff",
+            }}>
+                
+            </View>
             <PiarButton navigation={navigation} />
         </SafeAreaView>
     );

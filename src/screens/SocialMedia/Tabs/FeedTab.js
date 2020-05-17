@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text, SafeAreaView } from "react-native";
+import { View, StyleSheet, Text, SafeAreaView, ActivityIndicator } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { baseDeDados, signOut } from "../../../utilities/baseDeDados";
-import FeedHeader from "../../../components/SocialMedia/General/FeedHeader";
+import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
 import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
@@ -67,8 +67,13 @@ export default class FeedTab extends Component {
                         alignItems: 'center'
                     }}
                 >
+                    <ActivityIndicator 
+                        size='large'
+                        color='#888'
+                    />
                     <Text style={{
                             fontSize: 20,
+                            marginTop: 10,
                             color: '#777',
                         }}
                     >
@@ -81,33 +86,17 @@ export default class FeedTab extends Component {
         return (
             <FlatList
                 keyExtractor={(element) => {return element}}
-                data={[...this.state.piusList, 'semPius']} 
+                data={this.state.piusList} 
                 renderItem={({ item }) => {
-                    // Adiciona um novo piu, ou o Component SemPius, à lista:
-                    return item !== 'semPius' 
-                        ? <Piu 
+                    return (
+                        <Piu 
                             piuId={item}
-                            onPressLike={async () => {
-                                baseDeDados.togglePiuLike({ piuId: item });
-                                await this.refreshLocalPius();
-                            }}
-                            onPressReply={() => {
-                                baseDeDados.replyPiu({ 
-                                    piuReplyId: item, 
-                                    navigation: this.props.navigation,
-                                 });
-                            }}
-                            onPressDestaque={async () => {
-                                baseDeDados.togglePiuDestaque({ piuId: item });
-                                await this.refreshLocalPius();
-                            }} 
-                            onPressDelete={async () => {
-                                baseDeDados.togglePiuDelete({ piuId: item });
-                                await this.refreshLocalPius();
-                            }} 
-                        /> 
-                        : <SemPius />;
+                            navigation={this.props.navigation}
+                            onChange={async () => await this.refreshLocalPius()}
+                        />
+                    );
                 }}
+                ListFooterComponent={<SemPius />}
             />
         );
     }
@@ -115,7 +104,7 @@ export default class FeedTab extends Component {
     render() {
         return (
             <SafeAreaView style={styles.background}>
-                <FeedHeader navigation={this.props.navigation} />
+                <SocialMediaHeader navigation={this.props.navigation} />
                 <View style={styles.background}>
                     {this.loadPiusArea()}
                 </View>

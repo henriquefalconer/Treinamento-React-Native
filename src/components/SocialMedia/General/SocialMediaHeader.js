@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { setLoggedInUser } from "../../../utilities/baseDeDados";
 import AsyncStorage from "@react-native-community/async-storage";
 
-function FeedHeader({ navigation }) {
+function SocialMediaHeader({ navigation }) {
     return (
         <View 
             style={{
@@ -56,4 +56,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default FeedHeader;
+export default SocialMediaHeader;
