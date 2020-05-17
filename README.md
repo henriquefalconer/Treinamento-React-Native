@@ -7,6 +7,7 @@ Autores: Henrique e Constanza
 - [Link do Figma](https://www.figma.com/file/bjJ5eXFW8OqacPFAeOvIMz/PiuPiuwer-RN?node-id=0%3A1)
 - [Link do curso](https://www.udemy.com/course/the-complete-react-native-and-redux-course/)
 - [Link de react-navigation](https://reactnavigation.org/docs/hello-react-navigation)
+- [Link de SplashScreen e Logo](https://www.youtube.com/watch?v=3Gf9yb53bJM)
 
 ## Como adicionar uma nova tela:
 
