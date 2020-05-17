@@ -26,15 +26,9 @@ function ProfileTab({navigation}) {
         <SafeAreaView style={styles.background} >
             <SocialMediaHeader navigation={navigation} />
             <ImageBackground 
-                style={{flex: 1, backgroundColor: "#fff"}} 
-                source=
-                    {
-                        baseDeDados
-                                .getDadosUsuarioFromUsername(loggedInUser) == null 
-                                    ? null 
-                                    : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.background
-                    }
+                style={{flex: 1, backgroundColor: '#fff'}} 
             >
+                <View style={styles.Header}></View>
                 <View style={{justifyContent: 'flex-start'}}>
                     <View style={{flexDirection: 'row'}}>
                         <Image  
@@ -168,6 +162,11 @@ function ProfileTab({navigation}) {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
+    },
+    Header: {
+        width: 500,
+        height: 100,
+        backgroundColor: 'red',
     },
     profileImage: {
         width: 200,
