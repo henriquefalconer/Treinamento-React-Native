@@ -3,13 +3,14 @@ import { View, StyleSheet, SafeAreaView, TouchableOpacityComponent } from "react
 import { Image, ImageBackground, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
+import HollowButton from "../../../components/General/HollowButton";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 import { onChange } from "react-native-reanimated";
 import { baseDeDados, loggedInUser } from "../../../utilities/baseDeDados";
 
 //para mudanca de botao
 function changeButton() {
-    <TouchableOpacity style={{alignItems: 'center'}}>
+    <TouchableOpacity style={{ alignItems: 'center' }}>
         <View style={styles.SeguindoButton}>
             <TouchableOpacity>
                 <Text style={styles.SeguindoText}>Seguindo</Text>
@@ -18,32 +19,25 @@ function changeButton() {
     </TouchableOpacity>
 }
 
-function ProfileTab({navigation}) {
+function ProfileTab({ navigation }) {
     // const [ShowButton, setShowButton] = useState(true);
     console.log(baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario)
 
     return (
         <SafeAreaView style={styles.background} >
             <SocialMediaHeader navigation={navigation} />
-            <ImageBackground 
-                style={{flex: 1, backgroundColor: "#fff"}} 
-                source=
-                    {
-                        baseDeDados
-                                .getDadosUsuarioFromUsername(loggedInUser) == null 
-                                    ? null 
-                                    : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.background
-                    }
+            <ImageBackground
+                style={{ flex: 1, backgroundColor: "#fff" }}
             >
-                <View style={{justifyContent: 'flex-start'}}>
-                    <View style={{flexDirection: 'row'}}>
-                        <Image  
+                <View style={{ justifyContent: 'flex-start' }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Image
                             source={
                                 baseDeDados
-                                    .getDadosUsuarioFromUsername(loggedInUser) == null 
-                                        ? null 
-                                        : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.avatar
-                            } 
+                                    .getDadosUsuarioFromUsername(loggedInUser) == null
+                                    ? null
+                                    : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.avatar
+                            }
                             style={{
                                 width: 100,
                                 height: 100,
@@ -54,15 +48,15 @@ function ProfileTab({navigation}) {
                         />
                         <View style={styles.InfoInteraction}>
                             <View styles={styles.SeguidoresInteraction}>
-                                <Text style={{textAlign: 'center'}}>#</Text>
+                                <Text style={{ textAlign: 'center' }}>#</Text>
                                 <Text style={styles.SeguidoresInteractionText}>Seguidores</Text>
                             </View>
                             <View styles={styles.SeguindoInteraction}>
-                                <Text style={{textAlign: 'center'}}>
-                                    { baseDeDados
-                                        .getDadosUsuarioFromUsername(loggedInUser) == null 
-                                            ? null 
-                                            : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.seguindo.length
+                                <Text style={{ textAlign: 'center' }}>
+                                    {baseDeDados
+                                        .getDadosUsuarioFromUsername(loggedInUser) == null
+                                        ? null
+                                        : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.seguindo.length
                                     }
                                 </Text>
                                 <Text style={styles.SeguindoInteractionText}>Seguindo</Text>
@@ -70,29 +64,29 @@ function ProfileTab({navigation}) {
                         </View>
                     </View>
                 </View>
-                <View style={{flexDirection: "row"}}>
+                <View style={{ flexDirection: "row" }}>
                     <View style={styles.infoContainer}>
-                        <Text 
-                            style={{fontSize: 20, fontWeight: 'bold'}}
+                        <Text
+                            style={{ fontSize: 20, fontWeight: 'bold' }}
                         >
                             {
-                            baseDeDados
-                                .getDadosUsuarioFromUsername(loggedInUser) == null 
-                                    ? null 
+                                baseDeDados
+                                    .getDadosUsuarioFromUsername(loggedInUser) == null
+                                    ? null
                                     : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.nome
-                        }
+                            }
                         </Text>
-                        <Text style={{fontSize: 15, fontWeight: 'normal'}}>@
+                        <Text style={{ fontSize: 15, fontWeight: 'normal' }}>@
                         {
-                            baseDeDados
-                                .getDadosUsuarioFromUsername(loggedInUser) == null 
-                                    ? null 
+                                baseDeDados
+                                    .getDadosUsuarioFromUsername(loggedInUser) == null
+                                    ? null
                                     : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.username
-                        }
+                            }
                         </Text>
                     </View>
                     {/* botoes editar perfil */}
-                    <View style={{flexDirection: "column"}}>
+                    <View style={{ flexDirection: "column" }}>
                         {/* <View style={styles.BorderEditProfileButton}>
                             <View style={styles.EditProfileButton}>
                                 <TouchableOpacity>
@@ -100,21 +94,15 @@ function ProfileTab({navigation}) {
                                 </TouchableOpacity>
                             </View>
                         </View> */}
-                        <TouchableOpacity
-                            style={{
-                                marginLeft: 30,
-                                marginTop: 0,
+                        <HollowButton
+                            height={40}
+                            width={110}
+                            textStyle={{
+                                color: '#f21d1d',
+                                fontSize: 17,
                             }}
-                            onPress= {() => changeButton()}
-                        >
-                            <View style={styles.BorderSeguirButton}>
-                                <View style={styles.SeguirButton}>
-                                    <TouchableOpacity>
-                                        <Text style={styles.SeguirText}>Seguir</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </TouchableOpacity>
+                            text="Seguir"
+                        />
                         {/* {onPress ? 
                             <TouchableOpacity style={{alignItems: 'center'}}>
                                 <View style={styles.SeguindoButton}>
@@ -128,38 +116,38 @@ function ProfileTab({navigation}) {
                 </View>
                 <View style={styles.Bio}>
                     <Text>
-                    {
-                        baseDeDados
-                            .getDadosUsuarioFromUsername(loggedInUser) == null 
-                                ? null 
+                        {
+                            baseDeDados
+                                .getDadosUsuarioFromUsername(loggedInUser) == null
+                                ? null
                                 : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.descricao
-                    }
+                        }
                     </Text>
                 </View>
                 <View style={styles.BoxesNavigation}>
                     <TouchableOpacity>
                         <View style={styles.SelectionBox}>
-                            <Text style={{fontSize: 15, fontWeight: 'bold'}}>Pius</Text>  
+                            <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Pius</Text>
                             <Text style={styles.RedLine}></Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <View>
-                            <Text style={styles.PiusERespostas}>Pius e Respostas</Text> 
-                            <Text style={[styles.RedLine, {backgroundColor: '#999999'}]}></Text>
+                            <Text style={styles.PiusERespostas}>Pius e Respostas</Text>
+                            <Text style={[styles.RedLine, { backgroundColor: '#999999' }]}></Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <View>
-                            <Text style={{fontSize: 15, fontWeight: 'bold'}}>Curtidas</Text>  
-                            <Text style={[styles.RedLine, {backgroundColor: '#999999'}]}></Text>
+                            <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Curtidas</Text>
+                            <Text style={[styles.RedLine, { backgroundColor: '#999999' }]}></Text>
                         </View>
                     </TouchableOpacity>
                 </View>
             </ImageBackground>
             <PiarButton navigation={navigation} />
             <View>
-            
+
             </View>
         </SafeAreaView>
     );
@@ -181,7 +169,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     Bio: {
-        width: 332, 
+        width: 332,
         height: 73,
         marginTop: 10,
         marginLeft: 20,
@@ -193,7 +181,7 @@ const styles = StyleSheet.create({
         alignItems: 'stretch',
     },
     PiusERespostas: {
-        fontSize: 15, 
+        fontSize: 15,
         fontWeight: 'bold',
         textAlign: 'center',
     },
@@ -207,7 +195,7 @@ const styles = StyleSheet.create({
     BorderEditProfileButton: {
         width: 128,
         height: 40,
-        backgroundColor: '#F21D1D', 
+        backgroundColor: '#F21D1D',
         borderRadius: 40,
         marginTop: -60,
         marginLeft: 90,
@@ -215,7 +203,7 @@ const styles = StyleSheet.create({
     EditProfileButton: {
         width: 120,
         height: 32,
-        backgroundColor: '#ffffff', 
+        backgroundColor: '#ffffff',
         borderRadius: 40,
         marginTop: 4,
         marginLeft: 4,
@@ -228,7 +216,7 @@ const styles = StyleSheet.create({
     BorderSeguirButton: {
         width: 128,
         height: 40,
-        backgroundColor: '#F21D1D', 
+        backgroundColor: '#F21D1D',
         borderRadius: 40,
         marginTop: 10,
         marginLeft: 90,
@@ -236,10 +224,9 @@ const styles = StyleSheet.create({
     SeguirButton: {
         width: 120,
         height: 32,
-        backgroundColor: '#ffffff', 
+        backgroundColor: '#ffffff',
         borderRadius: 40,
-        marginTop: 4,
-        marginLeft: 4,
+        justifyContent: 'center',
     },
     SeguirText: {
         fontWeight: 'bold',
@@ -249,7 +236,7 @@ const styles = StyleSheet.create({
     SeguindoButton: {
         width: 125,
         height: 38,
-        backgroundColor: '#F21D1D', 
+        backgroundColor: '#F21D1D',
         borderRadius: 40,
         marginTop: 10,
         marginLeft: 90,
