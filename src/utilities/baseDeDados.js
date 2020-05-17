@@ -253,7 +253,7 @@ export class BaseDeDados {
                 `${serverUserData['first_name']} ${serverUserData['last_name']}`,
                 serverUserData['username'],
                 {uri: serverUserData['foto']},
-                "Porsche 911.jpg",
+                require("../../assets/profileBackground/FundoPJ.jpg"),
                 allSeguindo,
                 likes,
                 favoritados,
@@ -520,7 +520,7 @@ export var baseDeDados = new BaseDeDados([
             // Arquivo de avatar:
             require("../../assets/avatars/Fulano.jpg"),
             // Arquivo de plano de fundo do perfil:
-            "Pés%20na%20praia.png",
+            require("../../assets/profileBackground/Praia.png"),
             // Seguindo:
             [
                 "fulano.beltrano",
@@ -578,7 +578,7 @@ export var baseDeDados = new BaseDeDados([
             "Cleber Cunha",
             "cleber.cunha",
             require("../../assets/avatars/Cleber.jpg"),
-            "Porsche 911.jpg",
+            require("../../assets/profileBackground/Porsche 911.jpg"),
             [
                 "fulano.beltrano",
                 "rosi.plat",
@@ -639,7 +639,7 @@ export var baseDeDados = new BaseDeDados([
             "Richarlison Dos Santos Neves Querubim Machado dos Santos Neves",
             "richar.lison",
             require("../../assets/avatars/Richarlison.jpg"),
-            "Palmeira.jpg",
+            require("../../assets/profileBackground/Palmeira.jpg"),
             [
                 "fulano.beltrano",
                 "cleber.cunha",
@@ -706,7 +706,7 @@ export var baseDeDados = new BaseDeDados([
             "Rosimary Platanos",
             "rosi.plat",
             require("../../assets/avatars/Rosimary.jpg"),
-            "Cidade.jpg",
+            require("../../assets/profileBackground/Cidade.jpg"),
             [
                 "fulano.beltrano",
                 "cleber.cunha",
