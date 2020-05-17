@@ -91,24 +91,8 @@ export default class FeedTab extends Component {
                     return (
                         <Piu 
                             piuId={item}
-                            onPressLike={async () => {
-                                baseDeDados.togglePiuLike({ piuId: item });
-                                await this.refreshLocalPius();
-                            }}
-                            onPressReply={() => {
-                                baseDeDados.replyPiu({ 
-                                    piuReplyId: item, 
-                                    navigation: this.props.navigation,
-                                 });
-                            }}
-                            onPressDestaque={async () => {
-                                baseDeDados.togglePiuDestaque({ piuId: item });
-                                await this.refreshLocalPius();
-                            }} 
-                            onPressDelete={async () => {
-                                baseDeDados.togglePiuDelete({ piuId: item });
-                                await this.refreshLocalPius();
-                            }} 
+                            navigation={this.props.navigation}
+                            onChange={async () => await this.refreshLocalPius()}
                         />
                     );
                 }}

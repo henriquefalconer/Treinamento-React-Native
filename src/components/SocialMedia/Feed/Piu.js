@@ -8,9 +8,16 @@ import { getRelativeTime, getTimeFromPiuId } from "../../../utilities/GeneralFun
 
 export default class Piu extends PureComponent {
 
+    constructor({ piuId, navigation, onChange }) {
+        super();
+        this.piuId = piuId;
+        this.navigation = navigation;
+        this.onChange = onChange;
+    }
+
     montarPiuContent() {
-        const infoUsuario = baseDeDados.getInfoUsuarioFromPiuId(this.props.piuId);
-        const piuData = baseDeDados.getDadosPiuFromPiuId(this.props.piuId);
+        const infoUsuario = baseDeDados.getInfoUsuarioFromPiuId(this.piuId);
+        const piuData = baseDeDados.getDadosPiuFromPiuId(this.piuId);
 
         if (infoUsuario == null || piuData == null) {
             return (
@@ -73,7 +80,7 @@ export default class Piu extends PureComponent {
                             <Text style={{
                                 color: "#8F8F8F",
                                 fontSize: 15,
-                            }} >{getRelativeTime(getTimeFromPiuId(this.props.piuId))}</Text>
+                            }} >{getRelativeTime(getTimeFromPiuId(this.piuId))}</Text>
                         </View>
                         <View>
                             <Text style={{
@@ -99,7 +106,11 @@ export default class Piu extends PureComponent {
                         size={19} 
                         actionCount={piuData.getLikes().length} 
                         active={(piuData.getLikes()).includes(loggedInUser)}
-                        onPress={this.props.onPressLike} />
+                        onPress={async () => {
+                            baseDeDados.togglePiuLike({ piuId: this.piuId });
+                            await this.onChange();
+                        }} 
+                    />
                     <PiuAction 
                         iconType={IconType.Octicons} 
                         icon="reply" 
@@ -107,13 +118,23 @@ export default class Piu extends PureComponent {
                         verticalIconDisplacement={2}
                         actionCount={piuData.getReplies().length} 
                         active={(piuData.getReplies()).includes(loggedInUser)}
-                        onPress={this.props.onPressReply} />
+                        onPress={async () => {
+                            baseDeDados.replyPiu({ 
+                                piuReplyId: this.piuId,
+                                navigation: this.navigation,
+                            });
+                        }} 
+                    />
                     <PiuAction 
                         iconType={IconType.MaterialCommunityIcons} 
                         icon="pin" 
                         size={20} 
                         active={piuData.hasDestaque()}
-                        onPress={this.props.onPressDestaque} />
+                        onPress={async () => {
+                            baseDeDados.togglePiuDestaque({ piuId: this.piuId });
+                            await this.onChange();
+                        }} 
+                    />
                     <View style={{
                         position: 'absolute',
                         right: 0,
@@ -127,7 +148,11 @@ export default class Piu extends PureComponent {
                                     size={22.5} 
                                     verticalIconDisplacement={-2.5}
                                     active={false}
-                                    onPress={this.props.onPressDelete} />
+                                    onPress={async () => {
+                                        baseDeDados.togglePiuDelete({ piuId: this.piuId });
+                                        await this.onChange();
+                                    }} 
+                                />
                                 : null
                         }
                     </View>
