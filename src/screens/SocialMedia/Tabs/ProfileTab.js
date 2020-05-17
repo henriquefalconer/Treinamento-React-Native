@@ -1,12 +1,14 @@
 import React from "react";
 import { View, StyleSheet, SafeAreaView, TouchableOpacityComponent } from "react-native";
 import { Image, ImageBackground, Text } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
 import HollowButton from "../../../components/General/HollowButton";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 import { onChange } from "react-native-reanimated";
 import { baseDeDados, loggedInUser } from "../../../utilities/baseDeDados";
+import WidthFillingImage from "../../../components/SocialMedia/Profile/WidthFillingImage";
+import BoxesNavigation from "../../../components/SocialMedia/Profile/BoxesNavigation";
 
 //para mudanca de botao
 function changeButton() {
@@ -19,132 +21,83 @@ function changeButton() {
     </TouchableOpacity>
 }
 
+
+
 function ProfileTab({ navigation }) {
-    // const [ShowButton, setShowButton] = useState(true);
-    console.log(baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario)
+    const dadosUsuario = baseDeDados.getDadosUsuarioFromUsername(loggedInUser);
+    console.log(dadosUsuario);
+    const infoUsuario = dadosUsuario != null 
+        ? dadosUsuario.infoUsuario 
+        : baseDeDados.getDadosUsuarioFromUsername('cleber.cunha').infoUsuario;
 
     return (
         <SafeAreaView style={styles.background} >
             <SocialMediaHeader navigation={navigation} />
-            <ImageBackground
-                style={{ flex: 1, backgroundColor: "#fff" }}
-            >
-                <View style={{ justifyContent: 'flex-start' }}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Image
-                            source={
-                                baseDeDados
-                                    .getDadosUsuarioFromUsername(loggedInUser) == null
-                                    ? null
-                                    : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.avatar
-                            }
-                            style={{
-                                width: 100,
-                                height: 100,
-                                borderRadius: 200,
-                                marginTop: 110,
-                                marginLeft: 20,
-                            }}
-                        />
-                        <View style={styles.InfoInteraction}>
-                            <View styles={styles.SeguidoresInteraction}>
-                                <Text style={{ textAlign: 'center' }}>#</Text>
-                                <Text style={styles.SeguidoresInteractionText}>Seguidores</Text>
-                            </View>
-                            <View styles={styles.SeguindoInteraction}>
-                                <Text style={{ textAlign: 'center' }}>
-                                    {baseDeDados
-                                        .getDadosUsuarioFromUsername(loggedInUser) == null
-                                        ? null
-                                        : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.seguindo.length
-                                    }
-                                </Text>
-                                <Text style={styles.SeguindoInteractionText}>Seguindo</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                    <View style={styles.infoContainer}>
-                        <Text
-                            style={{ fontSize: 20, fontWeight: 'bold' }}
-                        >
-                            {
-                                baseDeDados
-                                    .getDadosUsuarioFromUsername(loggedInUser) == null
-                                    ? null
-                                    : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.nome
-                            }
-                        </Text>
-                        <Text style={{ fontSize: 15, fontWeight: 'normal' }}>@
-                        {
-                                baseDeDados
-                                    .getDadosUsuarioFromUsername(loggedInUser) == null
-                                    ? null
-                                    : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.username
-                            }
-                        </Text>
-                    </View>
-                    {/* botoes editar perfil */}
-                    <View style={{ flexDirection: "column" }}>
-                        {/* <View style={styles.BorderEditProfileButton}>
-                            <View style={styles.EditProfileButton}>
-                                <TouchableOpacity>
-                                    <Text style={styles.EditProfileText}>Editar Perfil</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View> */}
-                        <HollowButton
-                            height={40}
-                            width={110}
-                            textStyle={{
-                                color: '#f21d1d',
-                                fontSize: 17,
-                            }}
-                            text="Seguir"
-                        />
-                        {/* {onPress ? 
-                            <TouchableOpacity style={{alignItems: 'center'}}>
-                                <View style={styles.SeguindoButton}>
-                                    <TouchableOpacity>
-                                        <Text style={styles.SeguindoText}>Seguindo</Text>
-                                    </TouchableOpacity>
+            <View style={{ flex: 1, backgroundColor: "#fff" }}>
+                <ScrollView>
+                    <WidthFillingImage 
+                        source = {infoUsuario.background}                
+                    />
+                    <View style={{top: -20}}>
+                        <View style={{paddingHorizontal: 20}}>
+                            <View style={{ justifyContent: 'flex-start' }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Image
+                                        source={infoUsuario.avatar}
+                                        style={{
+                                            width: 100,
+                                            height: 100,
+                                            borderRadius: 200,
+                                            marginBottom: 12,
+                                        }}
+                                    />
+                                    <View style={styles.InfoInteraction}>
+                                        <View styles={styles.SeguidoresInteraction}>
+                                        <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>{dadosUsuario.getSeguidores().length}</Text>
+                                            <Text style={styles.SeguidoresInteractionText}>Seguidores</Text>
+                                        </View>
+                                        <View styles={styles.SeguindoInteraction}>
+                                            <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>
+                                                {infoUsuario.seguindo.length}
+                                            </Text>
+                                            <Text style={styles.SeguindoInteractionText}>Seguindo</Text>
+                                        </View>
+                                    </View>
                                 </View>
-                            </TouchableOpacity>
-                        : null} */}
+                            </View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <View>
+                                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+                                        {infoUsuario.nome}
+                                    </Text>
+                                    <Text style={{ fontSize: 15, fontWeight: 'normal' }}>
+                                        @{infoUsuario.username}
+                                    </Text>
+                                </View>
+                                <HollowButton
+                                    height={40}
+                                    width={110}
+                                    textStyle={{
+                                        color: '#f21d1d',
+                                        fontSize: 17,
+                                    }}
+                                    text="Seguir"
+                                />
+                            </View>
+                            <View style={styles.Bio}>
+                                <Text>
+                                    {infoUsuario.descricao}
+                                </Text>
+                            </View>
+                        </View>
+                        <View style={styles.BoxesNavigation}>
+                            <BoxesNavigation title="Pius" />
+                            <BoxesNavigation title="Pius e Respostas" />
+                            <BoxesNavigation title="Curtidas" />
+                        </View>
                     </View>
-                </View>
-                <View style={styles.Bio}>
-                    <Text>
-                        {
-                            baseDeDados
-                                .getDadosUsuarioFromUsername(loggedInUser) == null
-                                ? null
-                                : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.descricao
-                        }
-                    </Text>
-                </View>
-                <View style={styles.BoxesNavigation}>
-                    <TouchableOpacity>
-                        <View style={styles.SelectionBox}>
-                            <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Pius</Text>
-                            <Text style={styles.RedLine}></Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View>
-                            <Text style={styles.PiusERespostas}>Pius e Respostas</Text>
-                            <Text style={[styles.RedLine, { backgroundColor: '#999999' }]}></Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View>
-                            <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Curtidas</Text>
-                            <Text style={[styles.RedLine, { backgroundColor: '#999999' }]}></Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            </ImageBackground>
+                </ScrollView>
+            </View>
             <PiarButton navigation={navigation} />
             <View>
 
@@ -161,102 +114,24 @@ const styles = StyleSheet.create({
         width: 200,
         height: 200,
         borderRadius: 200,
-        marginTop: 110,
-        marginLeft: 20,
-    },
-    infoContainer: {
-        marginLeft: 25,
-        marginTop: 10,
     },
     Bio: {
-        width: 332,
-        height: 73,
         marginTop: 10,
-        marginLeft: 20,
+        marginBottom: 15,
     },
     BoxesNavigation: {
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'stretch',
-    },
-    PiusERespostas: {
-        fontSize: 15,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    RedLine: {
-        marginTop: 5,
-        width: 130,
-        height: 2,
-        backgroundColor: '#F21D1D',
-        alignItems: 'center',
-    },
-    BorderEditProfileButton: {
-        width: 128,
-        height: 40,
-        backgroundColor: '#F21D1D',
-        borderRadius: 40,
-        marginTop: -60,
-        marginLeft: 90,
-    },
-    EditProfileButton: {
-        width: 120,
-        height: 32,
-        backgroundColor: '#ffffff',
-        borderRadius: 40,
-        marginTop: 4,
-        marginLeft: 4,
-    },
-    EditProfileText: {
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 4,
-    },
-    BorderSeguirButton: {
-        width: 128,
-        height: 40,
-        backgroundColor: '#F21D1D',
-        borderRadius: 40,
-        marginTop: 10,
-        marginLeft: 90,
-    },
-    SeguirButton: {
-        width: 120,
-        height: 32,
-        backgroundColor: '#ffffff',
-        borderRadius: 40,
-        justifyContent: 'center',
-    },
-    SeguirText: {
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 4,
-    },
-    SeguindoButton: {
-        width: 125,
-        height: 38,
-        backgroundColor: '#F21D1D',
-        borderRadius: 40,
-        marginTop: 10,
-        marginLeft: 90,
-        alignItems: 'center',
-    },
-    SeguindoText: {
-        fontWeight: 'bold',
-        alignItems: 'center',
-        marginTop: 6,
     },
     InfoInteraction: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginLeft: 0,
-        marginTop: 160,
     },
     SeguidoresInteractionText: {
         textAlign: 'center',
-        opacity: 0.7,
+        opacity: 0.5,
     },
     SeguindoInteractionText: {
         textAlign: 'center',
