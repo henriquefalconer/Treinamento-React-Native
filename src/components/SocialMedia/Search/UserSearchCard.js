@@ -3,12 +3,12 @@ import { View, Image, Text } from "react-native";
 import { baseDeDados, loggedInUser } from "../../../utilities/baseDeDados";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function PiusSearchBar({username}) {
+export default function PiusSearchBar({username, onPress}) {
     const infoUsuario = baseDeDados.getDadosUsuarioFromUsername(username).infoUsuario;
 
     return (
         <TouchableOpacity
-            onPress={() => {}}
+            onPress={() => onPress(username)} 
         >
             <View style={{
                 height: 60,

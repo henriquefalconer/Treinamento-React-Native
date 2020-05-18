@@ -49,7 +49,7 @@ error Failed to install the app. Make sure you have the Android development envi
 Error: Command failed: ./gradlew app:installDebug -PreactNativeDevServerPort=8081
 ```
 
-É possível resolvê-lo com o seguint comando, realizado no próprio diretório de React Native:
+É possível resolvê-lo com o seguinte comando, realizado no próprio diretório de React Native:
 
 ```
 cd android && ./gradlew clean && cd .. && react-native run-android

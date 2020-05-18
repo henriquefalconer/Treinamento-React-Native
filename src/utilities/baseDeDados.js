@@ -346,17 +346,19 @@ export class BaseDeDados {
         return baseDeDadosChange;
     }
 
-    async montarPiusList(tipoDeFeed) {
+    async montarPiusList(tipoDeFeed, selectedUser) {
+        if (!selectedUser) selectedUser = loggedInUser;
+
         var allPius = [];
  
         const thisBaseDeDados = this; 
 
-        if (loggedInUser == null) {
+        if (loggedInUser == null && selectedUser == loggedInUser) {
             console.log('montarPiusList: Recuperando usuário logado do AsyncStorage.');
-            loggedInUser= await AsyncStorage.getItem('loggedInUser');
+            loggedInUser = await AsyncStorage.getItem('loggedInUser');
         }
 
-        const loggedUserData = this.getDadosUsuarioFromUsername(loggedInUser);
+        const loggedUserData = this.getDadosUsuarioFromUsername(selectedUser);
         if (loggedUserData == null) {
 
             const change = await this.carregarAllDataFromApi();
@@ -377,13 +379,13 @@ export class BaseDeDados {
             case TipoDeFeed.piusERespostasDoUsuario:
                 thisBaseDeDados.data.forEach(function(userData){
 
-                    if (userData.infoUsuario.username == loggedInUser) {
+                    if (userData.infoUsuario.username == selectedUser) {
                         userData.pius.forEach(function(piu){
                             allPius.push(piu.piuId);
                         });
                     } else {
                         userData.pius.forEach(function(piu){
-                            if (GeneralFunctions.getUserNameFromPiuId(piu.piuReplyId) == loggedInUser) {
+                            if (GeneralFunctions.getUserNameFromPiuId(piu.piuReplyId) == selectedUser) {
                                 allPius.push(piu.piuReplyId);
                             }
                         });
@@ -404,7 +406,7 @@ export class BaseDeDados {
                 });
                 loggedUserData.infoUsuario.seguindo.forEach(function(usuario){
                     const contatoDados = thisBaseDeDados.getDadosUsuarioFromUsername(usuario);
-                    if (usuario != loggedInUser && contatoDados != null) {
+                    if (usuario != selectedUser && contatoDados != null) {
                         contatoDados.pius.forEach(function(piu){
                             allPius.push(piu.piuId);
                         });

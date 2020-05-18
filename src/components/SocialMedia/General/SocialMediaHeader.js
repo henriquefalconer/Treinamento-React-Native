@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { setLoggedInUser } from "../../../utilities/baseDeDados";
-import AsyncStorage from "@react-native-community/async-storage";
+import AllIcons from "../../General/AllIcons";
+import { IconType } from "../../../utilities/constants";
 
-function SocialMediaHeader({ navigation }) {
+function SocialMediaHeader({ navigation, showBackButton, backButtonOnPress }) {
     return (
         <View 
             style={{
@@ -18,16 +18,27 @@ function SocialMediaHeader({ navigation }) {
                 height: 52,
             }}
         >
-            <TouchableOpacity onPress={() => {
-                navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'Home' }],
-                  });
-            }}>
-                <Text style={styles.logout}>
-                    Logout
-                </Text>
-            </TouchableOpacity>
+            {
+                !showBackButton 
+                ? <TouchableOpacity onPress={() => {
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Home' }],
+                    });
+                }}>
+                    <Text style={styles.logout}>
+                        Logout
+                    </Text>
+                </TouchableOpacity>
+                : <TouchableOpacity style={styles.logout} onPress={backButtonOnPress}>
+                    <AllIcons 
+                        iconType={IconType.Ionicons}
+                        name="ios-arrow-back"
+                        size={30}
+                        color="#f21d1d"
+                    />
+                </TouchableOpacity>
+            }
             <Image 
                 style={{
                     width: 50, 
@@ -38,9 +49,27 @@ function SocialMediaHeader({ navigation }) {
                     require('../../../../assets/logo.jpg')
                 } 
             />
-            <Text style={{...styles.logout, color: 'transparent'}}>
-                Logout
-            </Text>
+            {
+                !showBackButton 
+                ? <View onPress={() => {
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Home' }],
+                    });
+                }}>
+                    <Text style={{...styles.logout, color: 'transparent'}}>
+                        Logout
+                    </Text>
+                </View>
+                : <View style={{...styles.logout, opacity: 0.0}} onPress={backButtonOnPress}>
+                    <AllIcons 
+                        iconType={IconType.Ionicons}
+                        name="ios-arrow-back"
+                        size={30}
+                        color="#f21d1d"
+                    />
+                </View>
+            }
         </View>
     );
 };
