@@ -11,18 +11,13 @@ import WidthFillingImage from "../../../components/SocialMedia/Profile/WidthFill
 import BoxesNavigation from "../../../components/SocialMedia/Profile/BoxesNavigation";
 import Piu from "../../../components/SocialMedia/Feed/Piu";
 
-//para mudanca de botao
-function changeButton() {
-    <TouchableOpacity style={{ alignItems: 'center' }}>
-        <View style={styles.SeguindoButton}>
-            <TouchableOpacity>
-                <Text style={styles.SeguindoText}>Seguindo</Text>
-            </TouchableOpacity>
-        </View>
-    </TouchableOpacity>
-}
-
 function ProfileTop() {
+    const changeButton = () => {
+        console.log('oi')
+        click ( !buttonClick )
+                return buttonClick
+    }
+    const [buttonClick, click] = useState(false);
     const [abaSelecionada, setabaSelecionada] = useState('Pius');
     const dadosUsuario = baseDeDados.getDadosUsuarioFromUsername(loggedInUser) == null
         ? baseDeDados.getDadosUsuarioFromUsername('cleber.cunha')
@@ -73,15 +68,27 @@ function ProfileTop() {
                             @{infoUsuario.username}
                         </Text>
                     </View>
-                    <HollowButton
+                    {buttonClick 
+                        ? <HollowButton
                         height={40}
                         width={110}
                         textStyle={{
                             color: '#f21d1d',
                             fontSize: 17,
                         }}
-                        text="Seguir"
-                    />
+                        onPress={changeButton}
+                        text="Seguir"/>
+                        : <HollowButton
+                        height={50}
+                        width={110}
+                        textStyle={{
+                            color: '#f21d1d',
+                            fontSize: 15,
+                            textAlign:'center',
+                        }}
+                        onPress={changeButton}
+                        text="Deixar de Seguir"/>
+                    }
                 </View>
                 <View style={styles.Bio}>
                     <Text>
