@@ -5,14 +5,16 @@ import PiuReply from "./PiuReply";
 import { IconType, firstLastName } from '../../../utilities/constants';
 import { baseDeDados, loggedInUser } from "../../../utilities/baseDeDados";
 import { getRelativeTime, getTimeFromPiuId } from "../../../utilities/GeneralFunctions";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default class Piu extends PureComponent {
 
-    constructor({ piuId, navigation, onChange }) {
+    constructor({ piuId, navigation, onChange, onPressUser }) {
         super();
         this.piuId = piuId;
         this.navigation = navigation;
         this.onChange = onChange;
+        this.onPressUser = onPressUser;
     }
 
     montarPiuContent() {
@@ -33,24 +35,28 @@ export default class Piu extends PureComponent {
         return (
             <View>
                 <View style={{flexDirection: 'row'}} >
-                    <View 
-                        style={{
-                            width: 45,
-                            height: 45,
-                            borderRadius: 22.5,
-                            padding: 0,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }} 
+                    <TouchableOpacity
+                        onPress={() => this.onPressUser(infoUsuario.username)}
                     >
-                        <Image style={{
-                                width: 39,
-                                height: 39,
+                        <View 
+                            style={{
+                                width: 45,
+                                height: 45,
                                 borderRadius: 22.5,
-                                backgroundColor: "#ddd"
+                                padding: 0,
+                                justifyContent: 'center',
+                                alignItems: 'center',
                             }} 
-                            source={infoUsuario.avatar} />
-                    </View>
+                        >
+                            <Image style={{
+                                    width: 39,
+                                    height: 39,
+                                    borderRadius: 22.5,
+                                    backgroundColor: "#ddd"
+                                }} 
+                                source={infoUsuario.avatar} />
+                        </View>
+                    </TouchableOpacity>
                     <View style={{
                             marginHorizontal: 10,
                             flex: 1,
@@ -61,15 +67,19 @@ export default class Piu extends PureComponent {
                             marginTop: 10,
                             marginBottom: 2,
                         }} >
-                            <Text style={{
-                                marginRight: 6,
-                                fontWeight: "bold",
-                                fontSize: 15,
-                            }} >{firstLastName(infoUsuario.nome)}</Text>
-                            <Text style={{
-                                color: "#8F8F8F",
-                                fontSize: 15,
-                                }} >@{infoUsuario.username}</Text>
+                            <TouchableOpacity
+                        onPress={() => this.onPressUser(infoUsuario.username)}
+                            >
+                                <Text style={{
+                                    marginRight: 6,
+                                    fontWeight: "bold",
+                                    fontSize: 15,
+                                }} >{firstLastName(infoUsuario.nome)}</Text>
+                                <Text style={{
+                                    color: "#8F8F8F",
+                                    fontSize: 15,
+                                    }} >@{infoUsuario.username}</Text>
+                            </TouchableOpacity>
                             <View style={{
                                 backgroundColor: "#C4C4C4", 
                                 height: 5, 

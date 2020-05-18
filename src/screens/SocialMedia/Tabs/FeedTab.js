@@ -1,16 +1,21 @@
-import React, { Component } from "react";
-import { View, StyleSheet, Text, SafeAreaView, ActivityIndicator } from "react-native";
+import React, { Component, useState } from "react";
+import { View, Text, SafeAreaView, ActivityIndicator } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { baseDeDados, signOut } from "../../../utilities/baseDeDados";
 import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
 import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
+import ProfileTab from "./ProfileTab";
 
-export default class FeedTab extends Component {
+class FeedContent extends Component {
 
-    constructor() {
+    constructor({navigation, onPressUser}) {
         super();
+
+        this.navigation = navigation;
+
+        this.onPressUser = onPressUser;
 
         this._isMounted = true;
 
@@ -91,8 +96,9 @@ export default class FeedTab extends Component {
                     return (
                         <Piu 
                             piuId={item}
-                            navigation={this.props.navigation}
+                            navigation={this.navigation}
                             onChange={async () => await this.refreshLocalPius()}
+                            onPressUser={this.onPressUser}
                         />
                     );
                 }}
@@ -103,19 +109,30 @@ export default class FeedTab extends Component {
 
     render() {
         return (
-            <SafeAreaView style={styles.background}>
-                <SocialMediaHeader navigation={this.props.navigation} />
-                <View style={styles.background}>
+            <SafeAreaView style={{ flex: 1 }}>
+                <SocialMediaHeader navigation={this.navigation} />
+                <View style={{ flex: 1 }}>
                     {this.loadPiusArea()}
                 </View>
-                <PiarButton navigation={this.props.navigation} />
+                <PiarButton navigation={this.navigation} />
             </SafeAreaView>
         );
     }
 };
 
-const styles = StyleSheet.create({
-    background: {
-        flex: 1,
-    },
-});
+export default function FeedTab(props) {
+    let [selectedUsername, setSelectedUsername] = useState(null);
+
+    return (
+        selectedUsername == null 
+            ? <FeedContent 
+                {...props} 
+                onPressUser={setSelectedUsername} 
+            /> 
+            : <ProfileTab 
+                {...props} 
+                selectedUsername={selectedUsername} 
+                onReturnFromSearch={() => setSelectedUsername(null)} 
+            />
+    );
+}
