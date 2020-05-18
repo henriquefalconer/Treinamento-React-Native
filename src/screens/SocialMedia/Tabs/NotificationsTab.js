@@ -29,7 +29,7 @@ function NotificationCard({ notificationInfo }) {
             />
             <Text
                 style={{
-                    fontWeight: '600',
+                    fontWeight: 'bold',
                 }}
             >
                 {notificationInfo.user}

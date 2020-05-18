@@ -145,6 +145,7 @@ class ProfileTab extends Component {
     }
 
     ProfileContent() {
+        /*
         if (this.state.piusList == null) {
             return (
                 <View style={{
@@ -168,6 +169,7 @@ class ProfileTab extends Component {
                 </View>
             );
         }
+        */
 
         return (
             <FlatList
