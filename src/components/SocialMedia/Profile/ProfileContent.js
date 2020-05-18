@@ -23,7 +23,7 @@ export default class ProfileContent extends Component {
 
         this.state = {
             piusList: [],
-            tipoDeFeed: TipoDeFeed.apenasPiusDoUsuario,
+            tipoDeFeed: TipoDeFeed.piusERespostasDoUsuario,
             dadosUsuario: null,
         };
     }

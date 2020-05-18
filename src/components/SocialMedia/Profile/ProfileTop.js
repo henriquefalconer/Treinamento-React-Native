@@ -108,13 +108,6 @@ export default function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario, lo
             </View>
             <View style={styles.BoxesNavigation}>
                     <BoxesNavigation 
-                        title="Pius" 
-                        active={tipoDeFeed == TipoDeFeed.apenasPiusDoUsuario} 
-                        onPress={
-                            async () => await setTipoDeFeed(TipoDeFeed.apenasPiusDoUsuario)
-                        } 
-                    />
-                    <BoxesNavigation 
                         title="Pius e Respostas" 
                         active={tipoDeFeed == TipoDeFeed.piusERespostasDoUsuario} 
                         onPress={
@@ -128,6 +121,13 @@ export default function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario, lo
                             async () => await setTipoDeFeed(TipoDeFeed.curtidasDoUsuario)
                         }
                     />    
+                    <BoxesNavigation 
+                        title="Favoritados" 
+                        active={tipoDeFeed == TipoDeFeed.favoritadosDoUsuario} 
+                        onPress={
+                            async () => await setTipoDeFeed(TipoDeFeed.favoritadosDoUsuario)
+                        } 
+                    />
             </View>
         </View>
     );

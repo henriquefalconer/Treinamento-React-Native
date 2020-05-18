@@ -34,5 +34,6 @@ export const TipoDeFeed = {
     contatos: "contatos",
     apenasPiusDoUsuario: "apenasPiusDeUsuario",
     piusERespostasDoUsuario: "apenasRespostasDeUsuario",
+    favoritadosDoUsuario: "favoritadosDoUsuario",
     curtidasDoUsuario: "tudoDoUsuario",
 }

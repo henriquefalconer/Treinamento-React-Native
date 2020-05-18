@@ -399,6 +399,12 @@ export class BaseDeDados {
                     allPius.push(likePiuId);
                 });
                 break;
+             
+            case TipoDeFeed.favoritadosDoUsuario:
+                selectedUserData.infoUsuario.destacados.forEach(function(destacadoPiuId){
+                    allPius.push(destacadoPiuId);
+                });
+                break;
 
             case TipoDeFeed.contatos:
                 selectedUserData.pius.forEach(function(piu){
