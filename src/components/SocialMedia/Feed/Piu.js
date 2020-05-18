@@ -40,8 +40,8 @@ export default class Piu extends PureComponent {
                     >
                         <View 
                             style={{
-                                width: 45,
-                                height: 45,
+                                width: 55,
+                                height: 55,
                                 borderRadius: 22.5,
                                 padding: 0,
                                 justifyContent: 'center',
@@ -49,133 +49,127 @@ export default class Piu extends PureComponent {
                             }} 
                         >
                             <Image style={{
-                                    width: 39,
-                                    height: 39,
-                                    borderRadius: 22.5,
+                                    width: 49,
+                                    height: 49,
+                                    borderRadius: 24.5,
                                     backgroundColor: "#ddd"
                                 }} 
                                 source={infoUsuario.avatar} />
                         </View>
                     </TouchableOpacity>
                     <View style={{
-                            marginHorizontal: 10,
+                            marginLeft: 10,
                             flex: 1,
                     }} >
-                        <View style={{
-                            flexDirection: 'row', 
-                            alignItems: 'center', 
-                            marginTop: 10,
-                            marginBottom: 2,
-                        }} >
-                            <TouchableOpacity
-                                onPress={() => this.onPressUser(infoUsuario.username)}
-                            >
-                                <Text style={{
-                                    marginRight: 6,
-                                    fontWeight: "bold",
-                                    fontSize: 15,
-                                }} >{firstLastName(infoUsuario.nome)}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                onPress={() => this.onPressUser(infoUsuario.username)}
-                            >
+                        <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+                            <View style={{
+                                flexDirection: 'row', 
+                                alignItems: 'center', 
+                                marginBottom: 2,
+                            }} >
+                                <TouchableOpacity
+                                    onPress={() => this.onPressUser(infoUsuario.username)}
+                                >
+                                    <Text style={{
+                                        marginRight: 6,
+                                        fontWeight: "bold",
+                                        fontSize: 15,
+                                    }} >{firstLastName(infoUsuario.nome)}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => this.onPressUser(infoUsuario.username)}
+                                >
+                                    <Text style={{
+                                        color: "#8F8F8F",
+                                        fontSize: 15,
+                                        }} >@{infoUsuario.username}</Text>
+                                </TouchableOpacity>
+                                <View style={{
+                                    backgroundColor: "#C4C4C4", 
+                                    height: 5, 
+                                    width: 5, 
+                                    borderRadius: 2.5,
+                                    marginHorizontal: 8,
+                                }} />
                                 <Text style={{
                                     color: "#8F8F8F",
                                     fontSize: 15,
-                                    }} >@{infoUsuario.username}</Text>
-                            </TouchableOpacity>
-                            <View style={{
-                                backgroundColor: "#C4C4C4", 
-                                height: 5, 
-                                width: 5, 
-                                borderRadius: 2.5,
-                                marginHorizontal: 8,
-                            }} />
-                            <Text style={{
-                                color: "#8F8F8F",
-                                fontSize: 15,
-                            }} >{getRelativeTime(getTimeFromPiuId(this.piuId))}</Text>
+                                }} >{getRelativeTime(getTimeFromPiuId(this.piuId))}</Text>
+                            </View>
+                            {
+                                infoUsuario.username == loggedInUser
+                                    && <PiuAction 
+                                        noMargin={true}
+                                        iconType={IconType.Ionicons} 
+                                        icon="md-trash" 
+                                        size={22.5} 
+                                        active={false}
+                                        onPress={async () => {
+                                            baseDeDados.togglePiuDelete({ piuId: this.piuId });
+                                            await this.onChange();
+                                        }} 
+                                    />
+                            }
                         </View>
-                        <View>
+                        <View style={{marginRight: 10}}>
                             <Text style={{
                                 fontSize: 15,
                             }} >{piuData.message}</Text>
-                        </View>
-                        {
-                            piuData.piuReplyId != undefined 
-                                && (
-                                    <PiuReply 
-                                        piuReplyId={piuData.piuReplyId} 
-                                        onPressUser={this.onPressUser}
-                                    />
-                                )
-                        }
-                    </View>
-                </View>
-                <View style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    margin: 0,
-                    marginTop: 4,
-                    paddingLeft: 50,
-                    paddingRight: 55,
-                }} >
-                    <PiuAction 
-                        iconType={IconType.Ionicons} 
-                        icon="ios-heart" 
-                        size={19} 
-                        actionCount={piuData.getLikes().length} 
-                        active={(piuData.getLikes()).includes(loggedInUser)}
-                        onPress={async () => {
-                            baseDeDados.togglePiuLike({ piuId: this.piuId });
-                            await this.onChange();
-                        }} 
-                    />
-                    <PiuAction 
-                        iconType={IconType.Octicons} 
-                        icon="reply" 
-                        size={20} 
-                        verticalIconDisplacement={2}
-                        actionCount={piuData.getReplies().length} 
-                        active={(piuData.getReplies()).includes(loggedInUser)}
-                        onPress={async () => {
-                            baseDeDados.replyPiu({ 
-                                piuReplyId: this.piuId,
-                                navigation: this.navigation,
-                            });
-                        }} 
-                    />
-                    <PiuAction 
-                        iconType={IconType.MaterialCommunityIcons} 
-                        icon="pin" 
-                        size={20} 
-                        active={piuData.hasDestaque()}
-                        onPress={async () => {
-                            baseDeDados.togglePiuDestaque({ piuId: this.piuId });
-                            await this.onChange();
-                        }} 
-                    />
-                    <View style={{
-                        position: 'absolute',
-                        right: 0,
-                    }}>
-                        {
-                            infoUsuario.username == loggedInUser
-                                ? <PiuAction 
-                                    noMargin={true}
+                            {
+                                piuData.piuReplyId != undefined 
+                                    && (
+                                        <PiuReply 
+                                            piuReplyId={piuData.piuReplyId} 
+                                            onPressUser={this.onPressUser}
+                                        />
+                                    )
+                            }
+                            <View style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                marginVertical: 2,
+                                paddingLeft: 0,
+                                paddingRight: 40,
+                            }} >
+                                <PiuAction 
                                     iconType={IconType.Ionicons} 
-                                    icon="md-trash" 
-                                    size={22.5} 
-                                    verticalIconDisplacement={-2.5}
-                                    active={false}
+                                    icon="ios-heart" 
+                                    size={19} 
+                                    actionCount={piuData.getLikes().length} 
+                                    active={(piuData.getLikes()).includes(loggedInUser)}
                                     onPress={async () => {
-                                        baseDeDados.togglePiuDelete({ piuId: this.piuId });
+                                        baseDeDados.togglePiuLike({ piuId: this.piuId });
                                         await this.onChange();
                                     }} 
                                 />
-                                : null
-                        }
+                                <PiuAction 
+                                    iconType={IconType.Octicons} 
+                                    icon="reply" 
+                                    size={20} 
+                                    verticalIconDisplacement={2}
+                                    actionCount={piuData.getReplies().length} 
+                                    active={(piuData.getReplies()).includes(loggedInUser)}
+                                    onPress={async () => {
+                                        baseDeDados.replyPiu({ 
+                                            piuReplyId: this.piuId,
+                                            navigation: this.navigation,
+                                        });
+                                    }} 
+                                />
+                                <PiuAction 
+                                    noMargin={true}
+                                    iconType={IconType.Ionicons} 
+                                    icon="ios-star" 
+                                    size={20} 
+                                    active={piuData.hasDestaque()}
+                                    onPress={async () => {
+                                        baseDeDados.togglePiuDestaque({ piuId: this.piuId });
+                                        await this.onChange();
+                                    }} 
+                                />
+                            </View>
+                        </View>
                     </View>
                 </View>
             </View>
@@ -184,7 +178,7 @@ export default class Piu extends PureComponent {
 
     render() {
         return (
-            <View style={{padding: 8, backgroundColor: '#fff', marginBottom: 8}}>
+            <View style={{padding: 8, paddingBottom: 0, backgroundColor: '#fff', marginBottom: 8}}>
                 {this.montarPiuContent()}
             </View>
         );

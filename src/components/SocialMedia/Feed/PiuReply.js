@@ -115,11 +115,11 @@ function PiuReply({ piuReplyId, onPressUser=(() => {}) }) {
 
     return (
         <View style={{
-            borderRadius: 20,
+            borderRadius: 13,
             borderWidth: 1,
             borderColor: "#ddd",
             paddingHorizontal: 15,
-            marginTop: 10,
+            marginTop: 7,
             marginBottom: 3,
         }}>
             {montarPiuReplyConteudo()}
