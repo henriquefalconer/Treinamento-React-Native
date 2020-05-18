@@ -579,7 +579,7 @@ export var baseDeDados = new BaseDeDados([
             "Cleber Cunha",
             "cleber.cunha",
             require("../../assets/avatars/Cleber.jpg"),
-            require("../../assets/profileBackground/Porsche 911.jpg"),
+            require("../../assets/profileBackground/Porsche911.jpg"),
             [
                 "fulano.beltrano",
                 "rosi.plat",

@@ -80,8 +80,8 @@ export default function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) 
                             </View>
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'stretch', flex: 1 }}>
+                        <View style={{ flex: 1 }}>
                             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
                                 {infoUsuario.nome}
                             </Text>
