@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 
-export default function FilledButton({text, onPress, textStyle, width=250, height=49, disabled=false}) {
+export default function FilledButton({text, onPress, textStyle, width=250, height=49, disabled=false, onDisabledPress}) {
   
   let styles = StyleSheet.create({
     filledButton: {
@@ -20,7 +20,7 @@ export default function FilledButton({text, onPress, textStyle, width=250, heigh
     }
   });
 
-  return (
+  const filledButton = (
       <TouchableOpacity
         style={styles.filledButton}
         disabled={disabled}
@@ -28,5 +28,17 @@ export default function FilledButton({text, onPress, textStyle, width=250, heigh
       >
         <Text style={textStyle || styles.text}>{text}</Text>
       </TouchableOpacity>
+    );
+
+  return (
+    onDisabledPress && disabled
+      ? (
+        <TouchableOpacity
+          onPress={onDisabledPress}
+        >
+          {filledButton}
+        </TouchableOpacity>
+      )
+      : filledButton
   );
 };

@@ -9,6 +9,7 @@ import CustomStatusBar from "../../components/General/CustomStatusBar";
 import sendPiuToApi from "../../utilities/sendPiuToApi";
 import Modal from 'react-native-modal';
 import FullScreenLoading from "../../components/General/FullScreenLoading";
+import StylizedModal from "../../components/General/StylizedModal";
 
 function PiarScreen({navigation, route}) {
     let [piuText, changePiuText] = useState("");
@@ -61,6 +62,7 @@ function PiarScreen({navigation, route}) {
                     text="Piar"
                     onPress={criarPiu}
                     disabled={piuText.length > 140 || piuText.length == 0}
+                    onDisabledPress={() => setModalVisibility(true)}
                     textStyle={{fontSize: 17, color: "#fff"}}
                     width={100}
                     height={38}
@@ -73,51 +75,28 @@ function PiarScreen({navigation, route}) {
                     paddingVertical: 10,
                     flexDirection: 'row',
                 }}>
-                    <Image  
-                        source={
-                            baseDeDados
-                                .getDadosUsuarioFromUsername(loggedInUser) == null 
-                                    ? null 
-                                    : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.avatar
-                        } 
-                        style={{
-                            height: 50,
-                            width: 50,
-                            right: 4,
-                            borderRadius: 25,
-                            margin: 3,
-                            backgroundColor: "#ddd"
-                        }}
-                    />
+                    <View style={{marginRight: 4}} >
+                        <Image  
+                            source={
+                                baseDeDados
+                                    .getDadosUsuarioFromUsername(loggedInUser) == null 
+                                        ? null 
+                                        : baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.avatar
+                            } 
+                            style={{
+                                height: 50,
+                                width: 50,
+                                borderRadius: 25,
+                                margin: 3,
+                                backgroundColor: "#ddd"
+                            }}
+                        />
+                        <View style={styles.ContadorBox}>
+                            {piuText.length > 140 ? <Text style={{color: 'red'}}>{piuText.length}</Text> : <Text style={{color: 'black'}}>{piuText.length}</Text>}
+                            <Text style={styles.LimiteDeCaracteres}>/140</Text>
+                        </View>
+                    </View>
                     <View style={{ flex: 1 }} >
-                        {piuText.length > 140 ? <Text style={styles.piuAviso}>A mensagem não pode conter mais de 140 caracteres.</Text> : null}
-                        {piuText.length > 140 ?  
-                            <Modal 
-                                isVisible={visibleModal} 
-                                onRequestClose={() => setModalVisibility(false)}
-                            >
-                                <View style={styles.popupHelp}>
-                                        <Text 
-                                            style={{ 
-                                                textAlign: 'center',
-                                                fontSize: 16,
-                                                //marginTop: 200,
-                                                //marginHorizontal: 8,
-                                                //marginBottom: 20,
-                                            }}
-                                        >
-                                            O texto não pode ultrapassar 140 caracteres.
-                                        </Text>
-                                        <FilledButton 
-                                            text="OK" 
-                                            onPress={() => setModalVisibility(false)}
-                                            textStyle={{fontSize: 17, color: "#fff"}} 
-                                            width={150}
-                                            height={47} 
-                                        />
-                                    </View>
-                            </Modal>
-                        : null}
                         <ExpandingTextInput 
                             placeholder="Em que você está pensando?"
                             value={piuText}
@@ -129,14 +108,11 @@ function PiarScreen({navigation, route}) {
                                 marginLeft: 5,
                                 padding: 0,
                                 paddingTop: 15,
-                                paddingBottom: 5
+                                paddingBottom: 5,
+                                color: piuText.length > 140 ? '#f21d1d' : '#000',
                             }}
                             autoCapitalize='none'
                         />
-                        <View style={styles.ContadorBox}>
-                            {piuText.length > 140 ? <Text style={{color: 'red'}}>{piuText.length}</Text> : <Text style={{color: 'black'}}>{piuText.length}</Text>}
-                            <Text style={styles.LimiteDeCaracteres}>/140</Text>
-                        </View>
                         {
                             piuReplyId != null
                                 ? <PiuReply piuReplyId={piuReplyId} />
@@ -145,6 +121,13 @@ function PiarScreen({navigation, route}) {
                     </View>
                 </View>
             </ScrollView>
+
+            <StylizedModal 
+                text="O piu deve possuir um número de caracteres entre 0 e 140."
+                isVisible={visibleModal} 
+                onRequestClose={() => setModalVisibility(false)}
+            />
+
             <FullScreenLoading 
                 isLoading={sendingPiu}
             />
@@ -166,8 +149,8 @@ const styles = StyleSheet.create({
     },
     ContadorBox: {
         flexDirection: "row",
-        marginLeft: -55,
-        marginTop: 20,
+        justifyContent: 'center',
+        marginTop: 5,
     },  
     LimiteDeCaracteres: {
         opacity: 0.6,

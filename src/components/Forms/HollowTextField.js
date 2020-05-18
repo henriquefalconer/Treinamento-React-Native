@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
-import Modal from 'react-native-modal';
-import FilledButton from "../General/FilledButton";
+import StylizedModal from "../General/StylizedModal";
 
 function HollowTextField({placeholder, helpText, onChange, value, toggleTextVisibility, onSubmitEditing}) {
 
@@ -40,32 +39,12 @@ function HollowTextField({placeholder, helpText, onChange, value, toggleTextVisi
             >
                 <Image source={require('../../../assets/question-icon.jpg')} style={styles.question}/>
             </TouchableOpacity>
-            
-            <Modal 
+
+            <StylizedModal 
                 isVisible={visibleModal} 
                 onRequestClose={() => setModalVisibility(false)}
-            >
-                <View style={styles.popupHelp}>
-                    <Text 
-                        style={{
-                            textAlign: 'center',
-                            fontSize: 16,
-                            marginTop: 10,
-                            marginHorizontal: 8,
-                            marginBottom: 20,
-                        }}
-                    >
-                        {helpText}
-                    </Text>
-                    <FilledButton 
-                        text="OK" 
-                        onPress={() => setModalVisibility(false)}
-                        textStyle={{fontSize: 17, color: "#fff"}} 
-                        width={150}
-                        height={47} 
-                    />
-                </View> 
-            </Modal>
+                text={helpText}
+            />
         </View>
     );
 };
