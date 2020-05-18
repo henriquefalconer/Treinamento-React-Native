@@ -21,7 +21,6 @@ export function setLoggedInUser(user) {
 // Coloca pius na ordem de tempo:
 function sortPius(piusIds){
     piusIds.sort((a, b) => GeneralFunctions.getTimeFromPiuId(b) - GeneralFunctions.getTimeFromPiuId(a));
-    piusIds.sort((a, b) => (baseDeDados.getDadosPiuFromPiuId(b) != null ? baseDeDados.getDadosPiuFromPiuId(b).hasDestaque() : 1) - baseDeDados.getDadosPiuFromPiuId(a) != null ? baseDeDados.getDadosPiuFromPiuId(a).hasDestaque() : 0);
 }
 
 export function signOut() {
@@ -347,7 +346,6 @@ export class BaseDeDados {
     }
 
     async montarPiusList(tipoDeFeed, selectedUser) {
-        if (!selectedUser) selectedUser = loggedInUser;
 
         var allPius = [];
  
@@ -357,6 +355,8 @@ export class BaseDeDados {
             console.log('montarPiusList: Recuperando usuário logado do AsyncStorage.');
             loggedInUser = await AsyncStorage.getItem('loggedInUser');
         }
+
+        if (!selectedUser) selectedUser = loggedInUser;
 
         const selectedUserData = this.getDadosUsuarioFromUsername(selectedUser);
         if (selectedUserData == null) {
