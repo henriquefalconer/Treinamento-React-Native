@@ -564,7 +564,7 @@ export var baseDeDados = new BaseDeDados([
             // Na plataforma desde:
             Date.parse("02 Feb 2020 7:00:00"),
             // Descrição de perfil:
-            "O primeiro de muitos usuários do PiuPiwer!",
+            "Sou apenas um usuário da base de dados local! Se você me procurar, não vai me achar na API ;)",
         ),
         [
             new Piu(
@@ -620,7 +620,7 @@ export var baseDeDados = new BaseDeDados([
             ],
             [],
             Date.parse("30 Mar 2020 7:00:00"),
-            "O segundo de muitos usuários do PiuPiwer!",
+            "Sou apenas um usuário da base de dados local! Se você me procurar, não vai me achar na API ;)",
         ),
         [
             new Piu(
@@ -681,7 +681,7 @@ export var baseDeDados = new BaseDeDados([
             ],
             [],
             Date.parse("01 Apr 2020 7:00:00"),
-            "O terceiro de muitos usuários do PiuPiwer!",
+            "Sou apenas um usuário da base de dados local! Se você me procurar, não vai me achar na API ;)",
         ),
         [ 
             new Piu(
@@ -735,7 +735,7 @@ export var baseDeDados = new BaseDeDados([
             [],
             [],
             Date.parse("15 Apr 2020 6:00:00"),
-            "Sou nova, não sei o que colocar aqui.",
+            "Sou apenas um usuário da base de dados local! Se você me procurar, não vai me achar na API ;)",
         ),
         [
             new Piu(
