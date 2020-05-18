@@ -68,13 +68,17 @@ export default class Piu extends PureComponent {
                             marginBottom: 2,
                         }} >
                             <TouchableOpacity
-                        onPress={() => this.onPressUser(infoUsuario.username)}
+                                onPress={() => this.onPressUser(infoUsuario.username)}
                             >
                                 <Text style={{
                                     marginRight: 6,
                                     fontWeight: "bold",
                                     fontSize: 15,
                                 }} >{firstLastName(infoUsuario.nome)}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => this.onPressUser(infoUsuario.username)}
+                            >
                                 <Text style={{
                                     color: "#8F8F8F",
                                     fontSize: 15,
@@ -97,8 +101,15 @@ export default class Piu extends PureComponent {
                                 fontSize: 15,
                             }} >{piuData.message}</Text>
                         </View>
-                        {piuData.piuReplyId != undefined && 
-                        (<PiuReply piuReplyId={piuData.piuReplyId} />)}
+                        {
+                            piuData.piuReplyId != undefined 
+                                && (
+                                    <PiuReply 
+                                        piuReplyId={piuData.piuReplyId} 
+                                        onPressUser={this.onPressUser}
+                                    />
+                                )
+                        }
                     </View>
                 </View>
                 <View style={{

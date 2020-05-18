@@ -3,8 +3,9 @@ import { View, Text, Image } from "react-native";
 import { getRelativeTime, getTimeFromPiuId, getApiPiuIdFromPiuId } from "../../../utilities/GeneralFunctions";
 import { baseDeDados } from "../../../utilities/baseDeDados";
 import { firstLastName } from "../../../utilities/constants";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-function PiuReply({piuReplyId}) {
+function PiuReply({piuReplyId, onPressUser}) {
     const infoUsuario = baseDeDados.getInfoUsuarioFromPiuId(piuReplyId);
     const piuReplyData = baseDeDados.getDadosPiuFromPiuId(piuReplyId);
 
@@ -41,30 +42,51 @@ function PiuReply({piuReplyId}) {
                     alignItems: 'center', 
                     marginTop: 10,
                 }} >
-                    <View style={{
-                            width: 30,
-                            height: 30,
-                            borderRadius: 15,
-                            marginRight: 4,
-                        }} 
+                    <TouchableOpacity
+                        onPress={() => onPressUser(infoUsuario.username)}
                     >
-                        <Image style={{
-                                width: 26,
-                                height: 26,
+                        <View style={{
+                                width: 30,
+                                height: 30,
                                 borderRadius: 15,
-                                backgroundColor: "#ddd"
+                                marginRight: 4,
                             }} 
-                            source={infoUsuario.avatar} />
-                    </View>
-                    <Text style={{
-                        fontWeight: "bold",
-                        fontSize: 15,
-                    }} >{firstLastName(infoUsuario.nome)}</Text>
-                    <Text style={{
-                        color: "#8F8F8F",
-                        fontSize: 15,
-                        display: 'none',
-                    }} >@{infoUsuario.username}</Text>
+                        >
+                            <Image style={{
+                                    width: 26,
+                                    height: 26,
+                                    borderRadius: 15,
+                                    backgroundColor: "#ddd"
+                                }} 
+                                source={infoUsuario.avatar} 
+                            />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => onPressUser(infoUsuario.username)}
+                    >
+                        <Text 
+                            style={{
+                                fontWeight: "bold",
+                                fontSize: 15,
+                            }} 
+                        >
+                            {firstLastName(infoUsuario.nome)}
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => onPressUser(infoUsuario.username)}
+                    >
+                        <Text 
+                            style={{
+                                color: "#8F8F8F",
+                                fontSize: 15,
+                                display: 'none',
+                            }} 
+                        >
+                            @{infoUsuario.username}
+                        </Text>
+                    </TouchableOpacity>
                     <View style={{
                         backgroundColor: "#C4C4C4", 
                         height: 5, 
