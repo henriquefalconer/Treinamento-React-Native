@@ -10,20 +10,23 @@ import { TipoDeFeed } from "../../../utilities/constants";
 import followUser from "../../../utilities/follow";
 
 export default function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
+    const loggedUserInfoUsuario = baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario;
     const infoUsuario = dadosUsuario.infoUsuario;
 
-    const [doesLoggedUserFollow, setDoesLoggedUserFollow] = useState(false);
+    const [doesLoggedUserFollow, setDoesLoggedUserFollow] = useState(
+        loggedUserInfoUsuario.seguindo.includes(infoUsuario.username)
+    );
 
     async function changeButton() {
         setDoesLoggedUserFollow(!doesLoggedUserFollow);
         await followUser({ 
             usuario_id: infoUsuario.apiId, 
-            logado_id: baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario.apiId,
+            logado_id: loggedUserInfoUsuario.apiId,
          });
     }
 
     const NewButton = () => (
-        doesLoggedUserFollow 
+        !doesLoggedUserFollow 
             ? <HollowButton
                 height={40}
                 width={110}
