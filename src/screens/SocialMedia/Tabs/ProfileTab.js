@@ -252,6 +252,8 @@ class ProfileTab extends Component {
     }
 };
 
+export default ProfileTab;
+
 const styles = StyleSheet.create({
     background: {
         flex: 1,
@@ -278,5 +280,3 @@ const styles = StyleSheet.create({
         opacity: 0.5,
     },
 });
-
-export default ProfileTab;

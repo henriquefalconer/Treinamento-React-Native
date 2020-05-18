@@ -18,7 +18,7 @@ export default function HollowButton({text, onPress, textStyle, width=250, heigh
     text: {
       color: '#f21d1d',
       fontSize: 23,
-      fontWeight: 'normal'
+      fontWeight: 'normal',
     }
   });
 
