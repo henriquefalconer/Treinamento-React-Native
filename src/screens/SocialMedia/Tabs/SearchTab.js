@@ -7,8 +7,9 @@ import UserSearchCard from "../../../components/SocialMedia/Search/UserSearchCar
 import { FlatList } from "react-native-gesture-handler";
 import { baseDeDados } from "../../../utilities/baseDeDados";
 import { count } from "../../../utilities/constants";
+import ProfileTab from "./ProfileTab";
 
-function SearchTab({navigation}) {
+function SearchContent({navigation, onPressUser}) {
     let [searchText, changeSearchText] = useState('');
     let [usersList, changeUsersList] = useState([]);
     let [flatListHeight, changeFlatListHeight] = useState(0);
@@ -79,7 +80,8 @@ function SearchTab({navigation}) {
                         renderItem={({ item }) => {
                             return (
                                 <UserSearchCard 
-                                        username={item}
+                                    username={item}
+                                    onPress={onPressUser}
                                 />
                             );
                         }}
@@ -106,4 +108,17 @@ function SearchTab({navigation}) {
     );
 };
 
-export default SearchTab;
+export default function SearchTab(props) {
+    let [selectedUsername, setSelectedUsername] = useState(null);
+
+    return selectedUsername == null 
+        ? <SearchContent 
+            {...props} 
+            onPressUser={setSelectedUsername} 
+        /> 
+        : <ProfileTab 
+            {...props} 
+            selectedUsername={selectedUsername} 
+            onReturnFromSearch={() => setSelectedUsername(null)} 
+        />
+}

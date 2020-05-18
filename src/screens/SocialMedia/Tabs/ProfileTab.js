@@ -1,17 +1,15 @@
-import React, { Component, useState } from "react";
-import { View, StyleSheet, SafeAreaView, ActivityIndicator } from "react-native";
-import { Image, Text } from "react-native";
+import React, { Component } from "react";
+import { View, SafeAreaView, ActivityIndicator } from "react-native";
+import { Text } from "react-native";
 import { FlatList, } from "react-native-gesture-handler";
 import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
-import FilledButton from "../../../components/General/FilledButton";
-import HollowButton from "../../../components/General/HollowButton";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 import { baseDeDados, loggedInUser, signOut } from "../../../utilities/baseDeDados";
-import WidthFillingImage from "../../../components/SocialMedia/Profile/WidthFillingImage";
-import BoxesNavigation from "../../../components/SocialMedia/Profile/BoxesNavigation";
+import ProfileTop from "../../../components/SocialMedia/Profile/ProfileTop";
 import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 import { TipoDeFeed } from "../../../utilities/constants";
+<<<<<<< HEAD
 import followUser from "../../../utilities/follow";
 
 function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
@@ -127,12 +125,18 @@ function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
         </View>
     );
 }
+=======
+
+>>>>>>> 9e661a8e70cedec7b8ddc77530f01c713d5fead0
 class ProfileTab extends Component {
-    constructor({ selectedUsername=loggedInUser }) {
+
+    constructor({ selectedUsername=loggedInUser, onReturnFromSearch }) {
         super();
-        this._isMounted = true;
 
         this.selectedUsername = selectedUsername;
+        this.onReturnFromSearch = onReturnFromSearch;
+
+        this._isMounted = true;
 
         this.state = {
             piusList: [],
@@ -161,7 +165,7 @@ class ProfileTab extends Component {
         this._isMounted && this.setState({
             ...this.state,
             tipoDeFeed,
-            piusList: await baseDeDados.montarPiusList(tipoDeFeed),
+            piusList: await baseDeDados.montarPiusList(tipoDeFeed, this.selectedUsername),
         });
     }
     async usuarioDataLoader() {
@@ -231,8 +235,16 @@ class ProfileTab extends Component {
     }
     render() {
         return (
-            <SafeAreaView style={styles.background} >
-                <SocialMediaHeader navigation={this.props.navigation} />
+            <SafeAreaView style={{ flex: 1 }} >
+                {
+                    this.onReturnFromSearch == null
+                    ? <SocialMediaHeader navigation={this.props.navigation} />
+                    : <SocialMediaHeader 
+                        navigation={this.props.navigation} 
+                        showBackButton 
+                        backButtonOnPress={this.onReturnFromSearch}
+                    />
+                }
                 <View style={{ flex: 1 }}>
                     {this.ProfileContent()}
                 </View>
@@ -243,30 +255,3 @@ class ProfileTab extends Component {
 };
 
 export default ProfileTab;
-
-const styles = StyleSheet.create({
-    background: {
-        flex: 1,
-    },
-    Bio: {
-        marginTop: 10,
-    },
-    BoxesNavigation: {
-        flex: 1, 
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    InfoInteraction: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-    },
-    SeguidoresInteractionText: {
-        textAlign: 'center',
-        opacity: 0.5,
-    },
-    SeguindoInteractionText: {
-        textAlign: 'center',
-        opacity: 0.5,
-    },
-});
