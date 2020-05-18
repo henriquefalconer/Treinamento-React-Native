@@ -79,22 +79,28 @@ function LoginScreen({navigation}) {
 
     async function onLogin() {
         dispatch({change: 'loading', newValue: true});
-        
-        const [token, error] = await signIn({ 
-            username: state.username, 
-            password: state.password, 
-        });
 
-        if (token != null) {
-            dispatch({change: 'errorText', newValue: ''});
-            dispatch({change: 'username', newValue: ''});
-            dispatch({change: 'password', newValue: ''});
-            AsyncStorage.setItem('token', token);
-            setLoggedInUser(state.username);
-            navigation.navigate('SocialMedia');
-        }
-        else {
-            dispatch({change: 'errorText', newValue: error});
+        if (state.username == 'polijr') {
+            dispatch({change: 'errorText', newValue: 'Não se pode logar com "polijr".'});
+        } else {
+        
+            const [token, error] = await signIn({ 
+                username: state.username, 
+                password: state.password, 
+            });
+    
+            if (token != null) {
+                dispatch({change: 'errorText', newValue: ''});
+                dispatch({change: 'username', newValue: ''});
+                dispatch({change: 'password', newValue: ''});
+                AsyncStorage.setItem('token', token);
+                setLoggedInUser(state.username);
+                navigation.navigate('SocialMedia');
+            }
+            else {
+                dispatch({change: 'errorText', newValue: error});
+            }
+
         }
 
         dispatch({change: 'loading', newValue: false});
@@ -114,7 +120,7 @@ function LoginScreen({navigation}) {
                     <View>
                         <HollowTextField 
                             placeholder="Nome de usuário"
-                            helpText='Você pode logar como "polijr"'
+                            helpText={'Você pode logar com qualquer usuário que não seja "polijr". Tente "Magodosdoces"'}
                             value={state.username}
                             onChange={(newValue) => 
                                 dispatch({change: 'username', newValue: newValue})
