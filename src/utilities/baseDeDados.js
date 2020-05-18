@@ -21,7 +21,7 @@ export function setLoggedInUser(user) {
 // Coloca pius na ordem de tempo:
 function sortPius(piusIds){
     piusIds.sort((a, b) => GeneralFunctions.getTimeFromPiuId(b) - GeneralFunctions.getTimeFromPiuId(a));
-    piusIds.sort((a, b) => (baseDeDados.getDadosPiuFromPiuId(b) ? baseDeDados.getDadosPiuFromPiuId(b).hasDestaque() : 1) - baseDeDados.getDadosPiuFromPiuId(a) ? baseDeDados.getDadosPiuFromPiuId(a).hasDestaque() : 0);
+    piusIds.sort((a, b) => (baseDeDados.getDadosPiuFromPiuId(b) != null ? baseDeDados.getDadosPiuFromPiuId(b).hasDestaque() : 1) - baseDeDados.getDadosPiuFromPiuId(a) != null ? baseDeDados.getDadosPiuFromPiuId(a).hasDestaque() : 0);
 }
 
 export function signOut() {
@@ -353,13 +353,13 @@ export class BaseDeDados {
  
         const thisBaseDeDados = this; 
 
-        if (loggedInUser == null && selectedUser == loggedInUser) {
+        if (loggedInUser == null) {
             console.log('montarPiusList: Recuperando usuário logado do AsyncStorage.');
             loggedInUser = await AsyncStorage.getItem('loggedInUser');
         }
 
-        const loggedUserData = this.getDadosUsuarioFromUsername(selectedUser);
-        if (loggedUserData == null) {
+        const selectedUserData = this.getDadosUsuarioFromUsername(selectedUser);
+        if (selectedUserData == null) {
 
             const change = await this.carregarAllDataFromApi();
 
@@ -371,7 +371,7 @@ export class BaseDeDados {
         
         switch (tipoDeFeed) {
             case TipoDeFeed.apenasPiusDoUsuario:
-                loggedUserData.pius.forEach(function(piu){
+                selectedUserData.pius.forEach(function(piu){
                     allPius.push(piu.piuId);
                 });
                 break;
@@ -395,16 +395,16 @@ export class BaseDeDados {
                 break;
              
             case TipoDeFeed.curtidasDoUsuario:
-                loggedUserData.infoUsuario.likes.forEach(function(likePiuId){
+                selectedUserData.infoUsuario.likes.forEach(function(likePiuId){
                     allPius.push(likePiuId);
                 });
                 break;
 
             case TipoDeFeed.contatos:
-                loggedUserData.pius.forEach(function(piu){
+                selectedUserData.pius.forEach(function(piu){
                     allPius.push(piu.piuId);
                 });
-                loggedUserData.infoUsuario.seguindo.forEach(function(usuario){
+                selectedUserData.infoUsuario.seguindo.forEach(function(usuario){
                     const contatoDados = thisBaseDeDados.getDadosUsuarioFromUsername(usuario);
                     if (usuario != selectedUser && contatoDados != null) {
                         contatoDados.pius.forEach(function(piu){

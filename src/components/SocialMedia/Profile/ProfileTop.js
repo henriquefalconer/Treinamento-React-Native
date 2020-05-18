@@ -3,14 +3,15 @@ import { View, StyleSheet } from "react-native";
 import { Image, Text } from "react-native";
 import FilledButton from "../../General/FilledButton";
 import HollowButton from "../../General/HollowButton";
-import { loggedInUser, baseDeDados } from "../../../utilities/baseDeDados";
+import { loggedInUser } from "../../../utilities/baseDeDados";
 import WidthFillingImage from "../Profile/WidthFillingImage";
 import BoxesNavigation from "../Profile/BoxesNavigation";
 import { TipoDeFeed } from "../../../utilities/constants";
 import followUser from "../../../utilities/follow";
 
-export default function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
-    const loggedUserInfoUsuario = baseDeDados.getDadosUsuarioFromUsername(loggedInUser).infoUsuario;
+export default function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario, loggedUserDadosUsuario }) {
+
+    const loggedUserInfoUsuario = loggedUserDadosUsuario.infoUsuario;
     const infoUsuario = dadosUsuario.infoUsuario;
 
     const [doesLoggedUserFollow, setDoesLoggedUserFollow] = useState(

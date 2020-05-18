@@ -4,7 +4,7 @@ import { Text } from "react-native";
 import { FlatList, } from "react-native-gesture-handler";
 import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
-import { baseDeDados, signOut } from "../../../utilities/baseDeDados";
+import { baseDeDados, signOut, loggedInUser } from "../../../utilities/baseDeDados";
 import ProfileTop from "../../../components/SocialMedia/Profile/ProfileTop";
 import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
@@ -100,6 +100,9 @@ export default class ProfileContent extends Component {
                 ListHeaderComponent={
                     <ProfileTop 
                         dadosUsuario={this.state.dadosUsuario}
+                        loggedUserDadosUsuario={
+                            baseDeDados.getDadosUsuarioFromUsername(loggedInUser)
+                        }
                         tipoDeFeed={this.state.tipoDeFeed} 
                         setTipoDeFeed={async (tipoDeFeed) => {
                             await this.refreshLocalPius(tipoDeFeed);
