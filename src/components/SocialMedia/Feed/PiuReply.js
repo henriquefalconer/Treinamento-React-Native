@@ -5,7 +5,7 @@ import { baseDeDados } from "../../../utilities/baseDeDados";
 import { firstLastName } from "../../../utilities/constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-function PiuReply({piuReplyId, onPressUser}) {
+function PiuReply({ piuReplyId, onPressUser=(() => {}) }) {
     const infoUsuario = baseDeDados.getInfoUsuarioFromPiuId(piuReplyId);
     const piuReplyData = baseDeDados.getDadosPiuFromPiuId(piuReplyId);
 

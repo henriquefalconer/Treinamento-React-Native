@@ -9,7 +9,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default class Piu extends PureComponent {
 
-    constructor({ piuId, navigation, onChange, onPressUser }) {
+    constructor({ piuId, navigation, onChange, onPressUser=(() => {}) }) {
         super();
         this.piuId = piuId;
         this.navigation = navigation;
