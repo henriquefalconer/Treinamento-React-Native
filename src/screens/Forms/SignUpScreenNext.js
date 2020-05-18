@@ -43,8 +43,6 @@ function SignUpScreenNext({ route, navigation}) {
             )
     
             const data = await response.json();
-
-            console.log(data);
     
             if (hasError(data)) errorText = 'Insira os dados corretamente.';
 
@@ -102,10 +100,6 @@ function SignUpScreenNext({ route, navigation}) {
                     text="Cadastrar" 
                     onPress= {
                        async () => {
-                            console.log(first_name);
-                            console.log(last_name);
-                            console.log(username);
-                            console.log(password);
 
                             const error = await signUp(
                         { 

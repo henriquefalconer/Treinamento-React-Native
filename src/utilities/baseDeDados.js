@@ -21,7 +21,7 @@ export function setLoggedInUser(user) {
 // Coloca pius na ordem de tempo:
 function sortPius(piusIds){
     piusIds.sort((a, b) => GeneralFunctions.getTimeFromPiuId(b) - GeneralFunctions.getTimeFromPiuId(a));
-    piusIds.sort((a, b) => baseDeDados.getDadosPiuFromPiuId(b).hasDestaque() - baseDeDados.getDadosPiuFromPiuId(a).hasDestaque());
+    piusIds.sort((a, b) => (baseDeDados.getDadosPiuFromPiuId(b) ? baseDeDados.getDadosPiuFromPiuId(b).hasDestaque() : 1) - baseDeDados.getDadosPiuFromPiuId(a) ? baseDeDados.getDadosPiuFromPiuId(a).hasDestaque() : 0);
 }
 
 export function signOut() {
@@ -676,7 +676,7 @@ export var baseDeDados = new BaseDeDados([
             Date.parse("01 Apr 2020 7:00:00"),
             "O terceiro de muitos usuários do PiuPiwer!",
         ),
-        [
+        [ 
             new Piu(
                 GeneralFunctions.createPiuId({
                     username: "richar.lison",

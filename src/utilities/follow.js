@@ -26,9 +26,6 @@ export default async function follow({ nome, sobrenome, username, password }) {
         // Decodifica os dados para o formato json:
         let data = await response.json();
 
-        // Imprime os dados obtidos:
-        console.log(data);
-
         if (!hasError(data)) {
             // Retorna os dados:
             return data;

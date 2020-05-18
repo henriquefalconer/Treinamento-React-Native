@@ -6,6 +6,7 @@ import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMed
 import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
+import { TipoDeFeed } from "../../../utilities/constants";
 
 export default class FeedTab extends Component {
 
@@ -40,7 +41,7 @@ export default class FeedTab extends Component {
 
     async refreshLocalPius() {
         this._isMounted && this.setState({
-            piusList: await baseDeDados.montarPiusList(),
+            piusList: await baseDeDados.montarPiusList(TipoDeFeed.contatos),
         });
     }
 
@@ -52,9 +53,10 @@ export default class FeedTab extends Component {
             // Implementar pius, caso algo tenha sido modificado na base de dados local:
             if (change) this.refreshLocalPius();
 
+            // Esperar 1 segundo entre ciclos:
             await this.wait(1000);
 
-            console.log("reloaded");
+            // console.log("reloaded");
         } while (this._isMounted)
     }
 
