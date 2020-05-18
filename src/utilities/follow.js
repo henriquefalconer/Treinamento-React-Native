@@ -1,5 +1,6 @@
 import React from 'react';
 import {Alert} from 'react-native';
+import AsyncStorage from "@react-native-community/async-storage";
 
 function hasError(data) {
     return !Object.keys(data).includes('token');
@@ -7,18 +8,23 @@ function hasError(data) {
 
 export default async function followUser({ usuario_id, logado_id }) {
     try {
+        const token = await AsyncStorage.getItem('token');
+        console.log({
+            "usuario_id": usuario_id,
+            "logado_id": logado_id,
+        });
         // Realiza o pedido do tip 'POST' para a API:
         let response = await fetch(
             "http://piupiuwer.polijr.com.br/usuarios/seguir/", 
             {
                 method: 'POST',
-                headers: {
+                headers: new Headers ({  
                     Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                },
+                    'Authorization': 'JWT ' + token,
+                }),
                 body: JSON.stringify({
-                    usuario_id: 'usuario_id',
-                    logado_id: 'logado_id',
+                    "usuario_id": usuario_id,
+                    "logado_id": logado_id,
                 }),
             },
         );
