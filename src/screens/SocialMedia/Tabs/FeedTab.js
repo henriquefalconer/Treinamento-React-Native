@@ -54,7 +54,7 @@ export default class FeedTab extends Component {
 
             await this.wait(1000);
 
-            console.log("reloaded");
+            console.log("reloaded feed");
         } while (this._isMounted)
     }
 

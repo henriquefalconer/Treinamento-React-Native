@@ -676,7 +676,7 @@ export var baseDeDados = new BaseDeDados([
             Date.parse("01 Apr 2020 7:00:00"),
             "O terceiro de muitos usuários do PiuPiwer!",
         ),
-        [
+        [ 
             new Piu(
                 GeneralFunctions.createPiuId({
                     username: "richar.lison",
