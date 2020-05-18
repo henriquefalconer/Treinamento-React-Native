@@ -12,10 +12,15 @@ import BoxesNavigation from "../../../components/SocialMedia/Profile/BoxesNaviga
 import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 import { TipoDeFeed } from "../../../utilities/constants";
+import followUser from "../../../utilities/follow";
+
 function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
     const infoUsuario = dadosUsuario.infoUsuario;
 
-    const changeButton = () => click(!buttonClick);
+    const changeButton = async() => {
+        click(!buttonClick)
+        await followUser({ usuario_id, logado_id })
+    };
 
     const NewButton = () => (
         buttonClick 

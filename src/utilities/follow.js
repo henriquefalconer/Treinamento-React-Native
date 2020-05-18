@@ -5,7 +5,7 @@ function hasError(data) {
     return !Object.keys(data).includes('token');
 }
 
-export default async function follow({ nome, sobrenome, username, password }) {
+export default async function followUser({ usuario_id, logado_id }) {
     try {
         // Realiza o pedido do tip 'POST' para a API:
         let response = await fetch(
@@ -18,14 +18,14 @@ export default async function follow({ nome, sobrenome, username, password }) {
                 },
                 body: JSON.stringify({
                     usuario_id: 'usuario_id',
-                    logado_id: 'logado_id'
+                    logado_id: 'logado_id',
                 }),
             },
         );
 
         // Decodifica os dados para o formato json:
         let data = await response.json();
-
+        console.log(data)
         if (!hasError(data)) {
             // Retorna os dados:
             return data;

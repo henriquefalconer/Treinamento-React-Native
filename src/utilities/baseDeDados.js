@@ -458,7 +458,6 @@ export class InfoUsuario {
             this.avatar = avatar;
             this.background = background;
             this.seguindo = seguindo;
-            // this.seguidores = seguidores;
             this.likes = likes;
             this.destacados = destacados;
             this.conoscoDesde = conoscoDesde;
