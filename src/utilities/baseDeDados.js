@@ -165,7 +165,7 @@ export class BaseDeDados {
         });
 
         if (piuReplyId == null) {
-            console.log(`convertMessageApi: piuReply da mensagem "${piuMessage}" não existe. Provavelmente foi deletado`);
+            // console.log(`convertMessageApi: piuReply da mensagem "${piuMessage}" não existe. Provavelmente foi deletado`);
             piuReplyId = GeneralFunctions.createPiuId({
                 apiId: 'deleted',
             });

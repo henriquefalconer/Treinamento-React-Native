@@ -12,8 +12,8 @@ import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 import { TipoDeFeed } from "../../../utilities/constants";
 
-function ProfileTop({ tipoDeFeed, setTipoDeFeed }) {
-    
+function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
+    const infoUsuario = dadosUsuario.infoUsuario;
     const changeButton = () => {
         console.log('oi')
         click ( !buttonClick )
@@ -47,9 +47,7 @@ function ProfileTop({ tipoDeFeed, setTipoDeFeed }) {
     const dadosUsuario = baseDeDados.getDadosUsuarioFromUsername(loggedInUser) == null
         ? baseDeDados.getDadosUsuarioFromUsername('cleber.cunha')
         : baseDeDados.getDadosUsuarioFromUsername(loggedInUser);
-    
-    const infoUsuario = dadosUsuario.infoUsuario;
-    
+
     return (
         <View style={{backgroundColor: '#fff'}} >
             <WidthFillingImage 
@@ -142,12 +140,14 @@ class ProfileTab extends Component {
         this.state = {
             piusList: [],
             tipoDeFeed: TipoDeFeed.apenasPiusDoUsuario,
+            dadosUsuario: null,
         };
     }
 
     componentDidMount() {
         this._isMounted = true;
         this.refreshLocalPius(this.state.tipoDeFeed);
+        this._isMounted && this.usuarioDataLoader();
     }
 
     componentWillUnmount() {
@@ -166,14 +166,31 @@ class ProfileTab extends Component {
 
     async refreshLocalPius(tipoDeFeed) {
         this._isMounted && this.setState({
+            ...this.state,
             tipoDeFeed,
             piusList: await baseDeDados.montarPiusList(tipoDeFeed),
         });
     }
 
+    async usuarioDataLoader() {
+        do {
+            const dadosUsuario = baseDeDados.getDadosUsuarioFromUsername(loggedInUser);
+
+            if (dadosUsuario != null) {
+                this._isMounted && this.setState({
+                    ...this.state,
+                    dadosUsuario,
+                });
+            }
+
+            // Esperar 1 segundo entre ciclos:
+            await this.wait(1000);
+
+        } while (this.state.dadosUsuario == null)
+    }
+
     ProfileContent() {
-        /*
-        if (this.state.piusList == null) {
+        if (this.state.dadosUsuario == null) {
             return (
                 <View style={{
                         flex: 1,
@@ -191,18 +208,18 @@ class ProfileTab extends Component {
                             color: '#777',
                         }}
                     >
-                        Carregando pius...
+                        Carregando usuário...
                     </Text>
                 </View>
             );
         }
-        */
 
         return (
             <FlatList
                 keyExtractor={(key) => {return (key)}} 
                 ListHeaderComponent={
                     <ProfileTop 
+                        dadosUsuario={this.state.dadosUsuario}
                         tipoDeFeed={this.state.tipoDeFeed} 
                         setTipoDeFeed={async (tipoDeFeed) => {
                             await this.refreshLocalPius(tipoDeFeed);
