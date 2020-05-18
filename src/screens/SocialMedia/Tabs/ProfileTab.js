@@ -3,6 +3,7 @@ import { View, StyleSheet, SafeAreaView, ActivityIndicator } from "react-native"
 import { Image, Text } from "react-native";
 import { FlatList, } from "react-native-gesture-handler";
 import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
+import FilledButton from "../../../components/General/FilledButton";
 import HollowButton from "../../../components/General/HollowButton";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 import { baseDeDados, loggedInUser, signOut } from "../../../utilities/baseDeDados";
@@ -11,43 +12,33 @@ import BoxesNavigation from "../../../components/SocialMedia/Profile/BoxesNaviga
 import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 import { TipoDeFeed } from "../../../utilities/constants";
-
 function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
     const infoUsuario = dadosUsuario.infoUsuario;
-    const changeButton = () => {
-        console.log('oi')
-        click ( !buttonClick )
-                return buttonClick
-    }
-    const newButton = () => {
-        {buttonClick 
+    const changeButton = () => click(!buttonClick);
+    const NewButton = () => (
+        buttonClick 
             ? <HollowButton
             height={40}
             width={110}
             textStyle={{
                 color: '#f21d1d',
-                fontSize: 17,
+                fontSize: 16,
             }}
             onPress={changeButton}
             text="Seguir"/>
-            : <HollowButton
-            height={50}
+            : <FilledButton
+            height={40}
             width={110}
             textStyle={{
-                color: '#f21d1d',
-                fontSize: 15,
+                color: '#fff',
+                fontSize: 16,
                 textAlign:'center',
             }}
             onPress={changeButton}
-            text="Deixar de Seguir"/>
-        }
-    }
+            text="Seguindo"/>
+    )
     const [buttonClick, click] = useState(false);
-    const [abaSelecionada, setabaSelecionada] = useState('Pius');
-    const dadosUsuario = baseDeDados.getDadosUsuarioFromUsername(loggedInUser) == null
-        ? baseDeDados.getDadosUsuarioFromUsername('cleber.cunha')
-        : baseDeDados.getDadosUsuarioFromUsername(loggedInUser);
-
+    
     return (
         <View style={{backgroundColor: '#fff'}} >
             <WidthFillingImage 
@@ -92,8 +83,8 @@ function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
                         </View>
                         {
                             infoUsuario.username == loggedInUser 
-                            ? null 
-                            : newButton
+                            ? null
+                            : <NewButton /> 
                         }
                     </View>
                     <View style={styles.Bio}>
@@ -129,32 +120,26 @@ function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
         </View>
     );
 }
-
 class ProfileTab extends Component {
-
-    constructor() {
+    constructor({ selectedUsername=loggedInUser }) {
         super();
-
         this._isMounted = true;
-
+        this.selectedUsername = selectedUsername;
         this.state = {
             piusList: [],
             tipoDeFeed: TipoDeFeed.apenasPiusDoUsuario,
             dadosUsuario: null,
         };
     }
-
     componentDidMount() {
         this._isMounted = true;
         this.refreshLocalPius(this.state.tipoDeFeed);
         this._isMounted && this.usuarioDataLoader();
     }
-
     componentWillUnmount() {
         signOut();
         this._isMounted = false;
     }
-
     async wait(milliseconds) {
       return new Promise((resolve) =>
         setTimeout(
@@ -163,7 +148,6 @@ class ProfileTab extends Component {
         )
       );
     }
-
     async refreshLocalPius(tipoDeFeed) {
         this._isMounted && this.setState({
             ...this.state,
@@ -171,24 +155,19 @@ class ProfileTab extends Component {
             piusList: await baseDeDados.montarPiusList(tipoDeFeed),
         });
     }
-
     async usuarioDataLoader() {
         do {
-            const dadosUsuario = baseDeDados.getDadosUsuarioFromUsername(loggedInUser);
-
+            const dadosUsuario = baseDeDados.getDadosUsuarioFromUsername(this.selectedUsername);
             if (dadosUsuario != null) {
                 this._isMounted && this.setState({
                     ...this.state,
                     dadosUsuario,
                 });
             }
-
             // Esperar 1 segundo entre ciclos:
             await this.wait(1000);
-
         } while (this.state.dadosUsuario == null)
     }
-
     ProfileContent() {
         if (this.state.dadosUsuario == null) {
             return (
@@ -213,7 +192,6 @@ class ProfileTab extends Component {
                 </View>
             );
         }
-
         return (
             <FlatList
                 keyExtractor={(key) => {return (key)}} 
@@ -242,7 +220,6 @@ class ProfileTab extends Component {
             />
         );
     }
-
     render() {
         return (
             <SafeAreaView style={styles.background} >
