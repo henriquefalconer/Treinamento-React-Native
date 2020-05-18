@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { View, StyleSheet, SafeAreaView, ActivityIndicator } from "react-native";
 import { Image, Text } from "react-native";
 import { FlatList, } from "react-native-gesture-handler";
 import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMediaHeader";
+import FilledButton from "../../../components/General/FilledButton";
 import HollowButton from "../../../components/General/HollowButton";
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 import { baseDeDados, loggedInUser, signOut } from "../../../utilities/baseDeDados";
@@ -14,6 +15,32 @@ import { TipoDeFeed } from "../../../utilities/constants";
 
 function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
     const infoUsuario = dadosUsuario.infoUsuario;
+
+    const changeButton = () => click(!buttonClick);
+
+    const NewButton = () => (
+        buttonClick 
+            ? <HollowButton
+            height={40}
+            width={110}
+            textStyle={{
+                color: '#f21d1d',
+                fontSize: 16,
+            }}
+            onPress={changeButton}
+            text="Seguir"/>
+            : <FilledButton
+            height={40}
+            width={110}
+            textStyle={{
+                color: '#fff',
+                fontSize: 16,
+                textAlign:'center',
+            }}
+            onPress={changeButton}
+            text="Seguindo"/>
+    )
+    const [buttonClick, click] = useState(false);
     
     return (
         <View style={{backgroundColor: '#fff'}} >
@@ -57,15 +84,11 @@ function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
                                 @{infoUsuario.username}
                             </Text>
                         </View>
-                        <HollowButton
-                            height={40}
-                            width={110}
-                            textStyle={{
-                                color: '#f21d1d',
-                                fontSize: 17,
-                            }}
-                            text="Seguir"
-                        />
+                        {
+                            infoUsuario.username == loggedInUser 
+                            ? null
+                            : <NewButton /> 
+                        }
                     </View>
                     <View style={styles.Bio}>
                         <Text>
@@ -103,10 +126,12 @@ function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
 
 class ProfileTab extends Component {
 
-    constructor() {
+    constructor({ selectedUsername=loggedInUser }) {
         super();
 
         this._isMounted = true;
+
+        this.selectedUsername = selectedUsername;
 
         this.state = {
             piusList: [],
@@ -145,7 +170,7 @@ class ProfileTab extends Component {
 
     async usuarioDataLoader() {
         do {
-            const dadosUsuario = baseDeDados.getDadosUsuarioFromUsername(loggedInUser);
+            const dadosUsuario = baseDeDados.getDadosUsuarioFromUsername(this.selectedUsername);
 
             if (dadosUsuario != null) {
                 this._isMounted && this.setState({
