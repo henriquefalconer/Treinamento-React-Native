@@ -198,7 +198,6 @@ class ProfileTab extends Component {
     }
 
     render() {
-        console.log(this.state.tipoDeFeed);
         return (
             <SafeAreaView style={styles.background} >
                 <SocialMediaHeader navigation={this.props.navigation} />

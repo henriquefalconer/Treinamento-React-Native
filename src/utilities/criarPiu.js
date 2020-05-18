@@ -22,7 +22,6 @@ async function adicionarPiuAPI(usuario, texto) {
     )
     .then((response) => response.json())
     .then((json) => {
-        console.log(json);
         if (hasError(json)) {
             return 'Insira os dados corretamente.';
         } else {

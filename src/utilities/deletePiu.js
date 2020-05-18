@@ -17,10 +17,9 @@ async function deletePiuAPI(id) {
                 }),
             }
         );
-        console.log(response)
 
     } catch(e) {
-        console.log("ERRO em deletePiuAPI: " + e)
+        console.log("ERRO em deletePiuAPI: " + e);
     }
 }
 

@@ -52,9 +52,10 @@ export default class FeedTab extends Component {
             // Implementar pius, caso algo tenha sido modificado na base de dados local:
             if (change) this.refreshLocalPius();
 
+            // Esperar 1 segundo entre ciclos:
             await this.wait(1000);
 
-            console.log("reloaded feed");
+            // console.log("reloaded");
         } while (this._isMounted)
     }
 
