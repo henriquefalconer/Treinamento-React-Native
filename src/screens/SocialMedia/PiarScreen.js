@@ -71,11 +71,11 @@ function PiarScreen({navigation, route}) {
 
             <ScrollView style={{ flex: 1 }}>
                 <View style={{
-                    paddingHorizontal: 20,
+                    paddingHorizontal: 15,
                     paddingVertical: 10,
                     flexDirection: 'row',
                 }}>
-                    <View style={{marginRight: 4}} >
+                    <View style={{marginRight: 8}} >
                         <Image  
                             source={
                                 baseDeDados
