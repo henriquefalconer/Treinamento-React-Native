@@ -14,7 +14,9 @@ import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 import { TipoDeFeed } from "../../../utilities/constants";
 function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario }) {
     const infoUsuario = dadosUsuario.infoUsuario;
+
     const changeButton = () => click(!buttonClick);
+
     const NewButton = () => (
         buttonClick 
             ? <HollowButton
@@ -124,7 +126,9 @@ class ProfileTab extends Component {
     constructor({ selectedUsername=loggedInUser }) {
         super();
         this._isMounted = true;
+
         this.selectedUsername = selectedUsername;
+
         this.state = {
             piusList: [],
             tipoDeFeed: TipoDeFeed.apenasPiusDoUsuario,
