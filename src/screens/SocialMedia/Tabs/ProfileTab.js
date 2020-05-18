@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { View, StyleSheet, SafeAreaView, ActivityIndicator } from "react-native";
 import { Image, Text } from "react-native";
 import { FlatList, } from "react-native-gesture-handler";
@@ -12,15 +12,38 @@ import Piu from "../../../components/SocialMedia/Feed/Piu";
 import SemPius from "../../../components/SocialMedia/Feed/SemPius";
 import { TipoDeFeed } from "../../../utilities/constants";
 
-function ProfileTop() {
+function ProfileTop({ tipoDeFeed, setTipoDeFeed }) {
+    
     const changeButton = () => {
         console.log('oi')
         click ( !buttonClick )
                 return buttonClick
     }
+    const newButton = () => {
+        {buttonClick 
+            ? <HollowButton
+            height={40}
+            width={110}
+            textStyle={{
+                color: '#f21d1d',
+                fontSize: 17,
+            }}
+            onPress={changeButton}
+            text="Seguir"/>
+            : <HollowButton
+            height={50}
+            width={110}
+            textStyle={{
+                color: '#f21d1d',
+                fontSize: 15,
+                textAlign:'center',
+            }}
+            onPress={changeButton}
+            text="Deixar de Seguir"/>
+        }
+    }
     const [buttonClick, click] = useState(false);
     const [abaSelecionada, setabaSelecionada] = useState('Pius');
-function ProfileTop({ tipoDeFeed, setTipoDeFeed }) {
     const dadosUsuario = baseDeDados.getDadosUsuarioFromUsername(loggedInUser) == null
         ? baseDeDados.getDadosUsuarioFromUsername('cleber.cunha')
         : baseDeDados.getDadosUsuarioFromUsername(loggedInUser);
@@ -69,47 +92,17 @@ function ProfileTop({ tipoDeFeed, setTipoDeFeed }) {
                                 @{infoUsuario.username}
                             </Text>
                         </View>
-                        <HollowButton
-                            height={40}
-                            width={110}
-                            textStyle={{
-                                color: '#f21d1d',
-                                fontSize: 17,
-                            }}
-                            text="Seguir"
-                        />
+                        {
+                            infoUsuario.username == loggedInUser 
+                            ? null 
+                            : newButton
+                        }
                     </View>
                     <View style={styles.Bio}>
                         <Text>
                             {infoUsuario.descricao}
                         </Text>
                     </View>
-                    {buttonClick 
-                        ? <HollowButton
-                        height={40}
-                        width={110}
-                        textStyle={{
-                            color: '#f21d1d',
-                            fontSize: 17,
-                        }}
-                        onPress={changeButton}
-                        text="Seguir"/>
-                        : <HollowButton
-                        height={50}
-                        width={110}
-                        textStyle={{
-                            color: '#f21d1d',
-                            fontSize: 15,
-                            textAlign:'center',
-                        }}
-                        onPress={changeButton}
-                        text="Deixar de Seguir"/>
-                    }
-                </View>
-                <View style={styles.Bio}>
-                    <Text>
-                        {infoUsuario.descricao}
-                    </Text>
                 </View>
             </View>
             <View style={styles.BoxesNavigation}>
@@ -246,6 +239,8 @@ class ProfileTab extends Component {
     }
 };
 
+export default ProfileTab;
+
 const styles = StyleSheet.create({
     background: {
         flex: 1,
@@ -272,5 +267,3 @@ const styles = StyleSheet.create({
         opacity: 0.5,
     },
 });
-
-export default ProfileTab;
