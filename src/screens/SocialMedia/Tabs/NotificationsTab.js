@@ -36,7 +36,7 @@ function NotificationCard({ notificationInfo }) {
             </Text>
             <Text>
                 {
-                    notificationInfo.type == 'like'
+                    notificationInfo.type == 'follow'
                     ? ' começou a seguir você. '
                     : ' deu um like no seu piu. '
                 }
@@ -68,6 +68,12 @@ function NotificationTab({navigation}) {
             user: 'richar.lison',
             piuId: null,
             time: Date.parse("15 Apr 2020 9:00:00"),
+        },
+        {
+            type: 'follow',
+            user: 'rosi.plat',
+            piuId: null,
+            time: Date.parse("15 Apr 2020 10:00:00"),
         },
     ];
 
