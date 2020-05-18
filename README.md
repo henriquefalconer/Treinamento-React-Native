@@ -39,3 +39,19 @@ Autores: Henrique e Constanza
     ```
     <Stack.Screen name="[Nova tela]" component={[Nova tela]} />
     ```
+
+## Erro de Android:
+
+    Ao realizar o comando `react-native run-android`, o seguinte erro pode ocorrer: 
+
+    ```
+    error Failed to install the app. Make sure you have the Android development environment set up: https://reactnative.dev/docs/environment-setup. Run CLI with --verbose flag for more details.
+    Error: Command failed: ./gradlew app:installDebug -PreactNativeDevServerPort=8081
+    ```
+
+    É possível resolvê-lo com o seguint comando, realizado no próprio diretório de React Native:
+
+    ```
+    cd android && ./gradlew clean && cd .. && react-native run-android
+    ```
+
