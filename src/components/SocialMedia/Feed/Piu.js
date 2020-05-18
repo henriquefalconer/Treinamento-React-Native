@@ -147,7 +147,7 @@ export default class Piu extends PureComponent {
                                     iconType={IconType.Octicons} 
                                     icon="reply" 
                                     size={20} 
-                                    verticalIconDisplacement={2}
+                                    verticalIconDisplacement={1.7}
                                     actionCount={piuData.getReplies().length} 
                                     active={(piuData.getReplies()).includes(loggedInUser)}
                                     onPress={async () => {
@@ -162,6 +162,7 @@ export default class Piu extends PureComponent {
                                     iconType={IconType.Ionicons} 
                                     icon="ios-star" 
                                     size={20} 
+                                    verticalIconDisplacement={3}
                                     active={piuData.hasDestaque()}
                                     onPress={async () => {
                                         baseDeDados.togglePiuDestaque({ piuId: this.piuId });
