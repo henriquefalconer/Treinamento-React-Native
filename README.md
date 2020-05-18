@@ -8,6 +8,7 @@ Autores: Henrique e Constanza
 - [Link do curso](https://www.udemy.com/course/the-complete-react-native-and-redux-course/)
 - [Link de react-navigation](https://reactnavigation.org/docs/hello-react-navigation)
 - [Link de SplashScreen e Logo](https://www.youtube.com/watch?v=3Gf9yb53bJM)
+- [Link do react-native-vector-icons](https://oblador.github.io/react-native-vector-icons/)
 
 ## Como adicionar uma nova tela:
 
