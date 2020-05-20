@@ -386,7 +386,7 @@ export class BaseDeDados {
                     } else {
                         userData.pius.forEach(function(piu){
                             if (GeneralFunctions.getUserNameFromPiuId(piu.piuReplyId) == selectedUser) {
-                                allPius.push(piu.piuReplyId);
+                                allPius.push(piu.piuId);
                             }
                         });
                     }
