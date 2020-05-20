@@ -57,7 +57,7 @@ export default class FeedContent extends Component {
 
             await this.wait(1000);
 
-            console.log("reloaded");
+            // console.log("reloaded");
         } while (this._isMounted)
     }
 
