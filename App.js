@@ -15,9 +15,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator 
         initialRouteName="Home" 
-        screenOptions={{
-          header: () => {},
-        }}
+        headerMode="none"
       > 
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />

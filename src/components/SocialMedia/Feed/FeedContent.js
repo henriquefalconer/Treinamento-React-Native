@@ -10,12 +10,10 @@ import { TipoDeFeed } from "../../../utilities/constants";
 
 export default class FeedContent extends Component {
 
-    constructor({navigation, onPressUser}) {
+    constructor({navigation}) {
         super();
 
         this.navigation = navigation;
-
-        this.onPressUser = onPressUser;
 
         this._isMounted = true;
 
@@ -59,7 +57,7 @@ export default class FeedContent extends Component {
 
             await this.wait(1000);
 
-            // console.log("reloaded");
+            console.log("reloaded");
         } while (this._isMounted)
     }
 
@@ -98,7 +96,15 @@ export default class FeedContent extends Component {
                             piuId={item}
                             navigation={this.navigation}
                             onChange={async () => await this.refreshLocalPius()}
-                            onPressUser={this.onPressUser}
+                            onPressUser={(selectedUsername) => {
+                                this.navigation.push(
+                                    'Profile', 
+                                    {
+                                        selectedUsername,
+                                        canGoBack: true,
+                                    },
+                                );
+                            }}
                         />
                     );
                 }}

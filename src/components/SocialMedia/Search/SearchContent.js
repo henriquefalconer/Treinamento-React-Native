@@ -8,7 +8,7 @@ import { FlatList } from "react-native-gesture-handler";
 import { baseDeDados } from "../../../utilities/baseDeDados";
 import { count } from "../../../utilities/constants";
 
-export default function SearchContent({navigation, onPressUser}) {
+export default function SearchContent({ navigation }) {
     let [searchText, changeSearchText] = useState('');
     let [usersList, changeUsersList] = useState([]);
     let [flatListHeight, changeFlatListHeight] = useState(0);
@@ -80,7 +80,15 @@ export default function SearchContent({navigation, onPressUser}) {
                             return (
                                 <UserSearchCard 
                                     username={item}
-                                    onPress={onPressUser}
+                                    onPress={(selectedUsername) => {
+                                        navigation.push(
+                                            'Profile', 
+                                            {
+                                                selectedUsername,
+                                                canGoBack: true,
+                                            },
+                                        );
+                                    }}
                                 />
                             );
                         }}

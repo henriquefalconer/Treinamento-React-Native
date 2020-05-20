@@ -88,7 +88,9 @@ export class BaseDeDados {
     getDadosUsuarioFromUsername(username) {
         var correctUsuarioData = null;
         this.data.forEach(function(usuarioData){
-            if (usuarioData.infoUsuario.username == username) correctUsuarioData = usuarioData;
+            if (usuarioData.infoUsuario.username == username) {
+                correctUsuarioData = usuarioData;
+            }
         });
 
         return correctUsuarioData;

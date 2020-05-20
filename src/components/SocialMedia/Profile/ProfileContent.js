@@ -12,12 +12,12 @@ import { TipoDeFeed } from "../../../utilities/constants";
 
 export default class ProfileContent extends Component {
 
-    constructor({ selectedUsername, onReturnFromSearch, onPressUser }) {
+    constructor({ route, navigation }) {
         super();
 
-        this.selectedUsername = selectedUsername;
-        this.onReturnFromSearch = onReturnFromSearch;
-        this.onPressUser = onPressUser;
+        this.navigation = navigation;
+        this.selectedUsername = route.params?.selectedUsername;
+        this.canGoBack = route.params?.canGoBack;
 
         this._isMounted = true;
 
@@ -115,11 +115,19 @@ export default class ProfileContent extends Component {
                     return (
                         <Piu 
                             piuId={item}
-                            navigation={this.props.navigation}
+                            navigation={this.navigation}
                             onChange={async () => {
                                 await this.refreshLocalPius(this.state.tipoDeFeed);
                             }}
-                            onPressUser={this.onPressUser}
+                            onPressUser={(selectedUsername) => {
+                                this.navigation.push(
+                                    'Profile', 
+                                    {
+                                        selectedUsername,
+                                        canGoBack: true,
+                                    },
+                                );
+                            }}
                         />
                     );
                 }}
@@ -129,19 +137,14 @@ export default class ProfileContent extends Component {
     render() {
         return (
             <SafeAreaView style={{ flex: 1 }} >
-                {
-                    this.onReturnFromSearch == null
-                    ? <SocialMediaHeader navigation={this.props.navigation} />
-                    : <SocialMediaHeader 
-                        navigation={this.props.navigation} 
-                        showBackButton 
-                        backButtonOnPress={this.onReturnFromSearch}
-                    />
-                }
+                <SocialMediaHeader 
+                    navigation={this.navigation} 
+                    showBackButton={this.canGoBack}
+                />
                 <View style={{ flex: 1 }}>
                     {this.ProfileInsideContent()}
                 </View>
-                <PiarButton navigation={this.props.navigation} />
+                <PiarButton navigation={this.navigation} />
             </SafeAreaView>
         );
     }

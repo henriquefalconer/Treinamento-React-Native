@@ -1,30 +1,24 @@
-import React, { useState } from "react";
+import * as React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import ProfileContent from "../../../components/SocialMedia/Profile/ProfileContent";
-import { loggedInUser } from "../../../utilities/baseDeDados";
+import { loggedInUser } from '../../../utilities/baseDeDados';
 
-export default function ProfileTab(props) {
-    let [profileTabSelectedUsername, setSelectedUsername] = useState(props.selectedUsername);
+const Stack = createStackNavigator();
 
-    function ReloadableProfileContent(props) {
-        return <ProfileContent {...props} />;
-    }
-
+export default function ProfileTab() {
     return (
-        profileTabSelectedUsername == undefined 
-            ? <ReloadableProfileContent 
-                {...props} 
-                selectedUsername={loggedInUser} 
-                onPressUser={(username) => setSelectedUsername(username)}
+        <Stack.Navigator 
+            initialRouteName="Profile" 
+            headerMode="none"
+        > 
+            <Stack.Screen 
+                name="Profile" 
+                component={ProfileContent} 
+                initialParams={{
+                    selectedUsername: loggedInUser,
+                    canGoBack: false,
+                }}
             />
-            : <ReloadableProfileContent 
-                {...props} 
-                selectedUsername={profileTabSelectedUsername} 
-                onReturnFromSearch={
-                    props.onReturnFromSearch 
-                        ? props.onReturnFromSearch 
-                        : () => setSelectedUsername(props.selectedUsername)
-                } 
-                onPressUser={(username) => setSelectedUsername(username)}
-            />
+        </Stack.Navigator>
     );
 }

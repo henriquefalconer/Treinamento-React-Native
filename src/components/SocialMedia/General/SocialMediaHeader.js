@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import AllIcons from "../../General/AllIcons";
 import { IconType } from "../../../utilities/constants";
 
-function SocialMediaHeader({ navigation, showBackButton, backButtonOnPress }) {
+function SocialMediaHeader({ navigation, showBackButton }) {
     return (
         <View 
             style={{
@@ -30,7 +30,10 @@ function SocialMediaHeader({ navigation, showBackButton, backButtonOnPress }) {
                         Logout
                     </Text>
                 </TouchableOpacity>
-                : <TouchableOpacity style={styles.logout} onPress={backButtonOnPress}>
+                : <TouchableOpacity 
+                    style={styles.logout} 
+                    onPress={() => navigation.goBack()}
+                >
                     <AllIcons 
                         iconType={IconType.Ionicons}
                         name="ios-arrow-back"
@@ -61,7 +64,7 @@ function SocialMediaHeader({ navigation, showBackButton, backButtonOnPress }) {
                         Logout
                     </Text>
                 </View>
-                : <View style={{...styles.logout, opacity: 0.0}} onPress={backButtonOnPress}>
+                : <View style={{...styles.logout, opacity: 0.0}}>
                     <AllIcons 
                         iconType={IconType.Ionicons}
                         name="ios-arrow-back"

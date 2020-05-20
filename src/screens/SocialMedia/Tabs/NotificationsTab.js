@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import * as React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import NotificationsContent from "../../../components/SocialMedia/Notifications/NotificationsContent";
-import ProfileTab from "./ProfileTab";
+import ProfileContent from "../../../components/SocialMedia/Profile/ProfileContent";
 
-export default function NotificationTab(props) {
-    let [selectedUsername, setSelectedUsername] = useState(null);
+const Stack = createStackNavigator();
 
+export default function FeedTab() {
     return (
-        selectedUsername == null 
-            ? <NotificationsContent 
-                {...props} 
-                onPressUser={setSelectedUsername} 
-            /> 
-            : <ProfileTab 
-                {...props} 
-                selectedUsername={selectedUsername} 
-                onReturnFromSearch={() => setSelectedUsername(null)} 
+        <Stack.Navigator 
+            initialRouteName="Notifications" 
+            headerMode="none"
+        > 
+            <Stack.Screen 
+                name="Notifications" 
+                component={NotificationsContent}
             />
+            <Stack.Screen 
+                name="Profile" 
+                component={ProfileContent}
+            />
+        </Stack.Navigator>
     );
 }

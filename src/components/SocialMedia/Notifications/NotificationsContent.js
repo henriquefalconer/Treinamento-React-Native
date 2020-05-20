@@ -6,7 +6,7 @@ import SocialMediaHeader from "../../../components/SocialMedia/General/SocialMed
 import PiarButton from "../../../components/SocialMedia/General/PiarButton";
 import NotificationCard from "./NotificationCard";
 
-export default function NotificationsContent({ navigation, onPressUser }) {
+export default function NotificationsContent({ navigation }) {
     const notifications = [
         {
             type: 'like',
@@ -46,7 +46,15 @@ export default function NotificationsContent({ navigation, onPressUser }) {
                             return (
                                 <NotificationCard
                                     notificationInfo={item}
-                                    onPressUser={onPressUser}
+                                    onPressUser={(selectedUsername) => {
+                                        navigation.push(
+                                            'Profile', 
+                                            {
+                                                selectedUsername,
+                                                canGoBack: true,
+                                            },
+                                        );
+                                    }}
                                 />
                             )
                         }
