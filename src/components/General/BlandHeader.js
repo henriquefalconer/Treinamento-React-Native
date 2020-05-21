@@ -1,8 +1,10 @@
 import React from "react";
-import { View, Image, Text } from "react-native";
+import { View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import AllIcons from "./AllIcons";
+import { IconType } from "../../utilities/constants";
 
-function BlandHeader({navigation, title}) {
+function BlandHeader({navigation}) {
     return (
         <View 
             style={{
@@ -10,30 +12,28 @@ function BlandHeader({navigation, title}) {
                 alignItems: 'center', 
                 justifyContent: 'flex-start', 
                 flexDirection: 'row',
+                marginHorizontal: 10,
+                marginVertical: 5,
             }}
         >
             <TouchableOpacity 
                 style={{
                     width: 40, 
                     height: 40, 
-                    margin: 10,
+                    justifyContent: 'center',
+                    alignItems: 'center',
                 }} 
                 onPress={
                     () => navigation.goBack()
                 }
             >
-                <Image 
-                    style={{
-                        height: undefined, 
-                        width: undefined, 
-                        flex: 1, 
-                    }} 
-                    source={
-                        require('../../../assets/red-back-arrow.jpg')
-                    } 
+                <AllIcons 
+                    iconType={IconType.Ionicons}
+                    name="ios-arrow-back"
+                    size={33}
+                    color="#f21d1d"
                 />
             </TouchableOpacity>
-            <Text>{title || ''}</Text>
         </View>
     );
 };
