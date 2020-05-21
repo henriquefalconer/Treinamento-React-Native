@@ -109,7 +109,11 @@ export default class ProfileContent extends Component {
                         }} 
                     />
                 }
-                ListFooterComponent={<SemPius />}
+                ListFooterComponent={
+                    <SemPius 
+                        footerMode={this.state.piusList.length > 0} 
+                    />
+                }
                 data={this.state.piusList}
                 renderItem={({item}) => {
                     return (
