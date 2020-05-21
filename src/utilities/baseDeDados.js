@@ -24,6 +24,8 @@ function sortPius(piusIds){
 }
 
 export function signOut() {
+    AsyncStorage.removeItem('loggedInUser');
+    AsyncStorage.removeItem('token');
     lastDownloadedApiDatabase = null;
 }
 

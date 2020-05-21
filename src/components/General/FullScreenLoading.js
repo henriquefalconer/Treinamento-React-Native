@@ -2,7 +2,7 @@ import React from "react";
 import { View, ActivityIndicator, Text } from "react-native";
 import Modal from 'react-native-modal';
 
-export default function FullScreenLoading({ isLoading, text="Carregando..." }) {
+export default function FullScreenLoading({ isLoading, text="", backgroundColor }) {
     return (
         <Modal 
             transparent
@@ -13,7 +13,7 @@ export default function FullScreenLoading({ isLoading, text="Carregando..." }) {
                     flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    
+                    backgroundColor,
                 }}
             >
                 <ActivityIndicator 

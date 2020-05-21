@@ -122,7 +122,7 @@ function SignUpScreenNext({ route, navigation}) {
             </View>
             <FullScreenLoading
                 isLoading={loading}    
-                text="" 
+                text={null}
             />
         </KeyboardAvoidingView>
     );

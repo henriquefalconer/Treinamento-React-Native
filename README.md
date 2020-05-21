@@ -34,8 +34,8 @@ Autores: Henrique e Constanza
 
     export default [Nova tela];
     ```
-3. Adicionar `import [Nova tela] from "./src/screens/[Nova tela]";` em **App.js**
-4. Ainda em **App.js**, adicionar, dentro de **Stack.Navigator**:
+3. Adicionar `import [Nova tela] from "./src/screens/[Nova tela]";` em **ScreensNavigation.js**
+4. Ainda em **ScreensNavigation.js**, adicionar, dentro de **Stack.Navigator**:
 
     ```
     <Stack.Screen name="[Nova tela]" component={[Nova tela]} />

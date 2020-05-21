@@ -130,6 +130,7 @@ function PiarScreen({navigation, route}) {
 
             <FullScreenLoading 
                 isLoading={sendingPiu}
+                text="Carregando..."
             />
         </SafeAreaView>
     );
