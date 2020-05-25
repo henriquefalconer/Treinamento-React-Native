@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import AllIcons from "../../General/AllIcons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-function PiuAction({ iconType, icon, actionCount, size, active, onPress, verticalIconDisplacement, horizontalIconDisplacement, noMargin=false, activeColor="#f21d1d" }) {
+function PiuAction({ iconType, icon, actionCount, size, active, onPress, verticalIconDisplacement, horizontalIconDisplacement, noMargin=false, activeColor="#FF0800" }) {
     return (
       <TouchableOpacity onPress={onPress}>
         <View style={{margin: noMargin ? 0 : 5, marginRight: noMargin ? 5 : 0, flexDirection: 'row', alignItems: 'center', width: (noMargin ? 20 : 40)}}>
@@ -17,7 +17,7 @@ function PiuAction({ iconType, icon, actionCount, size, active, onPress, vertica
           </View>
           {actionCount != undefined && (
               <Text style={{marginLeft: 5,
-                  color: active ? "#f21d1d" : "#aaa",
+                  color: active ? "#FF0800" : "#aaa",
                   fontSize: 14,
                   fontWeight: active ? "bold" : "normal",
               }}>

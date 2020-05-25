@@ -4,7 +4,7 @@ import { Text, StyleSheet, TouchableOpacity } from "react-native";
 const FilledButton = ({text, onPress, textStyle, width, height, disabled=false}) => {
     let styles = StyleSheet.create({
     filledButton: {
-        backgroundColor: "#F21D1D",
+        backgroundColor: "#FF0800",
         width: width || 250,
         height: height || 49,
         borderRadius: 100,

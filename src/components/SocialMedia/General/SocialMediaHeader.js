@@ -38,7 +38,7 @@ function SocialMediaHeader({ navigation, showBackButton }) {
                         iconType={IconType.Ionicons}
                         name="ios-arrow-back"
                         size={30}
-                        color="#f21d1d"
+                        color="#FF0800"
                     />
                 </TouchableOpacity>
             }
@@ -69,7 +69,7 @@ function SocialMediaHeader({ navigation, showBackButton }) {
                         iconType={IconType.Ionicons}
                         name="ios-arrow-back"
                         size={30}
-                        color="#f21d1d"
+                        color="#FF0800"
                     />
                 </View>
             }
@@ -79,7 +79,7 @@ function SocialMediaHeader({ navigation, showBackButton }) {
 
 const styles = StyleSheet.create({
     logout: {
-        color: "#F21D1D",
+        color: "#FF0800",
         fontSize: 18,
         fontWeight: 'bold',
         marginHorizontal: 10,

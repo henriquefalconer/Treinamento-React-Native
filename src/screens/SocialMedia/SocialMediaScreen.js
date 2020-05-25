@@ -55,7 +55,7 @@ export default function SocialMediaScreen() {
                 }
             })}
             tabBarOptions={{
-                activeTintColor: '#F21D1D',
+                activeTintColor: '#FF0800',
                 inactiveTintColor: 'gray',
                 showLabel: false,
             }}

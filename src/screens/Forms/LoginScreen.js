@@ -164,7 +164,7 @@ function LoginScreen({navigation}) {
 
 const styles = StyleSheet.create({
     errorText: {
-        color: "#f21d1d",
+        color: "#FF0800",
         fontSize: 15,
         marginTop: 2,
     },

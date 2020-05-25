@@ -85,7 +85,7 @@ function SignUpScreenNext({ route, navigation}) {
                     </HollowTextField>
 
                     <Text style={{
-                        color: "#f21d1d",
+                        color: "#FF0800",
                         fontSize: 15,
                         marginTop: 2,
                     }}>

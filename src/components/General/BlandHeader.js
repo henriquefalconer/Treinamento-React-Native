@@ -31,7 +31,7 @@ function BlandHeader({navigation}) {
                     iconType={IconType.Ionicons}
                     name="ios-arrow-back"
                     size={33}
-                    color="#f21d1d"
+                    color="#FF0800"
                 />
             </TouchableOpacity>
         </View>

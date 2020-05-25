@@ -14,7 +14,7 @@ const HomeScreenStyle = StyleSheet.create({
     },
     title: {
       fontSize: 30,
-      color: '#F21D1D',
+      color: '#FF0800',
       textAlign: 'center',
     },
   });

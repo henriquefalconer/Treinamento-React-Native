@@ -6,7 +6,7 @@ export default function HollowButton({text, onPress, textStyle, width=250, heigh
   let styles = StyleSheet.create({
     filledButton: {
       backgroundColor: "#fff",
-      borderColor: '#f21d1d',
+      borderColor: '#FF0800',
       borderWidth: 1.5,
       width: width,
       height: height,
@@ -16,7 +16,7 @@ export default function HollowButton({text, onPress, textStyle, width=250, heigh
       opacity: disabled ? 0.5 : 1.0,
     },
     text: {
-      color: '#f21d1d',
+      color: '#FF0800',
       fontSize: 23,
       fontWeight: 'normal',
     }

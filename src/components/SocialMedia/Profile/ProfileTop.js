@@ -32,7 +32,7 @@ export default function ProfileTop({ tipoDeFeed, setTipoDeFeed, dadosUsuario, lo
                 height={40}
                 width={110}
                 textStyle={{
-                    color: '#f21d1d',
+                    color: '#FF0800',
                     fontSize: 16,
                 }}
                 onPress={changeButton}

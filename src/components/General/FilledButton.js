@@ -5,7 +5,7 @@ export default function FilledButton({text, onPress, textStyle, width=250, heigh
   
   let styles = StyleSheet.create({
     filledButton: {
-      backgroundColor: "#F21D1D",
+      backgroundColor: "#FF0800",
       width: width,
       height: height,
       borderRadius: 100,

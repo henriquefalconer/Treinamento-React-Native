@@ -109,7 +109,7 @@ function PiarScreen({navigation, route}) {
                                 padding: 0,
                                 paddingTop: 15,
                                 paddingBottom: 5,
-                                color: piuText.length > 140 ? '#f21d1d' : '#000',
+                                color: piuText.length > 140 ? '#FF0800' : '#000',
                             }}
                             autoCapitalize='none'
                         />

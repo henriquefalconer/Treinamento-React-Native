@@ -7,7 +7,7 @@ function BoxesNavigation({title, active=false, onPress}) {
         <View
             style={{
                 borderBottomWidth: active ? 2.5 : 1,
-                borderBottomColor: active ? '#f21d1d' : '#999',
+                borderBottomColor: active ? '#FF0800' : '#999',
                 flex: 1,
                 justifyContent: 'center',
                 height: 60,

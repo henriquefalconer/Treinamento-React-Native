@@ -18,7 +18,7 @@ export default function PiusSearchBar({
     return (
         <View style={{
             backgroundColor: active ? null : "#e3e3e3",
-            borderColor: active ? "#f21d1d" : "#e3e3e3",
+            borderColor: active ? "#FF0800" : "#e3e3e3",
             borderWidth: 2,
             borderRadius: 30,
             paddingHorizontal: 15,

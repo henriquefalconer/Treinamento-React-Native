@@ -12,7 +12,7 @@ function PiarButton({navigation}) {
                 bottom: 10,
                 right: 10,
                 borderRadius: 50,
-                backgroundColor: "#f21d1d",
+                backgroundColor: "#FF0800",
                 shadowColor: "#000",
                 shadowOffset: {
                     width: 0,
