@@ -24,6 +24,6 @@ Autores: Henrique e Constanza
 
 ## Informações gerais:
 
-- Este projeto foi criado em abril de 2020 como parte do treinamento para o **Núcleo de Tecnologia da Poli Júnior**. 💪🏻
+- Este projeto foi criado em maio de 2020 como parte do treinamento para o **Núcleo de Tecnologia da Poli Júnior**. 💪🏻
 - Qualquer semelhança com o visual ou aparência do Twitter ou Instagram, é pura coincidência. 😇
 - O design foi feito [no Figma](https://www.figma.com/file/bjJ5eXFW8OqacPFAeOvIMz/PiuPiuwer-RN?node-id=0%3A1). 🎨
