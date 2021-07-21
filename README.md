@@ -4,10 +4,6 @@ Autores: Henrique e Constanza
 
 <p align="center" float="left">
  <img align="center" src="https://user-images.githubusercontent.com/58156196/126529244-a1105cbb-bdaf-4450-99a8-5b3a4c93cd61.png" width="300" />
-</p>
-
-<p align="center" float="left">
- <img align="center" src="https://user-images.githubusercontent.com/58156196/126529890-97dc3cd2-3ce5-4446-8b73-4f7b7124d61b.png" width="300" />
  <img width="20" />
  <img align="center" src="https://user-images.githubusercontent.com/58156196/126529378-84d57cfd-9334-4f92-8d89-9bb4eaec1196.png" width="300" />
 </p>
